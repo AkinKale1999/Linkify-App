@@ -2,6 +2,9 @@ import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom"; // Importiere den Router-Navigate-Hook
+import Successbutton from "./SuccessButton";
+import ViewTableButton from "./ViewTableButton";
+import BackButton from "./BackButton";
 
 function DataTable() {
   const navigate = useNavigate();
@@ -16,27 +19,11 @@ function DataTable() {
       field: "firstName",
       headerName: "First name",
       width: 130,
-      renderCell: (params) => (
-        <span
-          style={{ cursor: "pointer", color: "blue" }}
-          onClick={() => handleEdit(params.row.id)} // handleEdit wird hier aufgerufen
-        >
-          {params.value}
-        </span>
-      ),
     },
     {
       field: "lastName",
       headerName: "Last name",
       width: 130,
-      renderCell: (params) => (
-        <span
-          style={{ cursor: "pointer", color: "blue" }}
-          onClick={() => handleEdit(params.row.id)} // handleEdit wird hier aufgerufen
-        >
-          {params.value}
-        </span>
-      ),
     },
     {
       field: "age",
@@ -59,12 +46,18 @@ function DataTable() {
       width: 100,
       renderCell: (params) => <span>{params.value ? "True" : "False"}</span>,
     },
+    {
+      headerName: "Actions",
+      field: "actions",
+      width: 100,
+      renderCell: (row) => <ViewTableButton id={row.id} />,
+    },
   ];
 
   const rows = [
     {
       id: 1,
-      lastName: "LastName1",
+      lastName: "Lastname1",
       firstName: "FirstName1",
       age: 35,
       status: false,
@@ -130,16 +123,18 @@ function DataTable() {
   const paginationModel = { page: 0, pageSize: 5 };
 
   return (
-    <Paper sx={{ height: 400, width: "100%" }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{ pagination: { paginationModel } }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection
-        sx={{ border: 0 }}
-      />
-    </Paper>
+    <>
+      <Paper sx={{ height: 400, width: "100%" }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          initialState={{ pagination: { paginationModel } }}
+          pageSizeOptions={[5, 10]}
+          checkboxSelection
+          sx={{ border: 0 }}
+        />
+      </Paper>
+    </>
   );
 }
 

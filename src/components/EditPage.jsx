@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Cancelbutton from "./CancelButton.jsx";
+import Successbutton from "./SuccessButton.jsx";
+import MyTextField from "./MyTextField.jsx";
+import BackButton from "./BackButton.jsx";
 
 const EditPage = () => {
   const { id } = useParams(); // Holen der ID aus der URL
@@ -108,169 +114,20 @@ const EditPage = () => {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        backgroundColor: "#f4f7fc",
-        padding: "20px",
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "600px",
-          backgroundColor: "#fff",
-          borderRadius: "8px",
-          boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
-          padding: "30px",
-          textAlign: "center",
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "24px",
-            color: "#333",
-            marginBottom: "20px",
-            fontWeight: "600",
-          }}
-        >
-          Edit User {user.id}
-        </h1>
-        <form onSubmit={handleSubmit}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "20px",
-              marginBottom: "20px",
-            }}
-          >
-            <label
-              style={{
-                textAlign: "left",
-                fontSize: "14px",
-                color: "#555",
-                fontWeight: "500",
-              }}
-            >
-              First Name:
-              <input
-                type="text"
-                name="firstName"
-                value={user.firstName}
-                onChange={handleChange}
-                style={{
-                  padding: "10px",
-                  borderRadius: "6px",
-                  border: "1px solid #ccc",
-                  outline: "none",
-                  fontSize: "14px",
-                  width: "100%",
-                  boxSizing: "border-box",
-                }}
-              />
-            </label>
+    <div className="Div-Container">
 
-            <label
-              style={{
-                textAlign: "left",
-                fontSize: "14px",
-                color: "#555",
-                fontWeight: "500",
-              }}
-            >
-              Last Name:
-              <input
-                type="text"
-                name="lastName"
-                value={user.lastName}
-                onChange={handleChange}
-                style={{
-                  padding: "10px",
-                  borderRadius: "6px",
-                  border: "1px solid #ccc",
-                  outline: "none",
-                  fontSize: "14px",
-                  width: "100%",
-                  boxSizing: "border-box",
-                }}
-              />
-            </label>
+      <MyTextField label="Firstname" value={user.firstName} />
 
-            <label
-              style={{
-                textAlign: "left",
-                fontSize: "14px",
-                color: "#555",
-                fontWeight: "500",
-              }}
-            >
-              Age:
-              <input
-                type="number"
-                name="age"
-                value={user.age}
-                onChange={handleChange}
-                style={{
-                  padding: "10px",
-                  borderRadius: "6px",
-                  border: "1px solid #ccc",
-                  outline: "none",
-                  fontSize: "14px",
-                  width: "100%",
-                  boxSizing: "border-box",
-                }}
-              />
-            </label>
-          </div>
+      <MyTextField label="Lastname" value={user.lastName} />
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: "15px",
-              marginTop: "20px",
-            }}
-          >
-            <button
-              type="submit"
-              style={{
-                padding: "12px 20px",
-                backgroundColor: "#4CAF50",
-                color: "#fff",
-                border: "none",
-                borderRadius: "6px",
-                fontSize: "14px",
-                cursor: "pointer",
-                width: "48%",
-              }}
-            >
-              Save Changes
-            </button>
-            <button
-              type="button"
-              onClick={handleDelete}
-              style={{
-                padding: "12px 20px",
-                backgroundColor: "#f44336",
-                color: "#fff",
-                border: "none",
-                borderRadius: "6px",
-                fontSize: "14px",
-                cursor: "pointer",
-                width: "48%",
-              }}
-            >
-              Delete User
-            </button>
-          </div>
-        </form>
-      </div>
+      <MyTextField label="Age" value={user.age} />
+
+      <Successbutton />
+
+      <Cancelbutton/>
+
+      <BackButton/>
+
     </div>
   );
 };
