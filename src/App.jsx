@@ -5,8 +5,6 @@ import SlotPropsSignIn from './components/Login';
 import DashboardLayoutBasic from "./components/Dashboard.jsx"
 import SlotPropsSignUp from './components/Register.jsx';
 
-// asdad
-
 const App = () => {
     return (
         <Router>
