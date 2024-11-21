@@ -24,13 +24,9 @@ export default function SlotPropsSignIn() {
       navigate("/Login");
     }
 
-
     // (email === "akin@1" && password === "1234") ? localStorage.setItem("isAuthenticated", "true") : alert("Falsche Anmelde Daten.") ;
     // Diese Syntax geht nur dann wenn nach dem ? 1 Anweisung kommt und nach dem : 1 Anweisung kommt.
-
   };
-
-  
 
   return (
     <>
@@ -45,7 +41,6 @@ export default function SlotPropsSignIn() {
           providers={providers}
         />
       </AppProvider>
-
     </>
   );
 }
