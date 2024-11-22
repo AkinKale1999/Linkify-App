@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import Cancelbutton from "./CancelButton.jsx";
 import Successbutton from "./SuccessButton.jsx";
 import MyTextField from "./MyTextField.jsx";
@@ -123,9 +121,10 @@ const EditPage = () => {
       <MyTextField label="Age" value={user.age} />
 
       <Successbutton />
+      <br />
 
       <Cancelbutton/>
-
+      <br />
       <BackButton/>
 
     </div>

@@ -13,9 +13,6 @@ export default function ViewTableButton({ ButtonText = "View", id }) {
       variant="contained"
       style={{
         backgroundColor: "var(--success-color)",
-        color: "#fff",
-        // width: "var(--width-button)",
-        // height: "var(--height-button)",
       }}
       onClick={() => handleEdit(id)}
     >

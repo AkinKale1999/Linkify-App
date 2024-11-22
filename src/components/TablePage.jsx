@@ -2,16 +2,10 @@ import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom"; // Importiere den Router-Navigate-Hook
-import Successbutton from "./SuccessButton";
 import ViewTableButton from "./ViewTableButton";
-import BackButton from "./BackButton";
 
 function DataTable() {
   const navigate = useNavigate();
-
-  const handleEdit = (id) => {
-    navigate(`/edit/${id}`);
-  };
 
   const columns = [
     { field: "id", headerName: "ID", width: 70 },

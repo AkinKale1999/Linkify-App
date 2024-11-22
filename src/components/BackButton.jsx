@@ -13,8 +13,8 @@ export default function BackButton({ ButtonText = "Back" }) {
       style={{
         backgroundColor: "var(--success-color)",
         color: "#fff",
-        // width: "var(--width-button)",
-        // height: "var(--height-button)",
+        width: "var(--width-button)",
+        height: "var(--height-button)",
       }}
       onClick={() => handleBack()}
     >
