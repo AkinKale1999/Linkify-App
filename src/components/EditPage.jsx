@@ -113,7 +113,6 @@ const EditPage = () => {
 
   return (
     <div className="Div-Container">
-
       <MyTextField label="Firstname" value={user.firstName} />
 
       <MyTextField label="Lastname" value={user.lastName} />
@@ -121,12 +120,10 @@ const EditPage = () => {
       <MyTextField label="Age" value={user.age} />
 
       <Successbutton />
-      <br />
 
-      <Cancelbutton/>
-      <br />
-      <BackButton/>
-
+      <Cancelbutton />
+      
+      <BackButton />
     </div>
   );
 };

@@ -3,6 +3,10 @@ import { DataGrid } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom"; // Importiere den Router-Navigate-Hook
 import ViewTableButton from "./ViewTableButton";
+import { DashboardLayout } from "@toolpad/core";
+import { useDemoRouter } from '@toolpad/core/internal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 function DataTable() {
   const navigate = useNavigate();
@@ -114,20 +118,42 @@ function DataTable() {
     },
   ];
 
+  function DemoPageContent({ pathname }) {
+    return (
+      <Box
+        sx={{
+          py: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+        }}
+      >
+        <Typography>Dashboard content for {pathname}</Typography>
+      </Box>
+    );
+  }
+
   const paginationModel = { page: 0, pageSize: 5 };
+
+  const router = useDemoRouter('/dashboard');
+
 
   return (
     <>
-      <Paper sx={{ height: 400, width: "100%" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5, 10]}
-          checkboxSelection
-          sx={{ border: 0 }}
-        />
-      </Paper>
+      <DashboardLayout>
+      <DemoPageContent pathname={router.pathname} />
+        <Paper sx={{ height: 400, width: "100%" }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            initialState={{ pagination: { paginationModel } }}
+            pageSizeOptions={[5, 10]}
+            checkboxSelection
+            sx={{ border: 0 }}
+          />
+        </Paper>
+      </DashboardLayout>
     </>
   );
 }
