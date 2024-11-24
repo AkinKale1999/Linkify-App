@@ -1,15 +1,93 @@
 import * as React from "react";
+import { AppProvider } from "@toolpad/core/AppProvider";
+import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { DataGrid } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
-import { useNavigate } from "react-router-dom"; // Importiere den Router-Navigate-Hook
 import ViewTableButton from "./ViewTableButton";
-import { DashboardLayout } from "@toolpad/core";
-import { useDemoRouter } from '@toolpad/core/internal';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import PropTypes, { func } from "prop-types";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { createTheme } from "@mui/material/styles";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import { useDemoRouter } from "@toolpad/core/internal";
+import ListIcon from "@mui/icons-material/List";
 
 function DataTable() {
-  const navigate = useNavigate();
+  const [session, setSession] = React.useState({
+    user: {
+      name: "",
+      email: "",
+      image: "",
+    },
+  });
+
+  const authentication = React.useMemo(() => {
+    return {
+      signIn: () => {
+        setSession({
+          user: {
+            name: "",
+            email: "",
+            image: "",
+          },
+        });
+      },
+      signOut: () => {
+        setSession(null);
+      },
+    };
+  }, []);
+
+  const demoTheme = createTheme({
+    cssVariables: {
+      colorSchemeSelector: "data-toolpad-color-scheme",
+    },
+    colorSchemes: { light: true, dark: true },
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 600,
+        lg: 1200,
+        xl: 1536,
+      },
+    },
+  });
+
+  function DemoPageContent({ pathname }) {
+    return (
+      <Box
+        sx={{
+          py: 4,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
+        <Typography>Dashboard content for {pathname}</Typography>
+      </Box>
+    );
+  }
+
+  DemoPageContent.propTypes = {
+    pathname: PropTypes.string.isRequired,
+  };
+
+  const router = useDemoRouter("/Dashboard");
+
+  const NAVIGATION = [
+    {
+      segment: "Dashboard",
+      title: "Dashboard",
+      icon: <DashboardIcon />,
+    },
+    {
+      segment: "Dashboard/Liste",
+      title: "Liste",
+      icon: <ListIcon />,
+    },
+  ];
 
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
@@ -118,42 +196,30 @@ function DataTable() {
     },
   ];
 
-  function DemoPageContent({ pathname }) {
-    return (
-      <Box
-        sx={{
-          py: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          textAlign: 'center',
-        }}
-      >
-        <Typography>Dashboard content for {pathname}</Typography>
-      </Box>
-    );
-  }
-
   const paginationModel = { page: 0, pageSize: 5 };
-
-  const router = useDemoRouter('/dashboard');
-
 
   return (
     <>
-      <DashboardLayout>
-      <DemoPageContent pathname={router.pathname} />
-        <Paper sx={{ height: 400, width: "100%" }}>
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            initialState={{ pagination: { paginationModel } }}
-            pageSizeOptions={[5, 10]}
-            checkboxSelection
-            sx={{ border: 0 }}
-          />
-        </Paper>
-      </DashboardLayout>
+      <AppProvider
+        session={session}
+        authentication={authentication}
+        navigation={NAVIGATION}
+        theme={demoTheme}
+      >
+        <DashboardLayout>
+          <DemoPageContent pathname={router.pathname} />
+          <Paper sx={{ height: 400, width: "100%" }}>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              initialState={{ pagination: { paginationModel } }}
+              pageSizeOptions={[5, 10]}
+              checkboxSelection
+              sx={{ border: 0 }}
+            />
+          </Paper>
+        </DashboardLayout>
+      </AppProvider>
     </>
   );
 }

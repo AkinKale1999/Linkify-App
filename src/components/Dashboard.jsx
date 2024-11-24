@@ -4,10 +4,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { createTheme } from "@mui/material/styles";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import DescriptionIcon from "@mui/icons-material/Description";
-import LayersIcon from "@mui/icons-material/Layers";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
@@ -15,53 +11,14 @@ import ListIcon from "@mui/icons-material/List";
 
 const NAVIGATION = [
   {
-    kind: "header",
-    title: "Main items",
-  },
-  {
-    segment: "dashboard",
+    segment: "Dashboard",
     title: "Dashboard",
     icon: <DashboardIcon />,
   },
   {
-    segment: "orders",
-    title: "Orders",
-    icon: <ShoppingCartIcon />,
-  },
-  {
-    segment: "liste",
+    segment: "Dashboard/Liste",
     title: "Liste",
     icon: <ListIcon />,
-    pathname: "/Dashboard/liste",
-  },
-  {
-    kind: "divider",
-  },
-  {
-    kind: "header",
-    title: "Analytics",
-  },
-  {
-    segment: "reports",
-    title: "Reports",
-    icon: <BarChartIcon />,
-    children: [
-      {
-        segment: "sales",
-        title: "Sales",
-        icon: <DescriptionIcon />,
-      },
-      {
-        segment: "traffic",
-        title: "Traffic",
-        icon: <DescriptionIcon />,
-      },
-    ],
-  },
-  {
-    segment: "integrations",
-    title: "Integrations",
-    icon: <LayersIcon />,
   },
 ];
 
@@ -101,19 +58,40 @@ DemoPageContent.propTypes = {
   pathname: PropTypes.string.isRequired,
 };
 
-function DashboardLayoutBasic(props) {
-  const { window } = props;
+function DashboardLayoutAccount() {
+  const [session, setSession] = React.useState({
+    user: {
+      name: "",
+      email: "",
+      image: "",
+    },
+  });
+
+  const authentication = React.useMemo(() => {
+    return {
+      signIn: () => {
+        setSession({
+          user: {
+            name: "",
+            email: "",
+            image: "",
+          },
+        });
+      },
+      signOut: () => {
+        setSession(null);
+      },
+    };
+  }, []);
 
   const router = useDemoRouter("/Dashboard");
 
-  const demoWindow = window !== undefined ? window() : undefined;
-
   return (
     <AppProvider
+      session={session}
+      authentication={authentication}
       navigation={NAVIGATION}
-      router={router}
       theme={demoTheme}
-      window={demoWindow}
     >
       <DashboardLayout>
         <DemoPageContent pathname={router.pathname} />
@@ -122,8 +100,8 @@ function DashboardLayoutBasic(props) {
   );
 }
 
-DashboardLayoutBasic.propTypes = {
+DashboardLayoutAccount.propTypes = {
   window: PropTypes.func,
 };
 
-export default DashboardLayoutBasic;
+export default DashboardLayoutAccount;

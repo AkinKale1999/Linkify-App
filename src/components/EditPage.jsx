@@ -6,7 +6,7 @@ import MyTextField from "./MyTextField.jsx";
 import BackButton from "./BackButton.jsx";
 
 const EditPage = () => {
-  const { id } = useParams(); // Holen der ID aus der URL
+  const { id } = useParams(); 
   const navigate = useNavigate();
 
   const userData = [
@@ -98,13 +98,12 @@ const EditPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Benutzerdaten geändert:", user);
-    navigate("/"); // Zurück zur Startseite nach dem Speichern
+    navigate("/");
   };
 
   const handleDelete = () => {
     console.log("Benutzer gelöscht:", user);
-    // Hier könnte eine API-Aufruf oder andere Logik zum Löschen des Benutzers hinzugefügt werden
-    navigate("/"); // Nach dem Löschen zur Startseite navigieren
+    navigate("/");
   };
 
   if (!user) {
@@ -122,7 +121,7 @@ const EditPage = () => {
       <Successbutton />
 
       <Cancelbutton />
-      
+
       <BackButton />
     </div>
   );
