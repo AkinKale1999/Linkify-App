@@ -16,7 +16,7 @@ const NAVIGATION = [
     icon: <DashboardIcon />,
   },
   {
-    segment: "Dashboard/Liste",
+    segment: "Liste",
     title: "Liste",
     icon: <ListIcon />,
   },

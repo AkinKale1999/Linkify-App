@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Cancelbutton from "./CancelButton.jsx";
-import Successbutton from "./SuccessButton.jsx";
-import MyTextField from "./MyTextField.jsx";
-import BackButton from "./BackButton.jsx";
+import Cancelbutton from "../Buttons/CancelButton.jsx";
+import Successbutton from "../Buttons/SuccessButton.jsx";
+import MyTextField from "../User/MyTextField.jsx";
+import BackButton from "../Buttons/BackButton.jsx";
 
 const EditPage = () => {
   const { id } = useParams(); 

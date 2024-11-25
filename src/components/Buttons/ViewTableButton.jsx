@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function ViewTableButton({ ButtonText = "View", id }) {
   const navigate = useNavigate();
   const handleEdit = (myid) => {
-    navigate(`/Dashboard/liste/edit/${myid}`);
+    navigate(`/Liste/edit/${myid}`);
     // alert(myid)
   };
 

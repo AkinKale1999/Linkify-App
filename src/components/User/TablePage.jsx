@@ -3,7 +3,7 @@ import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { DataGrid } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
-import ViewTableButton from "./ViewTableButton";
+import ViewTableButton from "../Buttons/ViewTableButton";
 import PropTypes, { func } from "prop-types";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -83,7 +83,7 @@ function DataTable() {
       icon: <DashboardIcon />,
     },
     {
-      segment: "Dashboard/Liste",
+      segment: "Liste",
       title: "Liste",
       icon: <ListIcon />,
     },
