@@ -16,7 +16,7 @@ export default function SlotPropsSignIn() {
 
     if (email === "akin@1" && password === "1234") {
       localStorage.setItem("isAuthenticated", "true");
-      console.log(localStorage)
+      console.log(localStorage);
       navigate("/Dashboard");
     } else {
       alert("Falsche Anmelde Daten.");

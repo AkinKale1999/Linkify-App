@@ -11,6 +11,8 @@ import { createTheme } from "@mui/material/styles";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useDemoRouter } from "@toolpad/core/internal";
 import ListIcon from "@mui/icons-material/List";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function DataTable() {
   const [session, setSession] = React.useState({
@@ -197,6 +199,14 @@ function DataTable() {
   ];
 
   const paginationModel = { page: 0, pageSize: 5 };
+
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (rows.length === 0) {
+      navigate("/create"); // Weiterleitung zu /create, wenn die Liste leer ist
+    }
+  }, [rows, navigate]);
 
   return (
     <>

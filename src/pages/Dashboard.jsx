@@ -8,6 +8,7 @@ import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
 import ListIcon from "@mui/icons-material/List";
+import { useNavigate } from "react-router-dom";
 
 const NAVIGATION = [
   {
@@ -59,6 +60,8 @@ DemoPageContent.propTypes = {
 };
 
 function DashboardLayoutAccount() {
+  const navigate = useNavigate();
+
   const [session, setSession] = React.useState({
     user: {
       name: "",
@@ -66,6 +69,7 @@ function DashboardLayoutAccount() {
       image: "",
     },
   });
+
 
   const authentication = React.useMemo(() => {
     return {
@@ -79,6 +83,8 @@ function DashboardLayoutAccount() {
         });
       },
       signOut: () => {
+        localStorage.removeItem("isAuthenticated");
+          navigate("/Logout");
         setSession(null);
       },
     };
