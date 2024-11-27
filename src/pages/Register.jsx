@@ -87,7 +87,7 @@ export default function SlotPropsSignUp() {
         <Typography variant="h4" gutterBottom>
           Registrierung
         </Typography>
-        <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+        <form onSubmit={handleSubmit}>
           <TextField
             label="E-Mail"
             name="email"

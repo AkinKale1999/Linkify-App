@@ -35,6 +35,8 @@ function DataTable() {
         });
       },
       signOut: () => {
+        localStorage.removeItem("isAuthenticated");
+        navigate("/Logout");
         setSession(null);
       },
     };
@@ -75,8 +77,6 @@ function DataTable() {
   DemoPageContent.propTypes = {
     pathname: PropTypes.string.isRequired,
   };
-
-  const router = useDemoRouter("/Dashboard");
 
   const NAVIGATION = [
     {
@@ -133,62 +133,62 @@ function DataTable() {
   ];
 
   const rows = [
-    {
-      id: 1,
-      lastName: "Lastname1",
-      firstName: "FirstName1",
-      age: 35,
-      status: false,
-    },
-    {
-      id: 2,
-      lastName: "LastName2",
-      firstName: "FirstName2",
-      age: 42,
-      status: false,
-    },
-    {
-      id: 3,
-      lastName: "LastName3",
-      firstName: "FirstName3",
-      age: 45,
-      status: false,
-    },
-    {
-      id: 4,
-      lastName: "LastName4",
-      firstName: "FirstName4",
-      age: 16,
-      status: false,
-    },
-    {
-      id: 5,
-      lastName: "LastName5",
-      firstName: "FirstName5",
-      age: 25,
-      status: false,
-    },
-    {
-      id: 6,
-      lastName: "LastName6",
-      firstName: "FirstName6",
-      age: 150,
-      status: false,
-    },
-    {
-      id: 7,
-      lastName: "LastName7",
-      firstName: "FirstName7",
-      age: 44,
-      status: false,
-    },
-    {
-      id: 8,
-      lastName: "LastName8",
-      firstName: "FirstName8",
-      age: 36,
-      status: false,
-    },
+    //   {
+    //     id: 1,
+    //     lastName: "Lastname1",
+    //     firstName: "FirstName1",
+    //     age: 35,
+    //     status: false,
+    //   },
+    //   {
+    //     id: 2,
+    //     lastName: "LastName2",
+    //     firstName: "FirstName2",
+    //     age: 42,
+    //     status: false,
+    //   },
+    //   {
+    //     id: 3,
+    //     lastName: "LastName3",
+    //     firstName: "FirstName3",
+    //     age: 45,
+    //     status: false,
+    //   },
+    //   {
+    //     id: 4,
+    //     lastName: "LastName4",
+    //     firstName: "FirstName4",
+    //     age: 16,
+    //     status: false,
+    //   },
+    //   {
+    //     id: 5,
+    //     lastName: "LastName5",
+    //     firstName: "FirstName5",
+    //     age: 25,
+    //     status: false,
+    //   },
+    //   {
+    //     id: 6,
+    //     lastName: "LastName6",
+    //     firstName: "FirstName6",
+    //     age: 150,
+    //     status: false,
+    //   },
+    //   {
+    //     id: 7,
+    //     lastName: "LastName7",
+    //     firstName: "FirstName7",
+    //     age: 44,
+    //     status: false,
+    //   },
+    //   {
+    //     id: 8,
+    //     lastName: "LastName8",
+    //     firstName: "FirstName8",
+    //     age: 36,
+    //     status: false,
+    //   },
     {
       id: 9,
       lastName: "LastName9",
@@ -204,9 +204,11 @@ function DataTable() {
 
   useEffect(() => {
     if (rows.length === 0) {
-      navigate("/create"); // Weiterleitung zu /create, wenn die Liste leer ist
+      navigate("/Liste/create");
     }
   }, [rows, navigate]);
+
+  const router = useDemoRouter("/Liste");
 
   return (
     <>

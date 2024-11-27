@@ -11,6 +11,7 @@ import SlotPropsSignIn from "../pages/Login";
 import SlotPropsSignUp from "../pages/Register";
 import NotFoundPage from "../pages/NotFoundPage";
 import Logout from "../pages/Logout";
+import CreatePage from "../components/User/CreatePage";
 
 const isAuthenticated = () => {
   return localStorage.getItem("isAuthenticated") === "true";
@@ -31,8 +32,6 @@ function AppRouter() {
         {/* Weiterleitung von "/" nach "/Dashboard" */}
         <Route path="/" element={<Navigate to="/Dashboard" />} />
 
-        <Route path="/Logout" element={<Logout />} />
-
         {/* Geschützte Routen */}
         <Route
           path="/Dashboard"
@@ -52,6 +51,15 @@ function AppRouter() {
         />
 
         <Route
+          path="/Liste/create"
+          element={
+            <ProtectedRoute>
+              <CreatePage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
           path="/Liste/edit/:id"
           element={
             <ProtectedRoute>
@@ -63,6 +71,7 @@ function AppRouter() {
         {/* Öffentliche Routen */}
         <Route path="/Login" element={<SlotPropsSignIn />} />
         <Route path="/Register" element={<SlotPropsSignUp />} />
+        <Route path="/Logout" element={<Logout />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

@@ -40,6 +40,8 @@ const demoTheme = createTheme({
 });
 
 function DemoPageContent({ pathname }) {
+  const userEmail = sessionStorage.getItem("userEmail") || "Gast";
+
   return (
     <Box
       sx={{
@@ -50,6 +52,7 @@ function DemoPageContent({ pathname }) {
         textAlign: "center",
       }}
     >
+      <Typography>Willkommen, {userEmail}</Typography>
       <Typography>Dashboard content for {pathname}</Typography>
     </Box>
   );
@@ -70,7 +73,6 @@ function DashboardLayoutAccount() {
     },
   });
 
-
   const authentication = React.useMemo(() => {
     return {
       signIn: () => {
@@ -84,7 +86,7 @@ function DashboardLayoutAccount() {
       },
       signOut: () => {
         localStorage.removeItem("isAuthenticated");
-          navigate("/Logout");
+        navigate("/Logout");
         setSession(null);
       },
     };

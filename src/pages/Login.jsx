@@ -2,7 +2,7 @@ import * as React from "react";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { SignInPage } from "@toolpad/core/SignInPage";
 import { useTheme } from "@mui/material/styles";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const providers = [{ id: "credentials", name: "Email and Password" }];
 
@@ -16,27 +16,25 @@ export default function SlotPropsSignIn() {
 
     if (email === "akin@1" && password === "1234") {
       localStorage.setItem("isAuthenticated", "true");
-      console.log(localStorage);
+      sessionStorage.setItem("Username", email); // E-Mail des Nutzers speichern
       navigate("/Dashboard");
     } else {
-      alert("Falsche Anmelde Daten.");
+      alert("Falsche Anmeldedaten.");
       navigate("/Login");
     }
   };
 
   return (
-    <>
-      <AppProvider theme={theme}>
-        <SignInPage
-          signIn={handleSignIn}
-          slotProps={{
-            emailField: { variant: "standard" },
-            passwordField: { variant: "standard" },
-            submitButton: { variant: "outlined" },
-          }}
-          providers={providers}
-        />
-      </AppProvider>
-    </>
+    <AppProvider theme={theme}>
+      <SignInPage
+        signIn={handleSignIn}
+        slotProps={{
+          emailField: { variant: "standard" },
+          passwordField: { variant: "standard" },
+          submitButton: { variant: "outlined" },
+        }}
+        providers={providers}
+      />
+    </AppProvider>
   );
 }
