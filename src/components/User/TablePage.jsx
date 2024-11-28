@@ -205,8 +205,10 @@ function DataTable() {
   useEffect(() => {
     if (rows.length === 0) {
       navigate("/Liste/create");
+    } else {
+      navigate("/Liste");
     }
-  }, [rows, navigate]);
+  }, [rows]);
 
   const router = useDemoRouter("/Liste");
 

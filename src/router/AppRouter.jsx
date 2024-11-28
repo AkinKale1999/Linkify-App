@@ -12,10 +12,14 @@ import SlotPropsSignUp from "../pages/Register";
 import NotFoundPage from "../pages/NotFoundPage";
 import Logout from "../pages/Logout";
 import CreatePage from "../components/User/CreatePage";
+import { useEffect } from "react";
+import ProfilePage from "../components/User/ProfileEdit";
 
 const isAuthenticated = () => {
   return localStorage.getItem("isAuthenticated") === "true";
 };
+
+// ---------------------------------------
 
 const ProtectedRoute = ({ children }) => {
   if (isAuthenticated()) {
@@ -24,8 +28,26 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/Login" />;
   }
 };
+// ---------------------------------------
 
 function AppRouter() {
+  // ---------------------------------------
+  // useEffect(() => {
+  //   const detectDevTools = () => {
+  //     const threshold = 160; // Schwelle für die Breite/Höhe der Entwicklerwerkzeuge
+  //     const width = window.outerWidth - window.innerWidth > threshold;
+  //     const height = window.outerHeight - window.innerHeight > threshold;
+  //     if (width || height) {
+  //       alert("Bitte die Entwicklerkonsole schließen!");
+  //       window.location.reload();
+  //     }
+  //   };
+  //   const interval = setInterval(detectDevTools, 1000);
+
+  //   // Cleanup-Function für das Intervall
+  //   return () => clearInterval(interval);
+  // }, []);
+
   return (
     <Router>
       <Routes>
@@ -55,6 +77,15 @@ function AppRouter() {
           element={
             <ProtectedRoute>
               <CreatePage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/Profilseite"
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
             </ProtectedRoute>
           }
         />

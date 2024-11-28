@@ -1,5 +1,5 @@
 import * as React from "react";
-import PropTypes, { func } from "prop-types";
+import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { createTheme } from "@mui/material/styles";
@@ -8,6 +8,7 @@ import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
 import ListIcon from "@mui/icons-material/List";
+import EditIcon from "@mui/icons-material/Edit"; // für Bearbeiten
 import { useNavigate } from "react-router-dom";
 
 const NAVIGATION = [
@@ -20,6 +21,11 @@ const NAVIGATION = [
     segment: "Liste",
     title: "Liste",
     icon: <ListIcon />,
+  },
+  {
+    segment: "Profilseite",
+    title: "Profil bearbeiten", // Besserer Titel für UX
+    icon: <EditIcon />,
   },
 ];
 
@@ -39,9 +45,7 @@ const demoTheme = createTheme({
   },
 });
 
-function DemoPageContent({ pathname }) {
-  const userEmail = sessionStorage.getItem("userEmail") || "Gast";
-
+function DemoPageContent({ pathname, userEmail }) {
   return (
     <Box
       sx={{
@@ -60,6 +64,7 @@ function DemoPageContent({ pathname }) {
 
 DemoPageContent.propTypes = {
   pathname: PropTypes.string.isRequired,
+  userEmail: PropTypes.string.isRequired,
 };
 
 function DashboardLayoutAccount() {
@@ -68,26 +73,28 @@ function DashboardLayoutAccount() {
   const [session, setSession] = React.useState({
     user: {
       name: "",
-      email: "",
+      email: sessionStorage.getItem("Username") || "", // E-Mail aus sessionStorage holen
       image: "",
     },
   });
 
   const authentication = React.useMemo(() => {
     return {
-      signIn: () => {
+      signIn: (user) => {
         setSession({
           user: {
-            name: "",
-            email: "",
-            image: "",
+            name: user.name,
+            email: user.email,
+            image: user.image,
           },
         });
+        sessionStorage.setItem("Username", user.email); // E-Mail speichern
       },
       signOut: () => {
         localStorage.removeItem("isAuthenticated");
         navigate("/Logout");
         setSession(null);
+        sessionStorage.removeItem("Username");
       },
     };
   }, []);
@@ -102,7 +109,10 @@ function DashboardLayoutAccount() {
       theme={demoTheme}
     >
       <DashboardLayout>
-        <DemoPageContent pathname={router.pathname} />
+        <DemoPageContent
+          pathname={router.pathname}
+          userEmail={session.user.email} // E-Mail dynamisch übergeben
+        />
       </DashboardLayout>
     </AppProvider>
   );
