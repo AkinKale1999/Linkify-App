@@ -1,7 +1,14 @@
 {
+  "labelEigenschaften": {
+    "labelName": "first_name",
+    "labelSize": "100",
+    "labelData": "name"
+  },
   "users": [
     {
       "id": 1,
+      "label": "firstname",
+
       "username": "user1",
       "nickname": "nick1",
       "name": {

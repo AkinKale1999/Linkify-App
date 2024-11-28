@@ -12,15 +12,14 @@ import SlotPropsSignUp from "../pages/Register";
 import NotFoundPage from "../pages/NotFoundPage";
 import Logout from "../pages/Logout";
 import CreatePage from "../components/User/CreatePage";
-import { useEffect } from "react";
 import ProfilePage from "../components/User/ProfileEdit";
 
+// Prüfe Authentifizierung
 const isAuthenticated = () => {
   return localStorage.getItem("isAuthenticated") === "true";
 };
 
-// ---------------------------------------
-
+// Geschützte Route-Komponente
 const ProtectedRoute = ({ children }) => {
   if (isAuthenticated()) {
     return children;
@@ -28,26 +27,25 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/Login" />;
   }
 };
-// ---------------------------------------
+
+// Layout für geschützte Routen
+const ProtectedLayout = ({ children }) => {
+  return (
+    <div id="alles">
+      <div id="header">
+        <div id="burgermenuBtn">burgermenuBtn *</div>
+        <div id="logo">Logo +</div>
+        <div id="darkmode">darkmode *</div>
+        <div id="profileBtn">profileBtn +</div>
+      </div>
+      <div id="navbar">navbar *</div>
+      <div id="content-bereich">{children}</div>
+      <div id="footer">footer *</div>
+    </div>
+  );
+};
 
 function AppRouter() {
-  // ---------------------------------------
-  // useEffect(() => {
-  //   const detectDevTools = () => {
-  //     const threshold = 160; // Schwelle für die Breite/Höhe der Entwicklerwerkzeuge
-  //     const width = window.outerWidth - window.innerWidth > threshold;
-  //     const height = window.outerHeight - window.innerHeight > threshold;
-  //     if (width || height) {
-  //       alert("Bitte die Entwicklerkonsole schließen!");
-  //       window.location.reload();
-  //     }
-  //   };
-  //   const interval = setInterval(detectDevTools, 1000);
-
-  //   // Cleanup-Function für das Intervall
-  //   return () => clearInterval(interval);
-  // }, []);
-
   return (
     <Router>
       <Routes>
@@ -59,7 +57,9 @@ function AppRouter() {
           path="/Dashboard"
           element={
             <ProtectedRoute>
-              <DashboardLayoutBasic />
+              <ProtectedLayout>
+                <DashboardLayoutBasic />
+              </ProtectedLayout>
             </ProtectedRoute>
           }
         />
@@ -67,34 +67,39 @@ function AppRouter() {
           path="/Liste"
           element={
             <ProtectedRoute>
-              <TablePage />
+              <ProtectedLayout>
+                <TablePage />
+              </ProtectedLayout>
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/Liste/create"
           element={
             <ProtectedRoute>
-              <CreatePage />
+              <ProtectedLayout>
+                <CreatePage />
+              </ProtectedLayout>
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/Profilseite"
           element={
             <ProtectedRoute>
-              <ProfilePage />
+              <ProtectedLayout>
+                <ProfilePage />
+              </ProtectedLayout>
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/Liste/edit/:id"
           element={
             <ProtectedRoute>
-              <EditPage />
+              <ProtectedLayout>
+                <EditPage />
+              </ProtectedLayout>
             </ProtectedRoute>
           }
         />
@@ -104,6 +109,7 @@ function AppRouter() {
         <Route path="/Register" element={<SlotPropsSignUp />} />
         <Route path="/Logout" element={<Logout />} />
 
+        {/* 404 Seite */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>

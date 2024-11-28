@@ -4,7 +4,6 @@ import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { DataGrid } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import ViewTableButton from "../Buttons/ViewTableButton";
-import PropTypes, { func } from "prop-types";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { createTheme } from "@mui/material/styles";
@@ -13,6 +12,9 @@ import { useDemoRouter } from "@toolpad/core/internal";
 import ListIcon from "@mui/icons-material/List";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Liste from "../Liste/Liste";
+import user_data from "../../assets/user_data.json";
+import PropTypes from "prop-types";
 
 function DataTable() {
   const [session, setSession] = React.useState({
@@ -91,126 +93,26 @@ function DataTable() {
     },
   ];
 
-  const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    {
-      field: "firstName",
-      headerName: "First name",
-      width: 130,
-    },
-    {
-      field: "lastName",
-      headerName: "Last name",
-      width: 130,
-    },
-    {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      width: 90,
-    },
-    {
-      field: "fullName",
-      headerName: "Full name",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 160,
-      valueGetter: (value, row) =>
-        `${row.firstName || ""} ${row.lastName || ""}`,
-    },
-    {
-      headerName: "Status",
-      field: "status",
-      width: 100,
-      renderCell: (params) => <span>{params.value ? "True" : "False"}</span>,
-    },
-    {
-      headerName: "Actions",
-      field: "actions",
-      width: 100,
-      renderCell: (row) => <ViewTableButton id={row.id} />,
-    },
-  ];
-
-  const rows = [
-    //   {
-    //     id: 1,
-    //     lastName: "Lastname1",
-    //     firstName: "FirstName1",
-    //     age: 35,
-    //     status: false,
-    //   },
-    //   {
-    //     id: 2,
-    //     lastName: "LastName2",
-    //     firstName: "FirstName2",
-    //     age: 42,
-    //     status: false,
-    //   },
-    //   {
-    //     id: 3,
-    //     lastName: "LastName3",
-    //     firstName: "FirstName3",
-    //     age: 45,
-    //     status: false,
-    //   },
-    //   {
-    //     id: 4,
-    //     lastName: "LastName4",
-    //     firstName: "FirstName4",
-    //     age: 16,
-    //     status: false,
-    //   },
-    //   {
-    //     id: 5,
-    //     lastName: "LastName5",
-    //     firstName: "FirstName5",
-    //     age: 25,
-    //     status: false,
-    //   },
-    //   {
-    //     id: 6,
-    //     lastName: "LastName6",
-    //     firstName: "FirstName6",
-    //     age: 150,
-    //     status: false,
-    //   },
-    //   {
-    //     id: 7,
-    //     lastName: "LastName7",
-    //     firstName: "FirstName7",
-    //     age: 44,
-    //     status: false,
-    //   },
-    //   {
-    //     id: 8,
-    //     lastName: "LastName8",
-    //     firstName: "FirstName8",
-    //     age: 36,
-    //     status: false,
-    //   },
-    {
-      id: 9,
-      lastName: "LastName9",
-      firstName: "FirstName9",
-      age: 65,
-      status: false,
-    },
-  ];
-
   const paginationModel = { page: 0, pageSize: 5 };
 
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (rows.length === 0) {
+    if (user_data.users.length === 0) {
       navigate("/Liste/create");
     } else {
       navigate("/Liste");
     }
-  }, [rows]);
+  }, [user_data.users]);
 
   const router = useDemoRouter("/Liste");
+
+  // Überprüfen und sichern, dass user_data.labelEigenschaften ein Array ist
+  const columns = Array.isArray(user_data.labelEigenschaften)
+    ? user_data.labelEigenschaften
+    : []; // Fallback auf leeres Array, falls es kein Array ist
+
+  console.log("Columns:", columns); // Überprüfen, was in columns übergeben wird
 
   return (
     <>
@@ -220,12 +122,16 @@ function DataTable() {
         navigation={NAVIGATION}
         theme={demoTheme}
       >
+        <Liste
+          mylist={user_data.users}
+          mylabels={user_data.labelEigenschaften}
+        />
         <DashboardLayout>
           <DemoPageContent pathname={router.pathname} />
           <Paper sx={{ height: 400, width: "100%" }}>
             <DataGrid
-              rows={rows}
-              columns={columns}
+              rows={user_data.users}
+              columns={columns} // Sicherstellen, dass columns ein Array ist
               initialState={{ pagination: { paginationModel } }}
               pageSizeOptions={[5, 10]}
               checkboxSelection

@@ -9,6 +9,8 @@ app.use(express.json()); // Hier muss express.json() sein
 app.post("/Register", async (req, res) => {
   const { email, password, name, vorname, firma, adresse } = req.body;
 
+  console.log(req.body)
+
   res.status(200).json("Daten sind da");
 });
 
