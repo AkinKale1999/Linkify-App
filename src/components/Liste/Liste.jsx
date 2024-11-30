@@ -1,28 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types"; // Korrekt importiert
-
-// Liste-Komponente
-function Liste({ mylist, mylabels }) {
-  // Hier kannst du die Labels und User-Daten ausgeben oder anderweitig verarbeiten
-  console.log("Labels:", mylabels);
-  console.log("List:", mylist);
+export default function Liste({ mylist, mylabels }) {
+  console.log(mylist);
+  console.log(mylabels);
 
   return (
-    <div>
+    <>
       {mylist.map((listItem) => (
-        <div key={listItem.id}>
-          <p>
-            {listItem.firstName} {listItem.lastName} - Alter: {listItem.age}
-          </p>
+        <div key={listItem.username}>
+          {listItem.username}
         </div>
       ))}
-    </div>
+    </>
   );
 }
 
-Liste.propTypes = {
-  mylist: PropTypes.array.isRequired,
-  mylabels: PropTypes.array.isRequired,
-};
-
-export default Liste;
+// Durch user_data iterieren und in mylist speichern
+// und mylabels soll label erhalten von der user_data liste
