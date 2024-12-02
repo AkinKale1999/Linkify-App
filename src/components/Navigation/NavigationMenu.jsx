@@ -1,18 +1,24 @@
-import DashboardIcon from "@mui/icons-material/Dashboard";
+// import DashboardIcon from "@mui/icons-material/Dashboard";
+// import DataTable from "../User/TablePage";
+// import ListIcon from "@mui/icons-material/List";
 
-export const NAVIGATION = [
-  {
-    segment: "liste",
-    title: "Liste",
-  },
-  {
-    segment: "dashboard",
-    title: "Dashboard",
-    icon: <DashboardIcon />,
-  },
-];
+// // import DashboardLayoutAccount from "../Dashboard/Dashboard";
 
-export const COMPONENTS = {
-  dashboard: DashboardLayoutAccount,
-  liste: DataTable,
-};
+// export const NAVIGATION = [
+//   {
+//     segment: "dashboard",
+//     title: "Dashboard",
+//     icon: <DashboardIcon />,
+//   },
+//   {
+//     segment: "liste",
+//     title: "Liste",
+//     icon: <ListIcon />,
+//   },
+// ];
+
+// export const COMPONENTS = {
+//   liste: DataTable,
+// };
+
+// //   dashboard: DashboardLayoutAccount,

@@ -5,7 +5,26 @@ import Typography from "@mui/material/Typography";
 import { createTheme } from "@mui/material/styles";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
-import { NAVIGATION, COMPONENTS } from "../Navigation/NavigationMenu";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import DataTable from "../User/TablePage"; // Hier wird die DataTable-Komponente importiert
+import ListIcon from "@mui/icons-material/List";
+
+const NAVIGATION = [
+  {
+    segment: "dashboard",
+    title: "Dashboard",
+    icon: <DashboardIcon />,
+  },
+  {
+    segment: "liste",
+    title: "Liste",
+    icon: <ListIcon />,
+  },
+];
+
+const COMPONENTS = {
+  liste: DataTable, // Zuordnung der "Liste"-Navigation zu DataTable
+};
 
 const demoTheme = createTheme({
   cssVariables: {
@@ -88,20 +107,17 @@ function DashboardLayoutAccount(props) {
       window={demoWindow}
     >
       <DashboardLayout>
-        <Box>
-          {NAVIGATION.map((item, index) => {
-            return (
-              <Typography
-                key={index}
-                onClick={() => handleNavigationClick(item.segment)}
-                sx={{ cursor: "pointer", color: "blue" }}
-              >
-                {item.title}
-              </Typography>
-            );
-          })}
-        </Box>
-
+        {NAVIGATION.map((item, index) => {
+          return (
+            <Typography
+              key={index}
+              onClick={() => handleNavigationClick(item.segment)}
+              sx={{ cursor: "pointer", color: "blue" }}
+            >
+              {item.title}
+            </Typography>
+          );
+        })}
         {COMPONENTS[activePage] ? (
           React.createElement(COMPONENTS[activePage], { pathname: activePage })
         ) : (
