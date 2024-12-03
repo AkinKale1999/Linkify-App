@@ -5,7 +5,7 @@ export default function Logout() {
   const navigate = useNavigate();
 
   const handleLoginRedirect = () => {
-    navigate("/login"); 
+    navigate("/login");
   };
 
   return (
@@ -17,7 +17,7 @@ export default function Logout() {
         justifyContent: "center",
         height: "98vh",
         textAlign: "center",
-        backgroundColor: "#f9f9f9",
+        backgroundColor: "#fff",
         padding: 0,
         margin: 0,
         overflow: "hidden",
@@ -33,7 +33,7 @@ export default function Logout() {
       <Button
         variant="contained"
         color="primary"
-        sx={{ mt: 3}}
+        sx={{ mt: 3 }}
         onClick={handleLoginRedirect}
       >
         Zum Login

@@ -1,12 +1,7 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate,} from "react-router-dom";
 import DashboardLayoutBranding from "./components/Dashboard/Dashboard";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import SlotPropsSignIn from "./pages/Login";
 import Logout from "./pages/Logout";
 import SlotPropsSignUp from "../src/pages/Register";

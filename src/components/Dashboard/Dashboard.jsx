@@ -88,10 +88,9 @@ function DashboardLayoutAccount(props) {
       },
       signOut: () => {
         setSession(null);
-        localStorage.removeItem("Auth");
         localStorage.clear();
-        navigate("/logout");
         sessionStorage.clear();
+        navigate("/logout");
       },
     };
   }, []);
