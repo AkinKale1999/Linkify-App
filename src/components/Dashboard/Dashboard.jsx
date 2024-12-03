@@ -9,7 +9,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import DataTable from "../User/TablePage";
 import ListIcon from "@mui/icons-material/List";
 import { useNavigate } from "react-router-dom";
-import Arrow from "../Arrow/ArrowUpAndDown";
+import Arrow from "../Arrows/ArrowUpAndDown";
 
 const NAVIGATION = [
   {
