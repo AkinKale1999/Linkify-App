@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -6,8 +6,10 @@ import { createTheme } from "@mui/material/styles";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import DataTable from "../User/TablePage"; // Hier wird die DataTable-Komponente importiert
+import DataTable from "../User/TablePage";
 import ListIcon from "@mui/icons-material/List";
+import { useNavigate } from "react-router-dom";
+import Arrow from "../Arrows/ArrowUpAndDown";
 
 const NAVIGATION = [
   {
@@ -23,7 +25,7 @@ const NAVIGATION = [
 ];
 
 const COMPONENTS = {
-  liste: DataTable, // Zuordnung der "Liste"-Navigation zu DataTable
+  liste: DataTable,
 };
 
 const demoTheme = createTheme({
@@ -64,7 +66,7 @@ DemoPageContent.propTypes = {
 
 function DashboardLayoutAccount(props) {
   const { window } = props;
-
+  const navigate = useNavigate();
   const [session, setSession] = React.useState({
     user: {
       name: "",
@@ -86,6 +88,8 @@ function DashboardLayoutAccount(props) {
       },
       signOut: () => {
         setSession(null);
+        localStorage.removeItem("Auth");
+        navigate("/logout");
       },
     };
   }, []);
@@ -96,30 +100,38 @@ function DashboardLayoutAccount(props) {
 
   const handleNavigationClick = (segment) => {
     setActivePage(segment);
-  }
+  };
 
   return (
     <AppProvider
       session={session}
       authentication={authentication}
+      branding={{
+        logo: (
+          <img id="LogoPath" src="/img/Linkify blau grau 2.svg" alt="Linkify" />
+        ),
+        title: "",
+      }}
       navigation={NAVIGATION}
       theme={demoTheme}
       window={demoWindow}
     >
-      <DashboardLayout>
-        {NAVIGATION.map((item, index) => {
-          return (
-            <Typography
-              key={index}
-              onClick={() => handleNavigationClick(item.segment)}
-              sx={{ cursor: "pointer", color: "blue" }}
-            >
-              {item.title}
-            </Typography>
-          );
-        })}
+      <Arrow />
+      <DashboardLayout sidebarExpandedWidth={250}>
+        {NAVIGATION.map((item, index) => (
+          <Typography
+            key={index}
+            onClick={() => handleNavigationClick(item.segment)}
+            sx={{ cursor: "pointer", color: "blue" }}
+          >
+            {item.title}
+          </Typography>
+        ))}
+
         {COMPONENTS[activePage] ? (
-          React.createElement(COMPONENTS[activePage], { pathname: activePage })
+          React.createElement(COMPONENTS[activePage], {
+            pathname: activePage,
+          })
         ) : (
           <DemoPageContent pathname={activePage} />
         )}
