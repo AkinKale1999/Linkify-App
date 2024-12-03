@@ -96,7 +96,7 @@ function DashboardLayoutAccount(props) {
 
   const handleNavigationClick = (segment) => {
     setActivePage(segment);
-  };
+  }
 
   return (
     <AppProvider
