@@ -15,7 +15,7 @@ const NotFoundPage = () => {
     >
       <h1 style={{ margin: "0", padding: "0" }}>404 - Seite nicht gefunden</h1>
       <p>Die angegebene URL existiert nicht.</p>
-      <Link to="/">Zurück zum Login</Link>
+      <Link to="/login">Zurück zum Login</Link>
     </div>
   );
 };

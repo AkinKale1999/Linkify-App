@@ -42,7 +42,6 @@ const paginationModel = { page: 0, pageSize: 5 };
 
 export default function DataTable() {
   const navigate = useNavigate();
-  const router = useDemoRouter("/Liste");
 
   React.useEffect(() => {
     if (rows.length === 0) {

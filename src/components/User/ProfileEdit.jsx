@@ -110,7 +110,7 @@ function ProfilePage() {
 
       if (response.status === 200) {
         alert("Änderungen wurden gespeichert.");
-        navigate("/Dashboard");
+        navigate("/dashboard");
       } else {
         setErrorMessage(
           "Etwas ist schief gelaufen. Bitte versuche es später erneut."
