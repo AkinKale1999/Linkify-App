@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate,} from "react-router-dom";
 import DashboardLayoutBranding from "./components/Dashboard/Dashboard";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 import { useState, useEffect } from "react";
@@ -20,7 +15,7 @@ const App = () => {
         <Routes>
           {/* <Route path="/" element={<DashboardLayoutBranding />} /> */}
           <Route path="/dashboard" element={<DashboardLayoutBranding />} />
-          <Route path="/" element={<Navigate to="/Dashboard" />}/>
+          <Route path="/" element={<Navigate to="/dashboard" />}/>
         </Routes>
       </Router>
     );

@@ -46,7 +46,7 @@ export default function DataTable() {
 
   React.useEffect(() => {
     if (rows.length === 0) {
-      navigate("/Create");
+      navigate("/create");
     }
   }, []);
 
