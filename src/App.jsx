@@ -40,7 +40,7 @@ const App = () => {
             path="/"
             element={
               <ProtectedRoute>
-                <Navigate to="/dashboard" />
+                <Navigate to="/dashboard"/>
               </ProtectedRoute>
             }
           />
