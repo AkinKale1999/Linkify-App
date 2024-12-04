@@ -1,8 +1,8 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
-import { useNavigate } from "react-router-dom";
 import ViewTableButton from "../Buttons/ViewTableButton";
+import CreatePage from "./CreatePage"
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -40,13 +40,10 @@ const rows = [
 const paginationModel = { page: 0, pageSize: 5 };
 
 export default function DataTable() {
-  const navigate = useNavigate();
 
-  React.useEffect(() => {
-    if (rows.length === 0) {
-      navigate("/create");
-    }
-  }, []);
+  if (rows.length === 0) {
+    return <CreatePage />
+  }
 
   return (
     <Paper sx={{ height: 400, width: "auto" }}>

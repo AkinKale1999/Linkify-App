@@ -14,6 +14,7 @@ import ProfilePage from "../User/ProfileEdit";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { useDemoRouter } from "@toolpad/core/internal";
+import SignOutModal from "../Modula/ModulaLogout"
 
 const NAVIGATION = [
   {
@@ -61,6 +62,18 @@ DemoPageContent.propTypes = {
 };
 
 function DashboardLayoutAccount(props) {
+
+  const [isSignOutModalOpen, setIsSignOutModalOpen] = React.useState(false);
+
+
+  const openSignOutModal = () => setIsSignOutModalOpen(true);
+  const closeSignOutModal = () => setIsSignOutModalOpen(false);
+
+  const executeSignOut = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = "/logout";
+  };
   // const { window } = props;
   const [session, setSession] = React.useState({
     user: {
@@ -91,9 +104,7 @@ function DashboardLayoutAccount(props) {
   const authentication = React.useMemo(() => {
     return {
       signOut: () => {
-        localStorage.clear();
-        sessionStorage.clear();
-        window.location.href = "/logout";
+        openSignOutModal()
       },
     };
   }, []);
@@ -117,7 +128,7 @@ function DashboardLayoutAccount(props) {
       }}
       theme={isDarkMode ? dark : light}
       navigation={NAVIGATION}
-      // window={demoWindow}
+    // window={demoWindow}
     >
       <Arrow />
       <LightModeIcon
@@ -135,6 +146,8 @@ function DashboardLayoutAccount(props) {
         {router.pathname === "/Liste" && <DataTable />}
         {router.pathname === "/Profile" && <ProfilePage />}
       </DashboardLayout>
+
+      <SignOutModal open={isSignOutModalOpen} onClose={closeSignOutModal} onConfirm={executeSignOut} />
     </AppProvider>
   );
 }
