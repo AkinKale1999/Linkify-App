@@ -49,7 +49,7 @@ export default function DataTable() {
   }, []);
 
   return (
-    <Paper sx={{ height: 400 }}>
+    <Paper sx={{ height: 400, width: "auto" }}>
       <DataGrid
         rows={rows}
         columns={columns}

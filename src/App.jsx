@@ -1,7 +1,12 @@
-import { BrowserRouter as Router, Routes, Route, Navigate,} from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import DashboardLayoutBranding from "./components/Dashboard/Dashboard";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
-import { useState} from "react";
+import { useState } from "react";
 import SlotPropsSignIn from "./pages/Login";
 import Logout from "./pages/Logout";
 import SlotPropsSignUp from "../src/pages/Register";
@@ -23,7 +28,7 @@ const App = () => {
       <Router>
         <Routes>
           <Route
-            path="/dashboard"
+            path="/"
             element={
               <ProtectedRoute>
                 <DashboardLayoutBranding />
@@ -31,19 +36,21 @@ const App = () => {
             }
           />
 
+
           <Route
-            path="/"
+            path="*"
             element={
               <ProtectedRoute>
-                <Navigate to="/dashboard" />
+                <Navigate to={"/"} />
               </ProtectedRoute>
             }
           />
+
         </Routes>
       </Router>
     );
-  } 
-  
+  }
+
   // ------------------------------
   else {
     // Wenn der Benutzer nicht authentifiziert ist, leite ihn zur Login-Seite oder Logout-Route
@@ -54,7 +61,6 @@ const App = () => {
           <Route path="/login" element={<SlotPropsSignIn />} />
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/register" element={<SlotPropsSignUp />} />
-          <Route path="/dashboard" element={<Navigate to="/login" />} />
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

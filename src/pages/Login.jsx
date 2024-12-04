@@ -20,7 +20,7 @@ export default function SlotPropsSignIn() {
       sessionStorage.setItem("Username", email);
 
       // navigate("/dashboard");
-      window.location.href = "/dashboard";
+      window.location.href = "/";
 
     } else {
       alert("Falsche Anmeldedaten.");
