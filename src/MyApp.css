@@ -3,6 +3,8 @@
   --success-color: green;
   --width-button: 200px;
   --height-button: 50px;
+  --color-light-mode: #1565c0;
+  --color-dark-mode: #fff;
 }
 
 .Div-Container {
@@ -33,12 +35,42 @@
   justify-content: center;
 }
 
+#LightMode {
+  width: 30px;
+  height: fit-content;
+  z-index: 9999;
+  position: absolute;
+  right: 70px;
+  top: 20px;
+  cursor: pointer;
+  color: var(--color-light-mode);
+}
+
+#DarkMode {
+  width: 30px;
+  height: fit-content;
+  z-index: 9999;
+  position: absolute;
+  right: 70px;
+  top: 20px;
+  cursor: pointer;
+  color: var(--color-dark-mode);
+}
+
 #ArrowBTN {
   position: absolute;
+  display: inline-block;
   width: fit-content;
   height: fit-content;
   margin: 0px;
   padding: 0px;
-  top: 22px;
+  top: 27px;
   z-index: 9999;
+}
+
+#halbkreis {
+  position: relative;
+  width: 50px;
+  top: 22px;
+  display: inline-block;
 }

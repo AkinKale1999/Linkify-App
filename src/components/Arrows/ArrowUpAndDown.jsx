@@ -5,20 +5,24 @@ import { useRef, useState } from "react";
 
 export default function Arrow() {
   const handleIconPosition = useRef(null);
+  const halfCircle = useRef(null);
+  const [isArrowUp, setIsArrowUp] = useState(false);
 
   const handleIconClick = () => {
     setIsArrowUp((prev) => !prev);
-    const appBarElement = document.querySelector(
-      ".css-gr4hu4-MuiPaper-root-MuiAppBar-root"
-    );
+
+    const appBarElement = document.querySelector("header");
+
+    if (appBarElement) {
+      appBarElement.style.display = isArrowUp ? "block" : "none";
+    }
+
     if (handleIconPosition.current) {
-      appBarElement.style.position = "absolute";
-      appBarElement.style.top = isArrowUp ? "0px" : "-15px";
-      handleIconPosition.current.style.top = isArrowUp ? "22px" : "15px";
+      halfCircle.current.style.rotate = isArrowUp ? "0deg" : "180deg";
+      halfCircle.current.style.top = isArrowUp ? "10px" : "10px";
+      handleIconPosition.current.style.top = isArrowUp ? "25px" : "-24px";
     }
   };
-
-  const [isArrowUp, setIsArrowUp] = useState(false);
 
   return (
     <div id="ContainerDIV">
@@ -29,6 +33,21 @@ export default function Arrow() {
         ref={handleIconPosition}
         onClick={handleIconClick}
       >
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <img
+            id="halbkreis"
+            ref={halfCircle}
+            src="/img/Halbkreis.png"
+            alt="Halbkreis"
+          />
+        </div>
         {isArrowUp ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}
       </IconButton>
     </div>

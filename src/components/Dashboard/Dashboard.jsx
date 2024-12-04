@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Children } from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -10,6 +10,10 @@ import DataTable from "../User/TablePage";
 import ListIcon from "@mui/icons-material/List";
 import { useNavigate } from "react-router-dom";
 import Arrow from "../Arrows/ArrowUpAndDown";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ProfilePage from "../User/ProfileEdit";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 
 const NAVIGATION = [
   {
@@ -17,32 +21,24 @@ const NAVIGATION = [
     title: "Dashboard",
     icon: <DashboardIcon />,
   },
+  { kind: "divider" },
   {
     segment: "liste",
     title: "Liste",
     icon: <ListIcon />,
   },
+  { kind: "divider" },
+  {
+    segment: "dashboard",
+    title: "Profile",
+    icon: <AccountCircleIcon />,
+  },
 ];
 
 const COMPONENTS = {
   liste: DataTable,
+  Profile: ProfilePage,
 };
-
-const demoTheme = createTheme({
-  cssVariables: {
-    colorSchemeSelector: "data-toolpad-color-scheme",
-  },
-  colorSchemes: { light: true, dark: true },
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 600,
-      lg: 1200,
-      xl: 1536,
-    },
-  },
-});
 
 function DemoPageContent({ pathname }) {
   return (
@@ -75,6 +71,24 @@ function DashboardLayoutAccount(props) {
     },
   });
 
+  const light = createTheme({
+    palette: {
+      mode: "light",
+    },
+  });
+
+  const dark = createTheme({
+    palette: {
+      mode: "dark",
+    },
+  });
+
+  const [isDarkMode, setIsDarkMode] = React.useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkMode((prev) => !prev);
+  };
+
   const authentication = React.useMemo(() => {
     return {
       signIn: () => {
@@ -95,48 +109,36 @@ function DashboardLayoutAccount(props) {
     };
   }, []);
 
-  const [activePage, setActivePage] = React.useState("dashboard");
-
   const demoWindow = window !== undefined ? window() : undefined;
-
-  const handleNavigationClick = (segment) => {
-    setActivePage(segment);
-  };
 
   return (
     <AppProvider
       session={session}
       authentication={authentication}
       branding={{
-        logo: (
+        logo: isDarkMode ? (
+          <img id="LogoPath" src="/img/Linkify weiss2.svg" alt="Linkify" />
+        ) : (
           <img id="LogoPath" src="/img/Linkify blau grau 2.svg" alt="Linkify" />
         ),
         title: "",
       }}
+      theme={isDarkMode ? dark : light}
       navigation={NAVIGATION}
-      theme={demoTheme}
       window={demoWindow}
     >
-      <Arrow />
-      <DashboardLayout sidebarExpandedWidth={250}>
-        {NAVIGATION.map((item, index) => (
-          <Typography
-            key={index}
-            onClick={() => handleNavigationClick(item.segment)}
-            sx={{ cursor: "pointer", color: "blue" }}
-          >
-            {item.title}
-          </Typography>
-        ))}
-
-        {COMPONENTS[activePage] ? (
-          React.createElement(COMPONENTS[activePage], {
-            pathname: activePage,
-          })
-        ) : (
-          <DemoPageContent pathname={activePage} />
-        )}
-      </DashboardLayout>
+      <Arrow id="ArrowBTN"/>
+      <LightModeIcon
+        id="LightMode"
+        onClick={toggleTheme}
+        sx={{ cursor: "pointer", display: isDarkMode ? "none" : "block" }}
+      />
+      <DarkModeIcon
+        id="DarkMode"
+        onClick={toggleTheme}
+        sx={{ cursor: "pointer", display: isDarkMode ? "block" : "none" }}
+      />
+      <DashboardLayout sidebarExpandedWidth={250}></DashboardLayout>
     </AppProvider>
   );
 }

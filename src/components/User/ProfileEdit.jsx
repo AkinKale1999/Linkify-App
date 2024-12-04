@@ -151,7 +151,7 @@ function ProfilePage() {
 
   return (
     <Box sx={{ padding: 4 }}>
-      <Typography variant="h4">Profil bearbeiten</Typography>
+      <Typography variant="h5">Profil bearbeiten</Typography>
 
       {/* Fehlermeldung anzeigen */}
       {errorMessage && (
@@ -169,8 +169,8 @@ function ProfilePage() {
           src={imagePreview || userData.profileImage || "/default-profile.png"}
           alt="Profilbild"
           sx={{
-            width: 200, // Größe des Bildes
-            height: 200, // Größe des Bildes
+            width: 150, // Größe des Bildes
+            height: 150, // Größe des Bildes
             borderRadius: "50%", // Rundes Bild
           }}
         />
