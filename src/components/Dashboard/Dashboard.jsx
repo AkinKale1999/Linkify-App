@@ -144,5 +144,5 @@ function DashboardLayoutAccount(props) {
 DashboardLayoutAccount.propTypes = {
   window: PropTypes.func,
 };
-// --
+
 export default DashboardLayoutAccount;
