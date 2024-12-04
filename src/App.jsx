@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, } from "react-router-dom";
 import DashboardLayoutBranding from "./components/Dashboard/Dashboard";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 import { useState } from "react";
@@ -35,7 +30,6 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-
 
           <Route
             path="*"

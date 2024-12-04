@@ -1,173 +1,169 @@
-import * as React from "react";
-import { AppProvider } from "@toolpad/core/AppProvider";
-import { useTheme } from "@mui/material/styles";
-import { TextField, Button, Box, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useEffect, useRef, useState } from "react";
 
 export default function SlotPropsSignUp() {
-  const theme = useTheme();
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const [Name, setName] = useState("");
+  const [Family_Name, setFamilyName] = useState("");
+  const [Firma, setFirma] = useState("");
+  const [Adresse, setAdresse] = useState("");
+
+  const [ConfirmPassword, setConfirmPassword] = useState("");
+
+  const [ShowPassword, setShowPassword] = useState("password");
+  const [message, setMessage] = useState("");
+  const messageExist = useRef(null);
   const navigate = useNavigate();
-  const [formData, setFormData] = React.useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    name: "",
-    vorname: "",
-    firma: "",
-    adresse: "",
-  });
+  // ------------------------------------------------------
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  useEffect(() => {
+    if (message !== "") {
+      messageExist.current.style.display = "block";
+      messageExist.current.style.marginTop = "0";
+    }
+  }, [message]);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  // ------------------------------------------------------
 
-    for (const field in formData) {
-      if (formData[field] === "") {
-        alert(`Bitte füllen Sie das Feld ${field} aus.`);
-        return;
-      }
+  async function handleRegister(e) {
+    e.preventDefault();
+
+    if (
+      typeof Name !== "string" ||
+      !/^[a-zA-Z]+$/.test(Name) ||
+      typeof Family_Name !== "string" ||
+      !/^[a-zA-Z]+$/.test(Family_Name)
+    ) {
+      setMessage("Vorname und/oder Nachname darf nicht Leer sein");
+      return;
     }
 
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwörter stimmen nicht überein");
+    if (Password !== ConfirmPassword) {
+      setMessage("Passwörter stimmen nicht überein");
+      return;
+    }
+
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[?!-])[A-Za-z\d?!-]{8,}$/;
+
+    if (Password.length < 8 || !passwordPattern.test(Password)) {
+      setMessage(
+        "Das Passwort muss mindestens 8 Zeichen, 1 Klein-, 1 Großbuchstaben, 1 Zahl und 1 Sonderzeichen (! oder ?) haben."
+      );
       return;
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/Register", {
-        email: formData.email,
-        password: formData.password,
-        name: formData.name,
-        vorname: formData.vorname,
-        firma: formData.firma,
-        adresse: formData.adresse,
+      let response = await axios.post("http://localhost:5000/register", {
+        Name,
+        Family_Name,
+        Firma,
+        Adresse,
+        Password,
+        Email,
       });
 
-      if (response.status === 200) {
-        alert(
-          "Registrierung erfolgreich!, Sie werden Zur Login Seite weitergeleitet"
-        );
-        window.location.href = "/logout";
-      } else {
-        alert("Fehler bei der Registrierung. Versuche es erneut.");
-      }
+      console.log(response);
+      setMessage(response.data.message);
+
+      setTimeout(() => {
+        navigate("/Login");
+      }, 3000);
     } catch (error) {
-      console.error("Fehler bei der Registrierung:", error);
-      alert("Ein Fehler ist aufgetreten. Versuche es später erneut.");
+      console.log(error);
+      setMessage(error.response.data.message);
+      return;
     }
-  };
+  }
+  // ------------------------------------------------------
 
   return (
-    <AppProvider theme={theme}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: 3,
-          borderRadius: 2,
-          boxShadow: 3,
-          width: "100%",
-          maxWidth: "400px",
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%,-50%)",
-        }}
-      >
-        <Typography variant="h4" gutterBottom>
-          Registrierung
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            label="E-Mail"
-            name="email"
-            type="email"
-            variant="standard"
-            fullWidth
-            value={formData.email}
-            onChange={handleChange}
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            label="Name"
-            name="name"
-            type="text"
-            variant="standard"
-            fullWidth
-            value={formData.name}
-            onChange={handleChange}
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            label="Vorname"
-            name="vorname"
-            type="text"
-            variant="standard"
-            fullWidth
-            value={formData.vorname}
-            onChange={handleChange}
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            label="Firma"
-            name="firma"
-            type="text"
-            variant="standard"
-            fullWidth
-            value={formData.firma}
-            onChange={handleChange}
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            label="Adresse"
-            name="adresse"
-            type="text"
-            variant="standard"
-            fullWidth
-            value={formData.adresse}
-            onChange={handleChange}
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            label="Passwort"
-            name="password"
-            type="password"
-            variant="standard"
-            fullWidth
-            value={formData.password}
-            onChange={handleChange}
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            label="Passwort bestätigen"
-            name="confirmPassword"
-            type="password"
-            variant="standard"
-            fullWidth
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            sx={{ mb: 2 }}
-          />
-          <Button
-            type="submit"
-            variant="outlined"
-            fullWidth
-            sx={{ padding: 1 }}
-          >
-            Registrieren
-          </Button>
-        </form>
-      </Box>
-    </AppProvider>
+    <>
+      <div id="Main_Container_Registry">
+        <div id="Registry_Container">
+          <form action="" id="Registry_Form" onSubmit={handleRegister}>
+            <h1 id="Registry_Title">Registrierung</h1>
+            <input
+              type="text"
+              name="name"
+              className="input_registry"
+              placeholder="Vorname"
+              value={Name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <input
+              type="text"
+              name="family_name"
+              className="input_registry"
+              placeholder="Nachname"
+              value={Family_Name}
+              onChange={(e) => setFamilyName(e.target.value)}
+            />
+            <input
+              type="text"
+              name="Adresse"
+              className="input_registry"
+              placeholder="Adresse"
+              value={Adresse}
+              onChange={(e) => setAdresse(e.target.value)}
+            />
+            <input
+              type="text"
+              name="Firma"
+              className="input_registry"
+              placeholder="Firma"
+              value={Firma}
+              onChange={(e) => setFirma(e.target.value)}
+            />
+            <input
+              type="text"
+              name="Email"
+              className="input_registry"
+              placeholder="E-mail"
+              value={Email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <div id="password_container">
+              <input
+                type={ShowPassword}
+                name="password"
+                className="input_registry"
+                placeholder="Passwort"
+                value={Password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <div id="password_container">
+              <input
+                type={ShowPassword}
+                name="confirm password"
+                className="input_registry"
+                placeholder="Passwort Bestätigen"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+            <div id="Submit_Btn_DIV">
+              <button id="Submit_Btn" ref={messageExist}>
+                Absenden
+              </button>
+            </div>
+
+            <div>
+              <p id="error_message" >{message}</p>
+            </div>
+            <div>
+              <div id="Navigate_To_LoginDIV">
+                <Link to={"/login"} id="Sign_In">
+                  Jetzt einloggen
+                </Link>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
   );
 }

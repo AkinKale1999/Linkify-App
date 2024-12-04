@@ -6,10 +6,10 @@ let app = express();
 app.use(cors());
 app.use(express.json()); // Hier muss express.json() sein
 
-app.post("/Register", async (req, res) => {
-  const { email, password, name, vorname, firma, adresse } = req.body;
+app.post("/register", async (req, res) => {
+  const { Email, Password, Name, Family_Name, Firma, Adresse } = req.body;
 
-  console.log(req.body)
+  console.log(req.body);
 
   res.status(200).json("Daten sind da");
 });
