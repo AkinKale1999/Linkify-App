@@ -131,11 +131,9 @@ function DashboardLayoutAccount(props) {
         sx={{ cursor: "pointer", display: isDarkMode ? "block" : "none" }}
       />
       <DashboardLayout sidebarExpandedWidth={250}>
+        <DemoPageContent pathname={router.pathname} />
         {router.pathname === "/Liste" && <DataTable />}
         {router.pathname === "/Profile" && <ProfilePage />}
-        {router.pathname !== "/Liste" && router.pathname !== "/Profile" && (
-          <DemoPageContent pathname={router.pathname} />
-        )}
       </DashboardLayout>
     </AppProvider>
   );
