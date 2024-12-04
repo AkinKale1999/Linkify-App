@@ -102,96 +102,6 @@ function DashboardLayoutAccount(props) {
 
   const router = useDemoRouter("/Dashboard");
 
-  if (router.pathname === "/Liste") {
-    return (
-      <>
-        <AppProvider
-          router={router}
-          session={session}
-          authentication={authentication}
-          branding={{
-            logo: isDarkMode ? (
-              <img id="LogoPath" src="/img/Linkify weiss2.svg" alt="Linkify" />
-            ) : (
-              <img
-                id="LogoPath"
-                src="/img/Linkify blau grau 2.svg"
-                alt="Linkify"
-              />
-            ),
-            title: "",
-          }}
-          theme={isDarkMode ? dark : light}
-          navigation={NAVIGATION}
-          // window={demoWindow}
-        >
-          <Arrow />
-          <LightModeIcon
-            id="LightMode"
-            onClick={toggleTheme}
-            sx={{ cursor: "pointer", display: isDarkMode ? "none" : "block" }}
-          />
-          <DarkModeIcon
-            id="DarkMode"
-            onClick={toggleTheme}
-            sx={{ cursor: "pointer", display: isDarkMode ? "block" : "none" }}
-          />
-          <DashboardLayout sidebarExpandedWidth={250}>
-            <DemoPageContent pathname={router.pathname} />
-            <div style={{}}>
-              <DataTable />
-            </div>
-          </DashboardLayout>
-        </AppProvider>
-      </>
-    );
-  }
-
-  if (router.pathname === "/Profile") {
-    return (
-      <>
-        <AppProvider
-          router={router}
-          session={session}
-          authentication={authentication}
-          branding={{
-            logo: isDarkMode ? (
-              <img id="LogoPath" src="/img/Linkify weiss2.svg" alt="Linkify" />
-            ) : (
-              <img
-                id="LogoPath"
-                src="/img/Linkify blau grau 2.svg"
-                alt="Linkify"
-              />
-            ),
-            title: "",
-          }}
-          theme={isDarkMode ? dark : light}
-          navigation={NAVIGATION}
-          // window={demoWindow}
-        >
-          <Arrow />
-          <LightModeIcon
-            id="LightMode"
-            onClick={toggleTheme}
-            sx={{ cursor: "pointer", display: isDarkMode ? "none" : "block" }}
-          />
-          <DarkModeIcon
-            id="DarkMode"
-            onClick={toggleTheme}
-            sx={{ cursor: "pointer", display: isDarkMode ? "block" : "none" }}
-          />
-          <DashboardLayout sidebarExpandedWidth={250}>
-            <DemoPageContent pathname={router.pathname} />
-            <div style={{}}>
-              <ProfilePage />
-            </div>
-          </DashboardLayout>
-        </AppProvider>
-      </>
-    );
-  }
-
   return (
     <AppProvider
       router={router}
@@ -221,8 +131,11 @@ function DashboardLayoutAccount(props) {
         sx={{ cursor: "pointer", display: isDarkMode ? "block" : "none" }}
       />
       <DashboardLayout sidebarExpandedWidth={250}>
-        <DemoPageContent pathname={router.pathname} />
-        <div style={{}}></div>
+        {router.pathname === "/Liste" && <DataTable />}
+        {router.pathname === "/Profile" && <ProfilePage />}
+        {router.pathname !== "/Liste" && router.pathname !== "/Profile" && (
+          <DemoPageContent pathname={router.pathname} />
+        )}
       </DashboardLayout>
     </AppProvider>
   );
@@ -231,10 +144,5 @@ function DashboardLayoutAccount(props) {
 DashboardLayoutAccount.propTypes = {
   window: PropTypes.func,
 };
-
-// if(klick auf titel Liste) {
-//   e.preventDefault()
-//   <DataTable />
-// }
 
 export default DashboardLayoutAccount;
