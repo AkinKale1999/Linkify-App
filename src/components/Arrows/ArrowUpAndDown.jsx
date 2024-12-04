@@ -19,13 +19,11 @@ export default function Arrow() {
 
     if (handleIconPosition.current) {
       halfCircle.current.style.rotate = isArrowUp ? "0deg" : "180deg";
-      halfCircle.current.style.top = isArrowUp ? "10px" : "10px";
-      handleIconPosition.current.style.top = isArrowUp ? "25px" : "-24px";
+      halfCircle.current.style.top = isArrowUp ? "22px" : "22px";
+      handleIconPosition.current.style.top = isArrowUp ? "29px" : "-24px";
     }
   };
 
-
-  // ccc
   return (
     <div id="ContainerDIV">
       <IconButton
@@ -46,7 +44,7 @@ export default function Arrow() {
           <img
             id="halbkreis"
             ref={halfCircle}
-            src="/img/Halbkreis.png"
+            src="/img/Circle.svg"
             alt="Halbkreis"
           />
         </div>

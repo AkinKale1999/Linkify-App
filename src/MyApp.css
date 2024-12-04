@@ -7,6 +7,9 @@
   --color-dark-mode: #fff;
 }
 
+.MuiButtonBase-root {
+  position: absolute;
+}
 .Div-Container {
   display: flex;
   flex-direction: column;
@@ -71,6 +74,6 @@
 #halbkreis {
   position: relative;
   width: 50px;
-  top: 22px;
+  top: 24px;
   display: inline-block;
 }

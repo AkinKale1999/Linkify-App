@@ -8,28 +8,28 @@ import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import DataTable from "../User/TablePage";
 import ListIcon from "@mui/icons-material/List";
-import { useNavigate } from "react-router-dom";
 import Arrow from "../Arrows/ArrowUpAndDown";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ProfilePage from "../User/ProfileEdit";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import { useDemoRouter } from "@toolpad/core/internal";
 
 const NAVIGATION = [
   {
-    segment: "dashboard",
+    segment: "Dashboard",
     title: "Dashboard",
     icon: <DashboardIcon />,
   },
   { kind: "divider" },
   {
-    segment: "liste",
+    segment: "Liste",
     title: "Liste",
     icon: <ListIcon />,
   },
   { kind: "divider" },
   {
-    segment: "dashboard",
+    segment: "Profile",
     title: "Profile",
     icon: <AccountCircleIcon />,
   },
@@ -61,8 +61,7 @@ DemoPageContent.propTypes = {
 };
 
 function DashboardLayoutAccount(props) {
-  const { window } = props;
-  const navigate = useNavigate();
+  // const { window } = props;
   const [session, setSession] = React.useState({
     user: {
       name: "",
@@ -91,28 +90,111 @@ function DashboardLayoutAccount(props) {
 
   const authentication = React.useMemo(() => {
     return {
-      signIn: () => {
-        setSession({
-          user: {
-            name: "",
-            email: "",
-            image: "",
-          },
-        });
-      },
       signOut: () => {
-        setSession(null);
         localStorage.clear();
         sessionStorage.clear();
-        navigate("/logout");
+        window.location.href = "/logout";
       },
     };
   }, []);
 
-  const demoWindow = window !== undefined ? window() : undefined;
+  // const demoWindow = window !== undefined ? window() : undefined;
+
+  const router = useDemoRouter("/Dashboard");
+
+  if (router.pathname === "/Liste") {
+    return (
+      <>
+        <AppProvider
+          router={router}
+          session={session}
+          authentication={authentication}
+          branding={{
+            logo: isDarkMode ? (
+              <img id="LogoPath" src="/img/Linkify weiss2.svg" alt="Linkify" />
+            ) : (
+              <img
+                id="LogoPath"
+                src="/img/Linkify blau grau 2.svg"
+                alt="Linkify"
+              />
+            ),
+            title: "",
+          }}
+          theme={isDarkMode ? dark : light}
+          navigation={NAVIGATION}
+          // window={demoWindow}
+        >
+          <Arrow />
+          <LightModeIcon
+            id="LightMode"
+            onClick={toggleTheme}
+            sx={{ cursor: "pointer", display: isDarkMode ? "none" : "block" }}
+          />
+          <DarkModeIcon
+            id="DarkMode"
+            onClick={toggleTheme}
+            sx={{ cursor: "pointer", display: isDarkMode ? "block" : "none" }}
+          />
+          <DashboardLayout sidebarExpandedWidth={250}>
+            <DemoPageContent pathname={router.pathname} />
+            <div style={{}}>
+              <DataTable />
+            </div>
+          </DashboardLayout>
+        </AppProvider>
+      </>
+    );
+  }
+
+  if (router.pathname === "/Profile") {
+    return (
+      <>
+        <AppProvider
+          router={router}
+          session={session}
+          authentication={authentication}
+          branding={{
+            logo: isDarkMode ? (
+              <img id="LogoPath" src="/img/Linkify weiss2.svg" alt="Linkify" />
+            ) : (
+              <img
+                id="LogoPath"
+                src="/img/Linkify blau grau 2.svg"
+                alt="Linkify"
+              />
+            ),
+            title: "",
+          }}
+          theme={isDarkMode ? dark : light}
+          navigation={NAVIGATION}
+          // window={demoWindow}
+        >
+          <Arrow />
+          <LightModeIcon
+            id="LightMode"
+            onClick={toggleTheme}
+            sx={{ cursor: "pointer", display: isDarkMode ? "none" : "block" }}
+          />
+          <DarkModeIcon
+            id="DarkMode"
+            onClick={toggleTheme}
+            sx={{ cursor: "pointer", display: isDarkMode ? "block" : "none" }}
+          />
+          <DashboardLayout sidebarExpandedWidth={250}>
+            <DemoPageContent pathname={router.pathname} />
+            <div style={{}}>
+              <ProfilePage />
+            </div>
+          </DashboardLayout>
+        </AppProvider>
+      </>
+    );
+  }
 
   return (
     <AppProvider
+      router={router}
       session={session}
       authentication={authentication}
       branding={{
@@ -125,9 +207,9 @@ function DashboardLayoutAccount(props) {
       }}
       theme={isDarkMode ? dark : light}
       navigation={NAVIGATION}
-      window={demoWindow}
+      // window={demoWindow}
     >
-      <Arrow id="ArrowBTN"/>
+      <Arrow />
       <LightModeIcon
         id="LightMode"
         onClick={toggleTheme}
@@ -138,7 +220,10 @@ function DashboardLayoutAccount(props) {
         onClick={toggleTheme}
         sx={{ cursor: "pointer", display: isDarkMode ? "block" : "none" }}
       />
-      <DashboardLayout sidebarExpandedWidth={250}></DashboardLayout>
+      <DashboardLayout sidebarExpandedWidth={250}>
+        <DemoPageContent pathname={router.pathname} />
+        <div style={{}}></div>
+      </DashboardLayout>
     </AppProvider>
   );
 }
@@ -146,5 +231,10 @@ function DashboardLayoutAccount(props) {
 DashboardLayoutAccount.propTypes = {
   window: PropTypes.func,
 };
+
+// if(klick auf titel Liste) {
+//   e.preventDefault()
+//   <DataTable />
+// }
 
 export default DashboardLayoutAccount;

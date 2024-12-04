@@ -55,7 +55,7 @@ export default function SlotPropsSignUp() {
         alert(
           "Registrierung erfolgreich!, Sie werden Zur Login Seite weitergeleitet"
         );
-        navigate("/login");
+        window.location.href = "/logout";
       } else {
         alert("Fehler bei der Registrierung. Versuche es erneut.");
       }

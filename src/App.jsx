@@ -42,7 +42,10 @@ const App = () => {
         </Routes>
       </Router>
     );
-  } else {
+  } 
+  
+  // ------------------------------
+  else {
     // Wenn der Benutzer nicht authentifiziert ist, leite ihn zur Login-Seite oder Logout-Route
     return (
       <Router>
@@ -51,6 +54,7 @@ const App = () => {
           <Route path="/login" element={<SlotPropsSignIn />} />
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/register" element={<SlotPropsSignUp />} />
+          <Route path="/dashboard" element={<Navigate to="/login" />} />
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

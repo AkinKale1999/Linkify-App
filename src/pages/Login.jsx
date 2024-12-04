@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function SlotPropsSignIn() {
   const navigate = useNavigate();
-  
+
   const providers = [{ id: "credentials", name: "Email and Password" }];
 
   const theme = useTheme();
@@ -18,7 +18,10 @@ export default function SlotPropsSignIn() {
     if (email === "akin@1" && password === "1234") {
       localStorage.setItem("Auth", "true");
       sessionStorage.setItem("Username", email);
-      navigate("/dashboard");
+
+      // navigate("/dashboard");
+      window.location.href = "/dashboard";
+
     } else {
       alert("Falsche Anmeldedaten.");
       return;

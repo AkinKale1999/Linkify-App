@@ -3,7 +3,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
 import ViewTableButton from "../Buttons/ViewTableButton";
-import { useDemoRouter } from "@toolpad/core/internal";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
