@@ -68,7 +68,7 @@ export default function SlotPropsSignIn() {
     <ThemeProvider theme={theme}>
       <div
         style={{
-          height: "800px",
+          height: "850px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

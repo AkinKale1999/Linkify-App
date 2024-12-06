@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useState, useRef } from "react";
 import axios from "axios";
-import "../../MyApp.css";
 
 export default function SlotPropsSignUp() {
   const [Email, setEmail] = useState("");
