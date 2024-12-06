@@ -62,7 +62,7 @@ export default function SlotPropsSignIn() {
   };
 
   return (
-    <div style={{ height: "800px", display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
+    <div style={{ height: "690px", display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
       <AppProvider theme={theme}>
         <SignInPage
           slots={{

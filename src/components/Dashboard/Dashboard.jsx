@@ -15,6 +15,7 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { useDemoRouter } from "@toolpad/core/internal";
 import SignOutModal from "../Modula/ModulaLogout"
+import EditPage from "../User/EditPage"
 
 const NAVIGATION = [
   {
@@ -35,11 +36,6 @@ const NAVIGATION = [
     icon: <AccountCircleIcon />,
   },
 ];
-
-const COMPONENTS = {
-  liste: DataTable,
-  Profile: ProfilePage,
-};
 
 function DemoPageContent({ pathname }) {
   return (
@@ -145,6 +141,7 @@ function DashboardLayoutAccount(props) {
         <DemoPageContent pathname={router.pathname} />
         {router.pathname === "/Liste" && <DataTable />}
         {router.pathname === "/Profile" && <ProfilePage />}
+        {router.pathname === "/EditPage" && <EditPage />}
       </DashboardLayout>
 
       <SignOutModal open={isSignOutModalOpen} onClose={closeSignOutModal} onConfirm={executeSignOut} />

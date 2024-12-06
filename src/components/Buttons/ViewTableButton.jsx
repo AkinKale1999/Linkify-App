@@ -4,12 +4,10 @@ import { useNavigate } from "react-router-dom";
 export default function ViewTableButton({ ButtonText = "View", id }) {
   const navigate = useNavigate();
 
-  // Access the current theme
   const theme = useTheme();
 
-  // Handle navigation
   const handleEdit = (myid) => {
-    navigate(`/Liste/edit/${myid}`);
+    navigate(`/Liste/${myid}`);
   };
 
   return (
