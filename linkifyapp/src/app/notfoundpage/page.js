@@ -1,8 +1,7 @@
 "use client";
 
-
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link"; // Verwende next/link anstelle von react-router-dom
 
 const NotFoundPage = () => {
   return (
@@ -18,7 +17,7 @@ const NotFoundPage = () => {
     >
       <h1 style={{ margin: "0", padding: "0" }}>404 - Seite nicht gefunden</h1>
       <p>Die angegebene URL existiert nicht.</p>
-      <Link to="/login">Zurück zum Login</Link>
+      <Link href="/login">Zurück zum Login</Link> {/* Verwende next/link hier */}
     </div>
   );
 };

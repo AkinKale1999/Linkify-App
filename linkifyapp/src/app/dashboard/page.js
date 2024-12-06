@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, Children } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -18,6 +18,7 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import { useDemoRouter } from "@toolpad/core/internal";
 import SignOutModal from "../components/modula/ModulaLogout";
 import EditPage from "../editpage/page";
+import "../../MyApp.css";
 
 const NAVIGATION = [
   {
@@ -38,6 +39,8 @@ const NAVIGATION = [
     icon: <AccountCircleIcon />,
   },
 ];
+
+// eigene Komponente mache NAVIGATION
 
 function DemoPageContent({ pathname }) {
   return (
@@ -70,7 +73,7 @@ function DashboardLayoutAccount(props) {
     sessionStorage.clear();
     window.location.href = "/logout";
   };
-  // const { window } = props;
+
   const [session, setSession] = React.useState({
     user: {
       name: "",
@@ -105,9 +108,14 @@ function DashboardLayoutAccount(props) {
     };
   }, []);
 
-  // const demoWindow = window !== undefined ? window() : undefined;
+  // Verwendung eines States für die Ansichtsauswahl
+  const [activePage, setActivePage] = useState("dashboard");
 
-  const router = useDemoRouter("/Dashboard");
+  const handleNavigationChange = (page) => {
+    setActivePage(page);
+  };
+
+  const router = useDemoRouter("/dashboard");
 
   return (
     <AppProvider
@@ -124,7 +132,6 @@ function DashboardLayoutAccount(props) {
       }}
       theme={isDarkMode ? dark : light}
       navigation={NAVIGATION}
-      // window={demoWindow}
     >
       <Arrow />
       <LightModeIcon
@@ -139,9 +146,24 @@ function DashboardLayoutAccount(props) {
       />
       <DashboardLayout sidebarExpandedWidth={250}>
         <DemoPageContent pathname={router.pathname} />
-        {router.pathname === "/Liste" && <DataTable />}
-        {router.pathname === "/Profile" && <ProfilePage />}
-        {router.pathname === "/EditPage" && <EditPage />}
+
+        {/* Bedingte Anzeige der Seiten basierend auf dem State */}
+        {activePage === "Liste" && <DataTable />}
+        {activePage === "Profile" && <ProfilePage />}
+        {activePage === "EditPage" && <EditPage />}
+
+        {/* Navigation */}
+        <Box>
+          <button onClick={() => handleNavigationChange("Liste")}>
+            Go to Liste
+          </button>
+          <button onClick={() => handleNavigationChange("Profile")}>
+            Go to Profile
+          </button>
+          <button onClick={() => handleNavigationChange("EditPage")}>
+            Go to EditPage
+          </button>
+        </Box>
       </DashboardLayout>
 
       <SignOutModal

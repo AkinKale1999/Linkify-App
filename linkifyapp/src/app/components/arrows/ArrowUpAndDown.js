@@ -21,8 +21,8 @@ export default function Arrow() {
 
     if (handleIconPosition.current) {
       halfCircle.current.style.rotate = isArrowUp ? "0deg" : "180deg";
-      halfCircle.current.style.top = isArrowUp ? "22px" : "22px";
-      handleIconPosition.current.style.top = isArrowUp ? "29px" : "-24px";
+      halfCircle.current.style.top = isArrowUp ? "30px" : "28px";
+      handleIconPosition.current.style.top = isArrowUp ? "12px" : "-30px";
     }
   };
 

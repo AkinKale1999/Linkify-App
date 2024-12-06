@@ -1,15 +1,16 @@
-"use client"
+"use client"; // Markiert die Datei als Client-Komponente
 
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import Cancelbutton from "../components/buttons/cancelbutton.js";
+import { useRouter } from "next/navigation"; // Statt 'useParams' und 'useNavigate'
+import Cancelbutton from "../components/buttons/cancelbutton";
 import Successbutton from "../components/buttons/successbutton.js";
-import MyTextField from "../mytextfield/page.js";
+import MyTextField from "../mytextfield/page";
 import BackButton from "../components/buttons/backbutton.js";
 
 const EditPage = () => {
-  const { id } = useParams(); 
-  const navigate = useNavigate();
+  const { query } = useRouter(); // Verwendung von Next.js 'useRouter'
+  const { id } = query; 
+  const router = useRouter();
 
   const userData = [
     {
@@ -80,13 +81,14 @@ const EditPage = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    if (!id) return; // Warten bis 'id' in der URL verfügbar ist
     const selectedUser = userData.find((user) => user.id === parseInt(id));
     if (!selectedUser) {
-      navigate("/");
+      router.push("/"); // Weiterleitung falls kein Benutzer gefunden
     } else {
       setUser(selectedUser);
     }
-  }, [id, navigate]);
+  }, [id, router]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -100,12 +102,12 @@ const EditPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Benutzerdaten geändert:", user);
-    navigate("/");
+    router.push("/"); // Weiterleitung nach dem Absenden
   };
 
   const handleDelete = () => {
     console.log("Benutzer gelöscht:", user);
-    navigate("/");
+    router.push("/"); // Weiterleitung nach der Löschung
   };
 
   if (!user) {
@@ -114,17 +116,17 @@ const EditPage = () => {
 
   return (
     <div className="Div-Container">
-      <MyTextField label="Firstname" value={user.firstName} />
+      <MyTextField label="Firstname" value={user.firstName} onChange={handleChange} name="firstName" />
 
-      <MyTextField label="Lastname" value={user.lastName} />
+      <MyTextField label="Lastname" value={user.lastName} onChange={handleChange} name="lastName" />
 
-      <MyTextField label="Age" value={user.age} />
+      <MyTextField label="Age" value={user.age} onChange={handleChange} name="age" />
 
-      <Successbutton />
+      <Successbutton onClick={handleSubmit} />
 
-      <Cancelbutton />
+      <Cancelbutton onClick={() => router.push("/")} />
 
-      <BackButton />
+      <BackButton onClick={() => router.push("/")} />
     </div>
   );
 };

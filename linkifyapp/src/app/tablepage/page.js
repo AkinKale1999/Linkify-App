@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import ViewTableButton from "../components/buttons/viewtablebutton";
-import CreatePage from "../createpage/page"
+import CreatePage from "../createpage/page";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -42,9 +42,8 @@ const rows = [
 const paginationModel = { page: 0, pageSize: 5 };
 
 export default function DataTable() {
-
   if (rows.length === 0) {
-    return <CreatePage />
+    return <CreatePage />;
   }
 
   return (

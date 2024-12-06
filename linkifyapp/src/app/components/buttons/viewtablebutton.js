@@ -1,15 +1,15 @@
-"use client"
+"use client";  // Stelle sicher, dass dies oben in der Datei steht
 
 import { Button, useTheme } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";  // Verwende useRouter aus next/router
 
 export default function ViewTableButton({ ButtonText = "View", id }) {
-  const navigate = useNavigate();
+  const router = useRouter();  // useRouter Hook von Next.js
 
   const theme = useTheme();
 
   const handleEdit = (myid) => {
-    navigate(`/Liste/${myid}`);
+    router.push(`/Liste/${myid}`);  // Navigiere mit router.push
   };
 
   return (
@@ -19,7 +19,7 @@ export default function ViewTableButton({ ButtonText = "View", id }) {
         backgroundColor: "var(--success-color)",
         color: theme.palette.mode === "dark" ? "#fff" : "#000", // Textfarbe abhängig vom Modus
       }}
-      onClick={() => handleEdit(id)}
+      onClick={() => handleEdit(id)}  // Navigiere beim Klick auf den Button
     >
       {ButtonText}
     </Button>

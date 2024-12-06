@@ -1,159 +1,151 @@
-// "use client";
+"use client";
 
-// import { Link, useNavigate } from "react-router-dom";
-// import axios from "axios";
-// import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState, useRef } from "react";
+import axios from "axios";
+import "../../MyApp.css";
 
-// export default function SlotPropsSignUp() {
-//   const [Email, setEmail] = useState("");
-//   const [Password, setPassword] = useState("");
-//   const [Name, setName] = useState("");
-//   const [Family_Name, setFamilyName] = useState("");
-//   const [Firma, setFirma] = useState("");
-//   const [Adresse, setAdresse] = useState("");
+export default function SlotPropsSignUp() {
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const [Name, setName] = useState("");
+  const [Family_Name, setFamilyName] = useState("");
+  const [Firma, setFirma] = useState("");
+  const [Adresse, setAdresse] = useState("");
+  const [ConfirmPassword, setConfirmPassword] = useState("");
+  const [ShowPassword, setShowPassword] = useState("password");
+  const [message, setMessage] = useState("");
+  const messageExist = useRef(null);
+  const navigate = useRouter(); // useRouter innerhalb einer Page-Komponente
 
-//   const [ConfirmPassword, setConfirmPassword] = useState("");
-//   const [ShowPassword, setShowPassword] = useState("password");
-//   const [message, setMessage] = useState("");
-//   const messageExist = useRef(null);
-//   const navigate = useNavigate();
+  async function handleRegister(e) {
+    e.preventDefault();
 
-//   useEffect(() => {
-//     if (message !== "") {
-//       messageExist.current.style.display = "block";
-//       messageExist.current.style.marginTop = "0";
-//     }
-//   }, [message]);
+    // Überprüfen, ob die Passwörter übereinstimmen
+    if (Password !== ConfirmPassword) {
+      setMessage("Passwörter stimmen nicht überein");
+      return;
+    }
 
-//   async function handleRegister(e) {
-//     e.preventDefault();
+    try {
+      // Registrierungs-Request an die API
+      const response = await axios.post("http://localhost:5000/register", {
+        Name,
+        Family_Name,
+        Firma,
+        Adresse,
+        Password,
+        Email,
+      });
 
-//     if (
-//       typeof Name !== "string" ||
-//       !/^[a-zA-Z]+$/.test(Name) ||
-//       typeof Family_Name !== "string" ||
-//       !/^[a-zA-Z]+$/.test(Family_Name)
-//     ) {
-//       setMessage("Vorname und/oder Nachname darf nicht leer sein");
-//       return;
-//     }
+      setMessage(response.data.message);
 
-//     if (Password !== ConfirmPassword) {
-//       setMessage("Passwörter stimmen nicht überein");
-//       return;
-//     }
+      // Nach einer kurzen Verzögerung zur Login-Seite weiterleiten
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
+    } catch (error) {
+      console.error(error);
+      setMessage(error.response?.data?.message || "Ein Fehler ist aufgetreten");
+    }
+  }
 
-//     const passwordPattern =
-//       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[?!-])[A-Za-z\d?!-]{8,}$/;
+  return (
+    <div id="Main_Container_Registry">
+      <div id="Registry_Container">
+        <form id="Registry_Form" onSubmit={handleRegister}>
+          <h1 id="Registry_Title">Registrierung</h1>
 
-//     if (Password.length < 8 || !passwordPattern.test(Password)) {
-//       setMessage(
-//         "Das Passwort muss mindestens 8 Zeichen, 1 Klein-, 1 Großbuchstaben, 1 Zahl und 1 Sonderzeichen (! oder ?) haben."
-//       );
-//       return;
-//     }
+          {/* Formularfelder für die Registrierung */}
+          <div className="Input_Container">
+            <label htmlFor="Name">Vorname</label>
+            <input
+              type="text"
+              id="Name"
+              name="Name"
+              value={Name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
 
-//     try {
-//       let response = await axios.post("http://localhost:5000/register", {
-//         Name,
-//         Family_Name,
-//         Firma,
-//         Adresse,
-//         Password,
-//         Email,
-//       });
+          <div className="Input_Container">
+            <label htmlFor="Family_Name">Nachname</label>
+            <input
+              type="text"
+              id="Family_Name"
+              name="Family_Name"
+              value={Family_Name}
+              onChange={(e) => setFamilyName(e.target.value)}
+            />
+          </div>
 
-//       console.log(response);
-//       setMessage(response.data.message);
+          <div className="Input_Container">
+            <label htmlFor="Firma">Firma</label>
+            <input
+              type="text"
+              id="Firma"
+              name="Firma"
+              value={Firma}
+              onChange={(e) => setFirma(e.target.value)}
+            />
+          </div>
 
-//       setTimeout(() => {
-//         navigate("/login");
-//       }, 3000);
-//     } catch (error) {
-//       console.log(error);
-//       setMessage(error.response?.data?.message || "Ein Fehler ist aufgetreten");
-//     }
-//   }
+          <div className="Input_Container">
+            <label htmlFor="Adresse">Adresse</label>
+            <input
+              type="text"
+              id="Adresse"
+              name="Adresse"
+              value={Adresse}
+              onChange={(e) => setAdresse(e.target.value)}
+            />
+          </div>
 
-//   return (
-//     <div id="Main_Container_Registry">
-//       <div id="Registry_Container">
-//         <form id="Registry_Form" onSubmit={handleRegister}>
-//           <h1 id="Registry_Title">Registrierung</h1>
-//           <input
-//             type="text"
-//             name="name"
-//             className="input_registry"
-//             placeholder="Vorname"
-//             value={Name}
-//             onChange={(e) => setName(e.target.value)}
-//           />
-//           <input
-//             type="text"
-//             name="family_name"
-//             className="input_registry"
-//             placeholder="Nachname"
-//             value={Family_Name}
-//             onChange={(e) => setFamilyName(e.target.value)}
-//           />
-//           <input
-//             type="text"
-//             name="Adresse"
-//             className="input_registry"
-//             placeholder="Adresse"
-//             value={Adresse}
-//             onChange={(e) => setAdresse(e.target.value)}
-//           />
-//           <input
-//             type="text"
-//             name="Firma"
-//             className="input_registry"
-//             placeholder="Firma"
-//             value={Firma}
-//             onChange={(e) => setFirma(e.target.value)}
-//           />
-//           <input
-//             type="text"
-//             name="Email"
-//             className="input_registry"
-//             placeholder="E-mail"
-//             value={Email}
-//             onChange={(e) => setEmail(e.target.value)}
-//           />
-//           <div id="password_container">
-//             <input
-//               type={ShowPassword}
-//               name="password"
-//               className="input_registry"
-//               placeholder="Passwort"
-//               value={Password}
-//               onChange={(e) => setPassword(e.target.value)}
-//             />
-//           </div>
-//           <div id="password_container">
-//             <input
-//               type={ShowPassword}
-//               name="confirm_password"
-//               className="input_registry"
-//               placeholder="Passwort Bestätigen"
-//               onChange={(e) => setConfirmPassword(e.target.value)}
-//             />
-//           </div>
-//           <div id="Submit_Btn_DIV">
-//             <button id="Submit_Btn" ref={messageExist}>
-//               Absenden
-//             </button>
-//           </div>
-//           <div>
-//             <p id="error_message">{message}</p>
-//           </div>
-//           <div id="Navigate_To_LoginDIV">
-//             <Link to="/login" id="Sign_In">
-//               Jetzt einloggen
-//             </Link>
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }
+          <div className="Input_Container">
+            <label htmlFor="Email">E-Mail</label>
+            <input
+              type="email"
+              id="Email"
+              name="Email"
+              value={Email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="Input_Container">
+            <label htmlFor="Password">Passwort</label>
+            <input
+              type={ShowPassword}
+              id="Password"
+              name="Password"
+              value={Password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <div className="Input_Container">
+            <label htmlFor="ConfirmPassword">Passwort bestätigen</label>
+            <input
+              type={ShowPassword}
+              id="ConfirmPassword"
+              name="ConfirmPassword"
+              value={ConfirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+
+          <div className="Input_Container">
+            <button type="submit">Registrieren</button>
+          </div>
+
+          {/* Nachricht, die nach der Registrierung angezeigt wird */}
+          {message && (
+            <div ref={messageExist}>
+              <p>{message}</p>
+            </div>
+          )}
+        </form>
+      </div>
+    </div>
+  );
+}

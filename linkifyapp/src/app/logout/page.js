@@ -1,14 +1,25 @@
 "use client";
 
 import { Box, Typography, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Logout() {
-  const navigate = useNavigate();
+  const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // Setze den Zustand auf true, wenn der Code im Client läuft
+    setIsClient(true);
+  }, []);
 
   const handleLoginRedirect = () => {
-    navigate("/login");
+    router.push("/login");
   };
+
+  if (!isClient) {
+    return null;  // Verhindert das Rendern auf dem Server
+  }
 
   return (
     <Box

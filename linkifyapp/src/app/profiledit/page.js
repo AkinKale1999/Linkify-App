@@ -1,33 +1,31 @@
 "use client"
 
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
-import axios from "axios"; // Importiere axios
-import { Avatar } from "@mui/material"; // Avatar für das Profilbild
+import axios from "axios";
+import { Avatar } from "@mui/material";
 
 function ProfilePage() {
-  const navigate = useNavigate();
+  const router = useRouter();
 
-  // Benutzerdaten aus dem LocalStorage holen
   const [userData, setUserData] = useState({
     username: "",
     email: "",
     company: "",
     password: "",
-    confirmPassword: "", // Neues Feld für Passwortbestätigung
-    profileImage: "", // Neues Feld für das Profilbild
+    confirmPassword: "",
+    profileImage: "",
   });
 
-  const [errorMessage, setErrorMessage] = useState(""); // State für Fehlermeldung
-  const [imagePreview, setImagePreview] = useState(null); // State für Bildvorschau
+  const [errorMessage, setErrorMessage] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
-    // Daten aus LocalStorage laden
     const storedUsername = localStorage.getItem("username");
     const storedEmail = localStorage.getItem("email");
     const storedCompany = localStorage.getItem("company");
@@ -40,10 +38,10 @@ function ProfilePage() {
         email: storedEmail,
         company: storedCompany,
         password: storedPassword,
-        confirmPassword: storedPassword, // Setze das bestätigte Passwort zu dem gespeicherten Passwort
-        profileImage: storedProfileImage || "", // Setze das gespeicherte Profilbild
+        confirmPassword: storedPassword,
+        profileImage: storedProfileImage || "",
       });
-      setImagePreview(storedProfileImage); // Setze die Bildvorschau
+      setImagePreview(storedProfileImage);
     }
   }, []);
 
@@ -52,24 +50,21 @@ function ProfilePage() {
     setUserData((prevData) => {
       const updatedData = { ...prevData, [name]: value };
 
-      // Überprüfe, ob das Passwort den Anforderungen entspricht und setze die Fehlermeldung zurück
       if (name === "password") {
         if (validatePassword(updatedData.password)) {
-          setErrorMessage(""); // Fehlermeldung löschen, wenn das Passwort korrekt ist
+          setErrorMessage("");
         }
       }
 
-      // Überprüfen, ob alle Felder ausgefüllt sind und setze ggf. die Fehlermeldung zurück
       const isEmpty = Object.values(updatedData).some((val) => val === "");
       if (!isEmpty) {
-        setErrorMessage(""); // Wenn alle Felder ausgefüllt sind, Fehlermeldung entfernen
+        setErrorMessage("");
       }
 
       return updatedData;
     });
   };
 
-  // Funktion zur Passwortvalidierung
   const validatePassword = (password) => {
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/|\\~-]).{8,}$/;
@@ -77,19 +72,17 @@ function ProfilePage() {
   };
 
   const handleSaveChanges = async () => {
-    // Validierung: Prüfen, ob alle Felder ausgefüllt sind (optional, um Fehler anzuzeigen, aber nicht das PUT zu verhindern)
     if (
       !userData.username ||
       !userData.email ||
       !userData.company ||
       !userData.password ||
-      !userData.confirmPassword // Sicherstellen, dass das Bestätigungspasswort ausgefüllt ist
+      !userData.confirmPassword
     ) {
-      setErrorMessage("Alle Felder müssen ausgefüllt werden."); // Setze Fehlermeldung
-      return; // Verhindert das Speichern, wenn Felder leer sind
+      setErrorMessage("Alle Felder müssen ausgefüllt werden.");
+      return;
     }
 
-    // Validierung des Passworts
     if (!validatePassword(userData.password)) {
       setErrorMessage(
         "Das Passwort muss mindestens 8 Zeichen lang sein und 1 Großbuchstaben, 1 Kleinbuchstaben, 1 Zahl sowie 1 Sonderzeichen enthalten."
@@ -97,14 +90,12 @@ function ProfilePage() {
       return;
     }
 
-    // Validierung: Prüfen, ob die Passwörter übereinstimmen
     if (userData.password !== userData.confirmPassword) {
       setErrorMessage("Die Passwörter stimmen nicht überein.");
       return;
     }
 
     try {
-      // HTTP-Anfrage an das Backend, um die Benutzerdaten zu aktualisieren
       const response = await axios.put(
         "http://localhost:5000/api/updateProfile",
         userData
@@ -112,7 +103,7 @@ function ProfilePage() {
 
       if (response.status === 200) {
         alert("Änderungen wurden gespeichert.");
-        navigate("/dashboard");
+        router.push("/dashboard");
       } else {
         setErrorMessage(
           "Etwas ist schief gelaufen. Bitte versuche es später erneut."
@@ -126,28 +117,26 @@ function ProfilePage() {
     }
   };
 
-  // Funktion zum Umgang mit dem Profilbild-Upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagePreview(reader.result); // Zeigt das ausgewählte Bild als Vorschau an
+        setImagePreview(reader.result);
         setUserData((prevData) => ({
           ...prevData,
-          profileImage: reader.result, // Das Bild in den Benutzerdaten speichern
+          profileImage: reader.result,
         }));
       };
-      reader.readAsDataURL(file); // Bild in Base64-Format konvertieren
+      reader.readAsDataURL(file);
     }
   };
 
-  // Funktion zum Entfernen des Profilbildes
   const handleRemoveImage = () => {
-    setImagePreview(null); // Setzt die Bildvorschau zurück
+    setImagePreview(null);
     setUserData((prevData) => ({
       ...prevData,
-      profileImage: "", // Entfernt das Bild aus den Benutzerdaten
+      profileImage: "",
     }));
   };
 
@@ -155,7 +144,6 @@ function ProfilePage() {
     <Box sx={{ padding: 4 }}>
       <Typography variant="h5">Profil bearbeiten</Typography>
 
-      {/* Fehlermeldung anzeigen */}
       {errorMessage && (
         <Alert
           style={{ marginBottom: "20px", marginTop: "10px" }}
@@ -165,20 +153,18 @@ function ProfilePage() {
         </Alert>
       )}
 
-      {/* Profilbild */}
       <Box sx={{ display: "flex", justifyContent: "center", marginBottom: 2 }}>
         <Avatar
           src={imagePreview || userData.profileImage || "/default-profile.png"}
           alt="Profilbild"
           sx={{
-            width: 150, // Größe des Bildes
-            height: 150, // Größe des Bildes
-            borderRadius: "50%", // Rundes Bild
+            width: 150,
+            height: 150,
+            borderRadius: "50%",
           }}
         />
       </Box>
 
-      {/* Profilbild hochladen */}
       <Button
         variant="outlined"
         component="label"
@@ -193,7 +179,6 @@ function ProfilePage() {
         />
       </Button>
 
-      {/* Profilbild entfernen */}
       {imagePreview && (
         <Button
           variant="outlined"
@@ -247,7 +232,7 @@ function ProfilePage() {
       <TextField
         label="Passwort bestätigen"
         type="password"
-        name="confirmPassword" // Neues Feld für Passwortbestätigung
+        name="confirmPassword"
         value={userData.confirmPassword}
         onChange={handleInputChange}
         fullWidth
