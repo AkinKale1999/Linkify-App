@@ -151,19 +151,6 @@ function DashboardLayoutAccount(props) {
         {activePage === "Liste" && <DataTable />}
         {activePage === "Profile" && <ProfilePage />}
         {activePage === "EditPage" && <EditPage />}
-
-        {/* Navigation */}
-        <Box>
-          <button onClick={() => handleNavigationChange("Liste")}>
-            Go to Liste
-          </button>
-          <button onClick={() => handleNavigationChange("Profile")}>
-            Go to Profile
-          </button>
-          <button onClick={() => handleNavigationChange("EditPage")}>
-            Go to EditPage
-          </button>
-        </Box>
       </DashboardLayout>
 
       <SignOutModal
