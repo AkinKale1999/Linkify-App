@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useRef } from "react";
 import axios from "axios";
+import Link from "next/link";
 
 export default function SlotPropsSignUp() {
   const [Email, setEmail] = useState("");
@@ -59,6 +60,7 @@ export default function SlotPropsSignUp() {
           <div className="Input_Container">
             <label htmlFor="Name">Vorname</label>
             <input
+              className="input_registry"
               type="text"
               id="Name"
               name="Name"
@@ -70,6 +72,7 @@ export default function SlotPropsSignUp() {
           <div className="Input_Container">
             <label htmlFor="Family_Name">Nachname</label>
             <input
+              className="input_registry"
               type="text"
               id="Family_Name"
               name="Family_Name"
@@ -81,6 +84,7 @@ export default function SlotPropsSignUp() {
           <div className="Input_Container">
             <label htmlFor="Firma">Firma</label>
             <input
+              className="input_registry"
               type="text"
               id="Firma"
               name="Firma"
@@ -92,6 +96,7 @@ export default function SlotPropsSignUp() {
           <div className="Input_Container">
             <label htmlFor="Adresse">Adresse</label>
             <input
+              className="input_registry"
               type="text"
               id="Adresse"
               name="Adresse"
@@ -103,6 +108,7 @@ export default function SlotPropsSignUp() {
           <div className="Input_Container">
             <label htmlFor="Email">E-Mail</label>
             <input
+              className="input_registry"
               type="email"
               id="Email"
               name="Email"
@@ -114,6 +120,7 @@ export default function SlotPropsSignUp() {
           <div className="Input_Container">
             <label htmlFor="Password">Passwort</label>
             <input
+              className="input_registry"
               type={ShowPassword}
               id="Password"
               name="Password"
@@ -125,6 +132,7 @@ export default function SlotPropsSignUp() {
           <div className="Input_Container">
             <label htmlFor="ConfirmPassword">Passwort bestätigen</label>
             <input
+              className="input_registry"
               type={ShowPassword}
               id="ConfirmPassword"
               name="ConfirmPassword"
@@ -134,12 +142,19 @@ export default function SlotPropsSignUp() {
           </div>
 
           <div className="Input_Container">
-            <button type="submit">Registrieren</button>
+            <button id="Submit_Btn" type="submit">
+              Registrieren
+            </button>
           </div>
 
-          {/* Nachricht, die nach der Registrierung angezeigt wird */}
+          <div id="LinkToLogin">
+            <Link href={"/login"} style={{ color: "#1976d2" }}>
+              Bereits registriert? Zum Login
+            </Link>
+          </div>
+
           {message && (
-            <div ref={messageExist}>
+            <div id="error_message" ref={messageExist}>
               <p>{message}</p>
             </div>
           )}

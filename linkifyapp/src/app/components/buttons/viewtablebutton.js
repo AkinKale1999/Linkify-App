@@ -1,27 +1,31 @@
-"use client";  // Stelle sicher, dass dies oben in der Datei steht
+"use client"; // Markiert die Datei als Client-Komponente
 
 import { Button, useTheme } from "@mui/material";
-import { useRouter } from "next/router";  // Verwende useRouter aus next/router
+import { useState } from "react";
+import EditPage from "../editpage/editpage";
 
-export default function ViewTableButton({ ButtonText = "View", id }) {
-  const router = useRouter();  // useRouter Hook von Next.js
+export default function ViewTableButton({ row }) {
+  const [view, setView] = useState(false);
 
   const theme = useTheme();
 
-  const handleEdit = (myid) => {
-    router.push(`/Liste/${myid}`);  // Navigiere mit router.push
+  const handleClick = () => {
+    setView(true);
   };
 
   return (
-    <Button
-      variant="contained"
-      style={{
-        backgroundColor: "var(--success-color)",
-        color: theme.palette.mode === "dark" ? "#fff" : "#000", // Textfarbe abhängig vom Modus
-      }}
-      onClick={() => handleEdit(id)}  // Navigiere beim Klick auf den Button
-    >
-      {ButtonText}
-    </Button>
+    <>
+      <Button
+        variant="contained"
+        style={{
+          backgroundColor: "var(--success-color)",
+          color: theme.palette.mode === "dark" ? "#fff" : "#000", // Textfarbe abhängig vom Modus
+        }}
+        onClick={handleClick}  // Ändert die Ansicht ohne URL zu verändern
+      >
+        View
+      </Button>
+      {view && <EditPage selectedRowId={row.id} />}
+    </>
   );
 }

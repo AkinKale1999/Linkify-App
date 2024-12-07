@@ -1,15 +1,17 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation"; // Router verwenden
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { SignInPage } from "@toolpad/core/SignInPage";
-import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "next/link";
 import axios from "axios";
 
 export default function SlotPropsSignIn() {
   // MUI-Theme erstellen
   const theme = createTheme();
+  const router = useRouter(); // Router verwenden
 
   function ForgotPasswordLink() {
     return (
@@ -29,7 +31,6 @@ export default function SlotPropsSignIn() {
 
   const providers = [{ id: "credentials", name: "Email and Password" }];
 
-  // Funktion zur Authentifizierung mit dem Backend
   async function CheckLogin(email, password) {
     try {
       const response = await axios.post("http://localhost:5000/login", {
@@ -40,7 +41,7 @@ export default function SlotPropsSignIn() {
       if (response.data.success) {
         localStorage.setItem("Auth", "true");
         sessionStorage.setItem("Username", email);
-        window.location.href = "/";
+        router.push("/"); // Weiterleitung nach Login
       } else {
         alert("Falsche Anmeldedaten.");
       }
@@ -54,11 +55,10 @@ export default function SlotPropsSignIn() {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    // Überprüfe zuerst die Anmeldedaten lokal
     if (email === "akin@1" && password === "1234") {
       localStorage.setItem("Auth", "true");
       sessionStorage.setItem("Username", email);
-      window.location.href = "/";
+      router.push("/"); // Weiterleitung nach erfolgreichem Login
     } else {
       CheckLogin(email, password);
     }

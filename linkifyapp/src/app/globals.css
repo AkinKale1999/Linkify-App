@@ -10,6 +10,7 @@
 .MuiButtonBase-root {
   position: absolute;
 }
+
 .Div-Container {
   display: flex;
   flex-direction: column;
@@ -78,13 +79,11 @@
   display: inline-block;
 }
 
-.css-tu3i28-MuiButtonBase-root-MuiIconButton-root:hover{
+.css-tu3i28-MuiButtonBase-root-MuiIconButton-root:hover {
   position: absolute;
   top: 100px;
   background-color: black;
 }
-
-
 
 /* --------------------------------------- */
 
@@ -102,7 +101,6 @@
   justify-content: center;
   flex-direction: column;
   background: #fff;
-  height: auto;
   width: 400px;
   min-width: 300px;
   padding: 2rem;
@@ -113,8 +111,9 @@
 #Registry_Form {
   display: flex;
   flex-direction: column;
-  width: 100%;
   justify-content: center;
+  width: 100%;
+  height: 650px;
 }
 
 .input_registry {
@@ -149,7 +148,7 @@
   justify-content: center;
   width: 100%;
   margin: 0;
-  margin-top: 15px;
+  margin-top: 5px;
   margin-bottom: 10px;
 }
 
@@ -161,8 +160,17 @@
   color: #1976d2;
 }
 
+#LinkToLogin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  margin-top: 15px;
+}
 
-.css-bfm88r{
+.css-bfm88r {
   display: flex;
   align-items: center;
   justify-content: center;

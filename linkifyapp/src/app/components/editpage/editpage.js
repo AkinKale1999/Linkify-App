@@ -1,16 +1,13 @@
 "use client"; // Markiert die Datei als Client-Komponente
 
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation"; // Statt 'useParams' und 'useNavigate'
-import Cancelbutton from "../components/buttons/cancelbutton";
-import Successbutton from "../components/buttons/successbutton.js";
-import MyTextField from "../mytextfield/page";
-import BackButton from "../components/buttons/backbutton.js";
+import MyTextField from "../mytextfield/page.js";
+import Successbutton from "../buttons/successbutton.js";
+import Cancelbutton from "../buttons/cancelbutton.js";
+import BackButton from "../buttons/backbutton.js";
 
-const EditPage = () => {
-  const { query } = useRouter(); // Verwendung von Next.js 'useRouter'
-  const { id } = query; 
-  const router = useRouter();
+const EditPage = ({ selectedRowId }) => {
+  const [user, setUser] = useState(null);
 
   const userData = [
     {
@@ -78,17 +75,10 @@ const EditPage = () => {
     },
   ];
 
-  const [user, setUser] = useState(null);
-
   useEffect(() => {
-    if (!id) return; // Warten bis 'id' in der URL verfügbar ist
-    const selectedUser = userData.find((user) => user.id === parseInt(id));
-    if (!selectedUser) {
-      router.push("/"); // Weiterleitung falls kein Benutzer gefunden
-    } else {
-      setUser(selectedUser);
-    }
-  }, [id, router]);
+    const selectedUser = userData.find((user) => user.id === selectedRowId);
+    setUser(selectedUser);
+  }, [selectedRowId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -102,12 +92,10 @@ const EditPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Benutzerdaten geändert:", user);
-    router.push("/"); // Weiterleitung nach dem Absenden
   };
 
   const handleDelete = () => {
     console.log("Benutzer gelöscht:", user);
-    router.push("/"); // Weiterleitung nach der Löschung
   };
 
   if (!user) {
@@ -123,10 +111,8 @@ const EditPage = () => {
       <MyTextField label="Age" value={user.age} onChange={handleChange} name="age" />
 
       <Successbutton onClick={handleSubmit} />
-
-      <Cancelbutton onClick={() => router.push("/")} />
-
-      <BackButton onClick={() => router.push("/")} />
+      <Cancelbutton onClick={() => setUser(null)} />
+      <BackButton onClick={() => setUser(null)} />
     </div>
   );
 };

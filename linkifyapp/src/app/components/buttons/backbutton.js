@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation"; // Verwende useRouter von Next.js
 
 export default function BackButton({ ButtonText = "Back" }) {
-  const navigate = useNavigate();
+  const router = useRouter(); // Verwende useRouter von Next.js
   const handleBack = () => {
-    navigate(-1);
+    router.back();
   };
 
   return (
@@ -18,7 +18,7 @@ export default function BackButton({ ButtonText = "Back" }) {
         width: "var(--width-button)",
         height: "var(--height-button)",
       }}
-      onClick={() => handleBack()}
+      onClick={handleBack}
     >
       {ButtonText}
     </Button>
