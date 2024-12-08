@@ -7,6 +7,7 @@ import { SignInPage } from "@toolpad/core/SignInPage";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "next/link";
 import axios from "axios";
+import ProtectedRoute from "../components/protectedroute/protectedroute";
 
 export default function SlotPropsSignIn() {
   // MUI-Theme erstellen
@@ -65,32 +66,32 @@ export default function SlotPropsSignIn() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <div
-        style={{
-          height: "850px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-        }}
-      >
-        <AppProvider theme={theme}>
-          <SignInPage
-            slots={{
-              signUpLink: SignUpLink,
-              forgotPasswordLink: ForgotPasswordLink,
-            }}
-            signIn={handleSignIn}
-            slotProps={{
-              emailField: { variant: "standard" },
-              passwordField: { variant: "standard" },
-              submitButton: { variant: "outlined" },
-            }}
-            providers={providers}
-          />
-        </AppProvider>
-      </div>
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <div
+          style={{
+            height: "850px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <AppProvider theme={theme}>
+            <SignInPage
+              slots={{
+                signUpLink: SignUpLink,
+                forgotPasswordLink: ForgotPasswordLink,
+              }}
+              signIn={handleSignIn}
+              slotProps={{
+                emailField: { variant: "standard" },
+                passwordField: { variant: "standard" },
+                submitButton: { variant: "outlined" },
+              }}
+              providers={providers}
+            />
+          </AppProvider>
+        </div>
+      </ThemeProvider>
   );
 }

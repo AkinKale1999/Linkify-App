@@ -10,12 +10,9 @@ const ProtectedRoute = ({ children }) => {
     if (authStatus === "true") {
       setAuth(true);
       router.push("/");
-      if (router !== "/") {
-        router.push("/");
-      }
     } else {
       setAuth(false);
-      router.push("/login");
+      router.push("/logout");
     }
   }, [router]);
 

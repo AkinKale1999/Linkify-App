@@ -3,6 +3,7 @@
 import { Box, Typography, Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import ProtectedRoute from "../components/protectedroute/protectedroute";
 
 export default function Logout() {
   const router = useRouter();

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState, useRef } from "react";
 import axios from "axios";
 import Link from "next/link";
+import ProtectedRoute from "../components/protectedroute/protectedroute";
 
 export default function SlotPropsSignUp() {
   const [Email, setEmail] = useState("");
@@ -51,6 +52,7 @@ export default function SlotPropsSignUp() {
   }
 
   return (
+    
     <div id="Main_Container_Registry">
       <div id="Registry_Container">
         <form id="Registry_Form" onSubmit={handleRegister}>
