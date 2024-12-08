@@ -5,7 +5,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { useRef, useState } from "react";
 
-export default function Arrow() {
+export default function Arrow({ isDarkMode }) {
   const handleIconPosition = useRef(null);
   const halfCircle = useRef(null);
   const [isArrowUp, setIsArrowUp] = useState(false);
@@ -48,9 +48,16 @@ export default function Arrow() {
             ref={halfCircle}
             src="/img/Circle.svg"
             alt="Halbkreis"
+            style={{
+              filter: isDarkMode ? "invert(1)" : "none", // Dynamischer Stil
+            }}
           />
         </div>
-        {isArrowUp ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}
+        {isArrowUp ? (
+          <ArrowDownwardIcon style={{ color: isDarkMode ? "#fff" : "#000" }} />
+        ) : (
+          <ArrowUpwardIcon style={{ color: isDarkMode ? "#fff" : "#000" }} />
+        )}
       </IconButton>
     </div>
   );

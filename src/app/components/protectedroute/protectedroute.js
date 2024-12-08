@@ -9,9 +9,13 @@ const ProtectedRoute = ({ children }) => {
     const authStatus = localStorage.getItem("Auth");
     if (authStatus === "true") {
       setAuth(true);
+      router.push("/");
+      if (router !== "/") {
+        router.push("/");
+      }
     } else {
       setAuth(false);
-      router.push("/login"); // Umleitung zur Login-Seite, wenn nicht authentifiziert
+      router.push("/login");
     }
   }, [router]);
 

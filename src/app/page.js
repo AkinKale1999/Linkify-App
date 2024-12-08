@@ -122,7 +122,7 @@ function DashboardLayoutAccount(props) {
         theme={isDarkMode ? dark : light}
         navigation={NAVIGATION}
       >
-        <Arrow />
+        <Arrow isDarkMode={isDarkMode} />
         <LightModeIcon
           id="LightMode"
           onClick={toggleTheme}
