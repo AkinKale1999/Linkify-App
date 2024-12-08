@@ -1,66 +1,85 @@
 :root {
-    --cancel-color: red;
-    --success-color: green;
-    --width-button: 200px;
-    --height-button: 50px;
-    --color-light-mode: #1565c0;
-    --color-dark-mode: #fff;
-  }
-  
-  .MuiButtonBase-root {
-    position: absolute;
-  }
-  
-  .Div-Container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f7fc;
-    padding: 20px;
-    gap: 15px;
-  }
-  
-  .Div-Container div {
-    margin-bottom: 10px;
-  }
-  
-  #LogoPath {
-    width: 150px;
-    height: auto;
-    object-fit: cover;
-  }
-  
-  #ContainerDIV {
-    position: absolute;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  
-  #LightMode {
-    width: 30px;
-    height: fit-content;
-    z-index: 9999;
-    position: absolute;
-    right: 70px;
-    top: 20px;
-    cursor: pointer;
-    color: var(--color-light-mode);
-  }
-  
-  #DarkMode {
-    width: 30px;
-    height: fit-content;
-    z-index: 9999;
-    position: absolute;
-    right: 70px;
-    top: 20px;
-    cursor: pointer;
-    color: var(--color-dark-mode);
-  }
-  
+  --cancel-color: red;
+  --success-color: green;
+  --width-button: 200px;
+  --height-button: 50px;
+  --color-light-mode: #1565c0;
+  --color-dark-mode: #fff;
+}
+
+.MuiButtonBase-root {
+  position: absolute;
+}
+
+.Div-Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f7fc;
+  padding: 20px;
+  gap: 15px;
+}
+
+.Div-Container div {
+  margin-bottom: 10px;
+}
+
+#LogoPath {
+  width: 150px;
+  height: auto;
+  object-fit: cover;
+}
+
+#ContainerDIV {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#LightMode {
+  width: 30px;
+  height: fit-content;
+  z-index: 9999;
+  position: absolute;
+  right: 70px;
+  top: 20px;
+  cursor: pointer;
+  color: var(--color-light-mode);
+}
+
+#DarkMode {
+  width: 30px;
+  height: fit-content;
+  z-index: 9999;
+  position: absolute;
+  right: 70px;
+  top: 20px;
+  cursor: pointer;
+  color: var(--color-dark-mode);
+}
+
+#halbkreis {
+  position: relative;
+  width: 50px;
+  top: 25px;
+  display: inline-block;
+}
+
+#ArrowBTN {
+  position: absolute;
+  display: inline-block;
+  width: fit-content;
+  height: fit-content;
+  margin: 0px;
+  padding: 0px;
+  top: 17px;
+  z-index: 9999;
+}
+
+@media (max-width: 599px) {
   #ArrowBTN {
     position: absolute;
     display: inline-block;
@@ -68,113 +87,106 @@
     height: fit-content;
     margin: 0px;
     padding: 0px;
-    top: 17px;
+    top: 9px;
     z-index: 9999;
   }
-  
+
   #halbkreis {
-    position: relative;
-    width: 50px;
-    top: 25px;
-    display: inline-block;
+    top: 24px;
   }
-  
-  .css-tu3i28-MuiButtonBase-root-MuiIconButton-root:hover{
-    background-color: black;
-  }
-  
-  
-  /* burgermenu */
-  /* .css-aixiz9-MuiButtonBase-root-MuiIconButton-root{
+}
+
+/* burgermenu */
+/* .css-aixiz9-MuiButtonBase-root-MuiIconButton-root{
   } */
-  /* --------------------------------------- */
-  
-  #Main_Container_Registry {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 850px;
-  }
-  
-  #Registry_Container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background: #fff;
-    width: 400px;
-    min-width: 300px;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px 5px rgb(209, 209, 209);
-  }
-  
-  #Registry_Form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    height: 650px;
-  }
-  
-  .input_registry {
-    padding: 10px;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  #Submit_Btn {
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
-  }
-  
-  #Submit_Btn:hover {
-    background-color: #0056b3;
-  }
-  
-  #error_message {
-    color: red;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin: 0;
-    margin-top: 5px;
-    margin-bottom: 10px;
-  }
-  
-  #Navigate_To_LoginDIV {
-    background-color: black;
-  }
-  
-  #Sign_In {
-    color: #1976d2;
-  }
-  
-  #LinkToLogin {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    margin-top: 15px;
-  }
-  
-  .css-bfm88r {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 400px;
-  }
+/* --------------------------------------- */
+
+#Main_Container_Registry {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 850px;
+}
+
+#Registry_Container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #fff;
+  width: 400px;
+  min-width: 300px;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px 5px rgb(209, 209, 209);
+}
+
+#Registry_Form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 650px;
+}
+
+.input_registry {
+  padding: 10px;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#Submit_Btn {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+#Submit_Btn:hover {
+  background-color: #0056b3;
+}
+
+#error_message {
+  color: red;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+#Navigate_To_LoginDIV {
+  background-color: black;
+}
+
+#Sign_In {
+  color: #1976d2;
+}
+
+#LinkToLogin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.css-bfm88r {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+}
