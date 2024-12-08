@@ -6,7 +6,7 @@ import SlotPropsSignIn from "./pages/Login";
 import Logout from "./pages/Logout";
 import SlotPropsSignUp from "../src/pages/Register";
 import "./MyApp.css";
-
+// xcacsa
 const App = () => {
   const [auth, setAuth] = useState(localStorage.getItem("Auth") === "true");
 
