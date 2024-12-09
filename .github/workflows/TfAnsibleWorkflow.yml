@@ -49,7 +49,7 @@ jobs:
           chmod 600 ~/.ssh/terraformKey.pem
 
       - name: Run Ansible Playbook
-        working-directory: ./ansible
+        working-directory: ./terraform/ansible
         run: ansible-playbook -i ec2Maschinen.ini meinPlaybook.yml
 
   destroy:
@@ -80,6 +80,4 @@ jobs:
         run: terraform destroy -auto-approve
 
 
-
-        
 
