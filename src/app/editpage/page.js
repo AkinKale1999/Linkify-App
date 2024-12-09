@@ -6,9 +6,9 @@ import ProtectedRoute from "../components/protectedroute/protectedroute";
 
 const EditPage = () => {
   const router = useRouter();
-  const [entry, setEntry] = useState(null);
+  const [entry, setEntry] = useState(null); // Zustand für den Eintrag
   const [loading, setLoading] = useState(true);
-  const [id, setId] = useState(null);
+  const [id, setId] = useState(null); // Zustand für die ID
 
   const rows = [
     { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
