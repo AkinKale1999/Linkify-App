@@ -1,0 +1,76 @@
+:root {
+  --cancel-color: red;
+  --success-color: green;
+  --width-button: 200px;
+  --height-button: 50px;
+  --color-light-mode: #1565c0;
+  --color-dark-mode: #fff;
+}
+
+.Div-Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f7fc;
+  padding: 20px;
+  gap: 15px;
+}
+
+.Div-Container div {
+  margin-bottom: 10px;
+}
+
+#LogoPath {
+  width: 180px;
+  height: auto;
+  object-fit: cover;
+}
+
+#ContainerDIV {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#LightMode {
+  width: 30px;
+  height: fit-content;
+  z-index: 9999;
+  position: absolute;
+  right: 70px;
+  top: 20px;
+  cursor: pointer;
+  color: var(--color-light-mode);
+}
+
+#DarkMode {
+  width: 30px;
+  height: fit-content;
+  z-index: 9999;
+  position: absolute;
+  right: 70px;
+  top: 20px;
+  cursor: pointer;
+  color: var(--color-dark-mode);
+}
+
+#ArrowBTN {
+  position: absolute;
+  display: inline-block;
+  width: fit-content;
+  height: fit-content;
+  margin: 0px;
+  padding: 0px;
+  top: 27px;
+  z-index: 9999;
+}
+
+#halbkreis {
+  position: relative;
+  width: 50px;
+  top: 22px;
+  display: inline-block;
+}
