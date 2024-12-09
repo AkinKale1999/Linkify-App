@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
@@ -20,6 +18,7 @@ function ProfilePage() {
     password: "",
     confirmPassword: "",
     profileImage: "",
+    address: "",
   });
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -31,6 +30,7 @@ function ProfilePage() {
     const storedCompany = localStorage.getItem("company");
     const storedPassword = localStorage.getItem("password");
     const storedProfileImage = localStorage.getItem("profileImage");
+    const storedAddress = localStorage.getItem("address"); // Adresse aus localStorage holen
 
     if (storedUsername && storedEmail && storedCompany && storedPassword) {
       setUserData({
@@ -40,6 +40,7 @@ function ProfilePage() {
         password: storedPassword,
         confirmPassword: storedPassword,
         profileImage: storedProfileImage || "",
+        address: storedAddress || "", // Adresse setzen
       });
       setImagePreview(storedProfileImage);
     }
@@ -77,7 +78,8 @@ function ProfilePage() {
       !userData.email ||
       !userData.company ||
       !userData.password ||
-      !userData.confirmPassword
+      !userData.confirmPassword ||
+      !userData.address // Überprüfen, ob die Adresse eingegeben wurde
     ) {
       setErrorMessage("Alle Felder müssen ausgefüllt werden.");
       return;
@@ -216,6 +218,14 @@ function ProfilePage() {
         label="Firma"
         name="company"
         value={userData.company}
+        onChange={handleInputChange}
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        label="Adresse"
+        name="address"
+        value={userData.address}
         onChange={handleInputChange}
         fullWidth
         margin="normal"

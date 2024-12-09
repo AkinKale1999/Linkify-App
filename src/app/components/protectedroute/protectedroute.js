@@ -11,8 +11,7 @@ const ProtectedRoute = ({ children }) => {
       setAuth(true);
       router.push("/");
     } else {
-      setAuth(false);
-      router.push("/logout");
+      router.push("/login");
     }
   }, [router]);
 
