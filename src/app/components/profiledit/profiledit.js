@@ -12,29 +12,32 @@ function ProfilePage() {
   const router = useRouter();
 
   const [userData, setUserData] = useState({
-    username: "",
+    firstName: "", // Vorname
+    lastName: "",  // Nachname
     email: "",
     company: "",
     password: "",
     confirmPassword: "",
     profileImage: "",
-    address: "",
+    address: "", // Neues Feld für Adresse
   });
 
   const [errorMessage, setErrorMessage] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
-    const storedUsername = localStorage.getItem("username");
+    const storedFirstName = localStorage.getItem("firstName");
+    const storedLastName = localStorage.getItem("lastName");
     const storedEmail = localStorage.getItem("email");
     const storedCompany = localStorage.getItem("company");
     const storedPassword = localStorage.getItem("password");
     const storedProfileImage = localStorage.getItem("profileImage");
     const storedAddress = localStorage.getItem("address"); // Adresse aus localStorage holen
 
-    if (storedUsername && storedEmail && storedCompany && storedPassword) {
+    if (storedFirstName && storedLastName && storedEmail && storedCompany && storedPassword) {
       setUserData({
-        username: storedUsername,
+        firstName: storedFirstName,
+        lastName: storedLastName,
         email: storedEmail,
         company: storedCompany,
         password: storedPassword,
@@ -74,7 +77,8 @@ function ProfilePage() {
 
   const handleSaveChanges = async () => {
     if (
-      !userData.username ||
+      !userData.firstName ||
+      !userData.lastName ||
       !userData.email ||
       !userData.company ||
       !userData.password ||
@@ -199,9 +203,17 @@ function ProfilePage() {
       )}
 
       <TextField
-        label="Benutzername"
-        name="username"
-        value={userData.username}
+        label="Vorname"
+        name="firstName"
+        value={userData.firstName}
+        onChange={handleInputChange}
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        label="Nachname"
+        name="lastName"
+        value={userData.lastName}
         onChange={handleInputChange}
         fullWidth
         margin="normal"

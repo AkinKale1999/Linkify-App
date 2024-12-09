@@ -14,7 +14,7 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useDemoRouter } from "@toolpad/core/internal";
 import SignOutModal from "./components/modula/ModulaLogout";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import EditPage from "./components/editpage/editpage";
+import EditPage from "./editpage/page";
 import NAVIGATION from "./components/navigation/navigation";
 import CreatePage from "./components/createpage/createpage";
 import ProtectedRoute from "./components/protectedroute/protectedroute";
@@ -135,6 +135,7 @@ function DashboardLayoutAccount(props) {
         />
         <DashboardLayout sidebarExpandedWidth={250}>
           <DemoPageContent pathname={router.pathname} />
+
           {activePage === "Liste" && router.pathname !== "/Dashboard" && (
             <DataTable setDataRows={setDataRows} />
           )}

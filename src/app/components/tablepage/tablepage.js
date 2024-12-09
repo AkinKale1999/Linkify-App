@@ -1,6 +1,7 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
+import ViewTableButton from "../buttons/viewtablebutton";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -18,6 +19,13 @@ const columns = [
     sortable: false,
     width: 160,
     valueGetter: (value, row) => `${row.firstName || ""} ${row.lastName || ""}`,
+  },
+  {
+    field: "action",
+    headerName: "Action",
+    sortable: false,
+    width: 160,
+    renderCell: (params) => <ViewTableButton row={params.row} />,
   },
 ];
 
