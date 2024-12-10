@@ -1,51 +1,51 @@
 // app/login/page.tsx
-'use client';
-import { useState, useEffect } from 'react';
-import { TextField, Button, Container, Typography, Box } from '@mui/material';
-import { useRouter } from 'next/navigation';
-import {isAuthenticated} from '../../utils/Auth';
-import { useLayoutEffect } from 'react';
+"use client";
+import { useState, useEffect } from "react";
+import { TextField, Button, Container, Typography, Box } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { isAuthenticated } from "../../utils/Auth";
+import { useLayoutEffect } from "react";
 
 const Login: React.FC = () => {
   const router = useRouter(); // Використання useRouter для маршрутизації
-  const [username, setUsername] = useState('user@my.com');
-  const [password, setPassword] = useState('1234');
-
+  const [username, setUsername] = useState("user@my.com");
+  const [password, setPassword] = useState("1234");
 
   const handleRegisteration = async () => {
-
-    router.push('/registeration');
-  }
+    router.push("/registeration");
+  };
   // const t = useTranslations();
-
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Перешкоджаємо перезавантаженню сторінки
 
     try {
-      if(username  === "user@my.com"){
-        if(password === '1234'){
-         localStorage.setItem('user', username)
-        }else{
-          alert("no go - pass")
+      if (username === "user@my.com") {
+        if (password === "1234") {
+          localStorage.setItem("user", username);
+        } else {
+          alert("no go - pass");
         }
-      }else{
-        alert("no go - user name")
+      } else {
+        alert("no go - user name");
       }
-      const token = localStorage.getItem('user') 
+      const token = localStorage.getItem("user");
       if (token === "user@my.com") {
-        router.push('/customer'); // Перенаправлення на dashboard після успішного логіну
+        router.push("/customer"); // Перенаправлення на dashboard після успішного логіну
       }
     } catch (error) {
-      console.error('Login failed:', error); // Обробка помилок
+      console.error("Login failed:", error); // Обробка помилок
     }
   };
 
   return (
-
     <>
-      <Button sx={{float:'right'}} variant="outlined" onClick={handleRegisteration}>
-        Регістрація
+      <Button
+        sx={{ float: "right" }}
+        variant="outlined"
+        onClick={handleRegisteration}
+      >
+        Registrierung
         {/* {t('logout.Logout')} */}
       </Button>
       <Container maxWidth="sm">
@@ -86,7 +86,7 @@ const Login: React.FC = () => {
               variant="contained"
               color="primary"
               fullWidth
-              style={{ marginTop: '16px' }}
+              style={{ marginTop: "16px" }}
             >
               Login
             </Button>
@@ -97,4 +97,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;  
+export default Login;

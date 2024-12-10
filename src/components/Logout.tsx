@@ -6,17 +6,9 @@ import { useRouter } from "next/navigation";
 const Logout: React.FC = () => {
   const router = useRouter();
 
-  const handleLogout = async () => {
-    localStorage.clear();
-    router.push("/");
-  };
-
   return (
     <div style={{}}>
-      <LogoutIcon
-        onClick={handleLogout}
-        style={{ cursor: "pointer" }}
-      />
+      <LogoutIcon style={{ cursor: "pointer" }} />
     </div>
   );
 };

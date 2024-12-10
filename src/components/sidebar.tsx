@@ -127,6 +127,11 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
     router.push(path); // Використовуйте router.push для навігації
   };
 
+  const handleLogout = async () => {
+    localStorage.clear();
+    router.push("/");
+  };
+
   const handleDrawerClose = () => {
     setOpen(false);
     setIsSideBarOpen(false);
@@ -152,7 +157,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            Linkify
           </Typography>
         </Toolbar>
       </AppBar>
@@ -171,8 +176,8 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
         {/* --------------------------------- */}
         <List>
           <ListItem disablePadding>
-            <ListItemButton>
-                <Logout />
+            <ListItemButton onClick={() => handleLogout()}>
+              <Logout />
               <ListItemText primary="logout" style={{ marginLeft: "31px" }} />
             </ListItemButton>
           </ListItem>

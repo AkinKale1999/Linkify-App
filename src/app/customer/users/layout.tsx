@@ -23,6 +23,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { useRouter } from "next/navigation";
+import Users from "./[id]/page";
 
 interface Data {
   id: number;
@@ -52,7 +53,7 @@ function createData(
 }
 
 const rows = [
-  createData(1, "Cupcake", 305, 3.7, 67, 4.3),
+  createData(1, "adad", 305, 3.7, 67, 4.3),
   createData(2, "Donut", 452, 25.0, 51, 4.9),
   createData(3, "Eclair", 262, 16.0, 24, 6.0),
   createData(4, "Frozen yoghurt", 159, 6.0, 24, 4.0),
@@ -129,15 +130,9 @@ const headCells: readonly HeadCell[] = [
     disablePadding: false,
     label: "Protein (g)",
   },
-  {
-    id: "actions",
-    numeric: true,
-    disablePadding: false,
-    label: "Actions",
-  },
 ];
 
-interface EnhancedTableProps {
+interface UsersTableProps {
   numSelected: number;
   onRequestSort: (
     event: React.MouseEvent<unknown>,
@@ -149,7 +144,7 @@ interface EnhancedTableProps {
   rowCount: number;
 }
 
-function EnhancedTableHead(props: EnhancedTableProps) {
+function UsersTableHead(props: UsersTableProps) {
   const {
     onSelectAllClick,
     order,
@@ -202,10 +197,10 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     </TableHead>
   );
 }
-interface EnhancedTableToolbarProps {
+interface UsersTableToolbarProps {
   numSelected: number;
 }
-function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
+function UsersTableToolbar(props: UsersTableToolbarProps) {
   const { numSelected } = props;
   return (
     <Toolbar
@@ -258,7 +253,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
     </Toolbar>
   );
 }
-export default function EnhancedTable() {
+export default function UsersTable() {
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("calories");
   const [selected, setSelected] = React.useState<readonly number[]>([]);
@@ -339,16 +334,16 @@ export default function EnhancedTable() {
   );
 
   return (
-    <Box sx={{ width: "100%", marginLeft: "5%" }}>
+    <Box sx={{ width: "90%", marginLeft: "5%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <UsersTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
           >
-            <EnhancedTableHead
+            <UsersTableHead
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
@@ -397,15 +392,9 @@ export default function EnhancedTable() {
                     <TableCell align="right">{row.fat}</TableCell>
                     <TableCell align="right">{row.carbs}</TableCell>
                     <TableCell align="right">{row.protein}</TableCell>
+
                     <TableCell align="right">
-                      <button
-                        style={{
-                          width: "55px",
-                          backgroundColor: "green",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => handleRowClick(row.id)}
-                      >
+                      <button onClick={() => handleRowClick(row.id)}>
                         View{row.id}
                       </button>
                     </TableCell>
