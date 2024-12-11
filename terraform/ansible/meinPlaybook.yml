@@ -1,32 +1,71 @@
 ---
-- name: Container auf der Maschine starten
+- name: Deploy Webserver
   hosts: all
-  become: yes #root-rechte zum installieren 
+  become: true
+  vars_files:
+    - group_vars/webserver.yml
   tasks:
-    - name: System updaten
-      yum:
-        update_cache: yes
-    
-    - name: Docker installieren
-      yum:
-        name: docker
+    - name: Install nginx
+      apt:
+        name: nginx
         state: present
+        update_cache: yes
 
-    - name: Starten und aktivieren von Docker
+    - name: Start nginx service
       service:
-        name: docker
+        name: nginx
         state: started
-        enabled: yes
+        enabled: true
 
-    - name: Add ec2-user to docker group
-      user:
-        name: ec2-user
-        groups: docker
-        append: true
+    - name: Create custom HTML page for Info-Seite
+      copy:
+        content: |
+          <html>
+            <head>
+              <title>Info Seite</title>
+            </head>
+            <body>
+              <h1>Hello, willkommen bei der Info-Seite Linkify!</h1>
+            </body>
+          </html>
+        dest: /var/www/html/info.html
 
-    - name: Start Nginx Container
-      docker_container:
-        name: meinNginx-container
-        image: nginx
-        state: started
-    
+    - name: Create custom HTML page for App-Seite
+      copy:
+        content: |
+          <html>
+            <head>
+              <title>App Seite</title>
+            </head>
+            <body>
+              <h1>Hello in der App Linkify!</h1>
+            </body>
+          </html>
+        dest: /var/www/html/app.html
+
+    - name: Configure nginx to serve custom pages
+      copy:
+        content: |
+          server {
+            listen 80;
+            server_name _;
+            
+            location /info {
+              root /var/www/html;
+              index info.html;
+            }
+            
+            location /app {
+              root /var/www/html;
+              index app.html;
+            }
+          }
+        dest: /etc/nginx/sites-available/default
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Reload nginx
+      service:
+        name: nginx
+        state: reloaded
