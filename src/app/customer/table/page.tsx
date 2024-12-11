@@ -357,12 +357,12 @@ export default function EnhancedTable() {
   );
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 5 }}>
+    <Box sx={{}}>
+      <Paper sx={{ mb: 5 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
-            sx={{ minWidth: 750, border: "1px solid #eee" }}
+            sx={{ border: "1px solid #eee" }}
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
           >
@@ -456,6 +456,7 @@ export default function EnhancedTable() {
         />
       </Paper>
       <FormControlLabel
+        style={{ marginLeft: "10px" }}
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />

@@ -1,4 +1,3 @@
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -6,7 +5,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body >
+      <body
+        style={{
+          height: "100%",
+          minHeight: "100%",
+          width: "100%",
+        }}
+      >
         {children}
       </body>
     </html>
