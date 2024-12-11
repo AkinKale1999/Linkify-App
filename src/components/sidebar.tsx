@@ -19,15 +19,13 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Url } from "next/dist/shared/lib/router/router";
 import Logout from "./Logout";
 import { useRouter } from "next/navigation";
-import MailIcon from "@mui/icons-material/Mail";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import LogoutIcon from "@mui/icons-material/Logout";
-
+import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
+import ChangeMode from "./DarkLightMode";
 const drawerWidth = 240;
+// Breite der sidebar bei klick auf burgermenu
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -156,11 +154,14 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h5" noWrap component="div">
             Linkify
           </Typography>
+
+          <ChangeMode />
         </Toolbar>
       </AppBar>
+
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
@@ -178,7 +179,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
           <ListItem disablePadding>
             <ListItemButton onClick={() => handleLogout()}>
               <Logout />
-              <ListItemText primary="logout" style={{ marginLeft: "31px" }} />
+              <ListItemText primary="Logout" style={{ marginLeft: "31px" }} />
             </ListItemButton>
           </ListItem>
 
@@ -187,7 +188,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
               <ListItemIcon>
                 <DashboardIcon />
               </ListItemIcon>
-              <ListItemText primary="dashboard" />
+              <ListItemText primary="Dashboard" />
             </ListItemButton>
           </ListItem>
 
@@ -196,73 +197,23 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
               <ListItemIcon>
                 <FormatListBulletedIcon />
               </ListItemIcon>
-              <ListItemText primary="table" />
-            </ListItemButton>
-          </ListItem>
-
-          <ListItem disablePadding>
-            <ListItemButton
-              onClick={() => handleNavigation("/customer/table/user")}
-            >
-              <AccountCircleIcon>
-                <FormatListBulletedIcon />
-              </AccountCircleIcon>
-              <ListItemText primary="user" style={{ marginLeft: "31px" }} />
+              <ListItemText primary="Table" />
             </ListItemButton>
           </ListItem>
         </List>
 
         <Divider />
         <List>
-          {/* {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={[
-                  {
-                    minHeight: 48,
-                    px: 2.5,
-                  },
-                  open
-                    ? {
-                        justifyContent: "initial",
-                      }
-                    : {
-                        justifyContent: "center",
-                      },
-                ]}
-              >
-                <ListItemIcon
-                  sx={[
-                    {
-                      minWidth: 0,
-                      justifyContent: "center",
-                    },
-                    open
-                      ? {
-                          mr: 3,
-                        }
-                      : {
-                          mr: "auto",
-                        },
-                  ]}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText
-                  primary={text}
-                  sx={[
-                    open
-                      ? {
-                          opacity: 1,
-                        }
-                      : {
-                          opacity: 0,
-                        },
-                  ]}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))} */}
+          <ListItem disablePadding>
+            <ListItemButton
+              onClick={() => handleNavigation("/customer/table/admin")}
+            >
+              <SupervisorAccountIcon>
+                <FormatListBulletedIcon />
+              </SupervisorAccountIcon>
+              <ListItemText primary="Admin" style={{ marginLeft: "31px" }} />
+            </ListItemButton>
+          </ListItem>
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

@@ -23,49 +23,59 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { useRouter } from "next/navigation";
+import ToggleSwitch from "@/components/toggleBtn";
+import usersData from "../users/userdata.json";
 
-interface Data {
+type Data = {
   id: number;
-  calories: number;
-  carbs: number;
-  fat: number;
-  name: string;
-  protein: number;
-}
+  username: string;
+  first_name: string;
+  last_name: string;
+  group: string;
+  status: string;
+};
 
+type UserData = {
+  id: number;
+  username: string;
+  name: {
+    first_name: string;
+    last_name: string;
+  };
+  group: string;
+  status: string;
+};
+
+// Funktion, um das Data-Objekt zu erstellen
 function createData(
   id: number,
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
+  username: string,
+  first_name: string,
+  last_name: string,
+  group: string,
+  status: string
 ): Data {
   return {
     id,
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
+    username,
+    first_name,
+    last_name,
+    group,
+    status,
   };
 }
 
-const rows = [
-  createData(1, "Cupcake", 305, 3.7, 67, 4.3),
-  createData(2, "Donut", 452, 25.0, 51, 4.9),
-  createData(3, "Eclair", 262, 16.0, 24, 6.0),
-  createData(4, "Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData(5, "Gingerbread", 356, 16.0, 49, 3.9),
-  createData(6, "Honeycomb", 408, 3.2, 87, 6.5),
-  createData(7, "Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData(8, "Jelly Bean", 375, 0.0, 94, 0.0),
-  createData(9, "KitKat", 518, 26.0, 65, 7.0),
-  createData(10, "Lollipop", 392, 0.2, 98, 0.0),
-  createData(11, "Marshmallow", 318, 0, 81, 2.0),
-  createData(12, "Nougat", 360, 19.0, 9, 37.0),
-  createData(13, "Oreo", 437, 18.0, 63, 4.0),
-];
+// Verwenden von usersData.users, da es das Array ist
+const rows: Data[] = usersData.users.map((user: UserData) =>
+  createData(
+    user.id,
+    user.username,
+    user.name.first_name,
+    user.name.last_name,
+    user.group,
+    user.status
+  )
+);
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -100,40 +110,47 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: "name",
+    id: "username",
     numeric: false,
     disablePadding: true,
-    label: "Dessert (100g serving)",
+    label: "Username",
   },
   {
-    id: "calories",
-    numeric: true,
+    id: "first_name",
+    numeric: false, // Text, daher numeric: false
     disablePadding: false,
-    label: "Calories",
+    label: "Vorname",
   },
   {
-    id: "fat",
-    numeric: true,
+    id: "last_name",
+    numeric: false, // Text, daher numeric: false
     disablePadding: false,
-    label: "Fat (g)",
+    label: "Nachname",
   },
   {
-    id: "carbs",
-    numeric: true,
+    id: "group",
+    numeric: false, // Text, daher numeric: false
     disablePadding: false,
-    label: "Carbs (g)",
+    label: "Gruppe",
   },
   {
-    id: "protein",
-    numeric: true,
+    id: "status",
+    numeric: false, // Text, daher numeric: false
     disablePadding: false,
-    label: "Protein (g)",
+    label: "Status",
   },
+  // Wenn du eine "actions"-Spalte verwendest, solltest du eine Methode oder Dummy-Daten hinzufügen
   {
     id: "actions",
-    numeric: true,
+    numeric: false, // Hier könnte es Buttons oder Links geben, daher numeric: false
     disablePadding: false,
     label: "Actions",
+  },
+  {
+    id: "admin",
+    numeric: false, // Hier könnte es sich um einen booleschen Wert handeln
+    disablePadding: false,
+    label: "Admin",
   },
 ];
 
@@ -235,11 +252,12 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
       ) : (
         <Typography
           sx={{ flex: "1 1 100%" }}
-          variant="h6"
+          variant="h4"
           id="tableTitle"
           component="div"
+          textAlign={"center"}
         >
-          Nutrition
+          User Liste
         </Typography>
       )}
       {numSelected > 0 ? (
@@ -258,15 +276,15 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
     </Toolbar>
   );
 }
+
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("calories");
+  const [orderBy, setOrderBy] = React.useState<keyof Data>("username");
   const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const router = useRouter();
-  // Ініціалізація useRouter
 
   const handleRowClick = (id: number) => {
     console.log(id);
@@ -339,12 +357,12 @@ export default function EnhancedTable() {
   );
 
   return (
-    <Box sx={{ width: "100%", marginLeft: "5%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
+    <Box sx={{ width: "100%" }}>
+      <Paper sx={{ width: "100%", mb: 5 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
-            sx={{ minWidth: 750 }}
+            sx={{ minWidth: 750, border: "1px solid #eee" }}
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
           >
@@ -365,8 +383,6 @@ export default function EnhancedTable() {
                   <TableRow
                     hover
                     onClick={(event) => {
-                      console.log(row.id);
-
                       handleClick(event, row.id);
                     }}
                     role="checkbox"
@@ -391,24 +407,29 @@ export default function EnhancedTable() {
                       scope="row"
                       padding="none"
                     >
-                      {row.name}
+                      {row.username}
                     </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
-                    <TableCell align="right">
+
+                    <TableCell align="left">{row.first_name}</TableCell>
+                    <TableCell align="left">{row.last_name}</TableCell>
+                    <TableCell align="left">{row.group}</TableCell>
+                    <TableCell align="left">{row.status}</TableCell>
+                    <TableCell align="left">
                       <button
                         style={{
-                          width: "55px",
-                          backgroundColor: "green",
+                          width: "60px",
+                          backgroundColor: "#1976d2",
+                          color: "#fff",
                           cursor: "pointer",
+                          borderRadius: "15px",
                         }}
                         onClick={() => handleRowClick(row.id)}
                       >
                         View{row.id}
                       </button>
                     </TableCell>
+
+                    <ToggleSwitch align="left" />
                   </TableRow>
                 );
               })}
