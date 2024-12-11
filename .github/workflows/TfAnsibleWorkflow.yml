@@ -46,8 +46,8 @@ jobs:
       - name: Copy SSH Key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_Linkify }}" > ~/.ssh/terraformKey.pem
-          chmod 600 ~/.ssh/terraformKey.pem
+          echo "${{ secrets.SSH_Linkify }}" > ~/.ssh/linkify1.pem
+          chmod 600 ~/.ssh/linkify1.pem
 
       - name: Run Ansible Playbook
         working-directory: ./terraform/ansible
