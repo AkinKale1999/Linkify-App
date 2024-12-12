@@ -1,8 +1,15 @@
-"use client";
 import React from "react";
 import { Box, Container, Typography, Link } from "@mui/material";
 
-export const Footer = () => {
+interface FooterProps {
+  footerPosition?: string | number;
+  footerIndex?: string | number;
+}
+
+const Footer: React.FC<FooterProps> = ({
+  footerPosition = "0",
+  footerIndex = "9999",
+}) => {
   return (
     <Box
       component="footer"
@@ -13,10 +20,13 @@ export const Footer = () => {
         position: "fixed",
         bottom: "0",
         width: "100%",
-        height: "80px",
+        minHeight: "56px",
+        zIndex: footerIndex,
+        left: footerPosition,
+        transition: "left 0.23s ease",
       }}
     >
-      <Container maxWidth="lg" style={{ marginLeft: "20px" }}>
+      <Container maxWidth="lg" sx={{ margin: 0, padding: 0 }}>
         <Link
           href="https://facebook.com"
           color="inherit"
@@ -43,7 +53,12 @@ export const Footer = () => {
         </Link>
 
         <Box textAlign="center">
-          <Typography variant="body2" sx={{ color: "#fff" }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "#fff",
+            }}
+          >
             &copy; {new Date().getFullYear()} Lorem ipsum dolor sit amet
             consectetur, adipisicing elit. Nemo, amet.
           </Typography>
@@ -52,3 +67,5 @@ export const Footer = () => {
     </Box>
   );
 };
+
+export default Footer;

@@ -1,16 +1,21 @@
-'use client';
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+"use client";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-function Home() {
-  const router = useRouter(); // Для програмного редіректу
+function ProtectedRoute() {
+  const router = useRouter();
 
-  // Використовуємо useEffect для редіректу при першому рендері компонента
   useEffect(() => {
-    router.push('/login'); // Зміна маршруту одразу після того, як компонент був відрендерений
+    const user = localStorage.getItem("user");
+
+    if (user === "user@my.com") {
+      router.push("/customer");
+    } else {
+      router.push("/login");
+    }
   }, [router]);
 
-  return null; // Не потрібно відображати жодного контенту
+  return null;
 }
 
-export default Home;
+export default ProtectedRoute;

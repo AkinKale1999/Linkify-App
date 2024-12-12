@@ -118,10 +118,12 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
+
   const handleDrawerOpen = () => {
     setOpen(true);
     setIsSideBarOpen(true);
   };
+
   const handleNavigation = (path: Url) => {
     // @ts-ignore
     router.push(path); // Використовуйте router.push для навігації
@@ -218,8 +220,9 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
           <ListItem
             disablePadding
             style={{
-              position: "absolute",
-              top: "570px",
+              display: "flex",
+              alignContent: "center",
+              justifyContent: "center",
             }}
           >
             <ListItemButton

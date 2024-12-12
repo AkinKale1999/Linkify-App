@@ -3,16 +3,14 @@
 import { useState, useEffect } from "react";
 import { TextField, Button, Container, Typography, Box } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { isAuthenticated } from "../../utils/Auth";
-import { useLayoutEffect } from "react";
 
 const Login: React.FC = () => {
   const router = useRouter(); // Використання useRouter для маршрутизації
   const [username, setUsername] = useState("user@my.com");
   const [password, setPassword] = useState("1234");
 
-  const handleRegisteration = async () => {
-    router.push("/registeration");
+  const handleRegistrierung = async () => {
+    router.push("/registrierung");
   };
   // const t = useTranslations();
 
@@ -41,9 +39,9 @@ const Login: React.FC = () => {
   return (
     <>
       <Button
-        sx={{ float: "right" }}
+        sx={{ float: "right", marginTop: "10px", marginRight: "10px" }}
         variant="outlined"
-        onClick={handleRegisteration}
+        onClick={handleRegistrierung}
       >
         Registrierung
         {/* {t('logout.Logout')} */}

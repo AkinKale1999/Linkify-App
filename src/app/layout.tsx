@@ -7,9 +7,8 @@ export default function RootLayout({
     <html lang="en">
       <body
         style={{
-          height: "100%",
-          minHeight: "100%",
-          width: "100%",
+          margin: "0",
+          padding: "0",
         }}
       >
         {children}
