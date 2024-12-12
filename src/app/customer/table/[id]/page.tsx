@@ -4,7 +4,7 @@
 //   return <h1>My Page {id}</h1>
 // }
 "use client";
-import Users from "../../users/[id]/page";
+import Users from "../../../../components/users/[id]/page";
 const Page = () => {
   return (
     <div>

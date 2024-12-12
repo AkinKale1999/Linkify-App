@@ -6,30 +6,25 @@ export default function ChangeMode() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleDarkMode = () => {
-    setIsDarkMode((prevMode) => !prevMode);
+    setIsDarkMode((prevMode) => {
+      const newMode = !prevMode;
 
-    // Farben definieren
-    const bodyBackgroundColor = !isDarkMode ? "#000" : "#fff";
-    const bodyTextColor = !isDarkMode ? "#fff" : "#000";
-    const headerFooterBackgroundColor = isDarkMode ? "#1976d2" : "#000"; // Blau für LightMode, Weiß für DarkMode
-    const headerFooterTextColor = "#fff"; // Weiß für DarkMode, Schwarz für LightMode
+      const headerFooterBackgroundColor = newMode ? "#000" : "#1976d2";
+      const headerFooterTextColor = newMode ? "#fff" : "#fff";
 
-    // Body und HTML Hintergrund- und Textfarbe setzen
-    document.documentElement.style.backgroundColor = bodyBackgroundColor; // <html>
-    document.body.style.backgroundColor = bodyBackgroundColor; // <body>
-    document.body.style.color = bodyTextColor; // Textfarbe im Body
+      const footer = document.querySelector("footer");
+      const header = document.querySelector("header");
+      if (footer) {
+        footer.style.backgroundColor = headerFooterBackgroundColor;
+        footer.style.color = headerFooterTextColor;
+      }
+      if (header) {
+        header.style.backgroundColor = headerFooterBackgroundColor;
+        header.style.color = headerFooterTextColor;
+      }
 
-    // Footer und Header bearbeiten
-    const footer = document.querySelector("footer");
-    const header = document.querySelector("header");
-    if (footer) {
-      footer.style.backgroundColor = headerFooterBackgroundColor;
-      footer.style.color = headerFooterTextColor; // Textfarbe in Footer
-    }
-    if (header) {
-      header.style.backgroundColor = headerFooterBackgroundColor;
-      header.style.color = headerFooterTextColor; // Textfarbe in Header
-    }
+      return newMode;
+    });
   };
 
   return (
@@ -43,11 +38,10 @@ export default function ChangeMode() {
       }}
       onClick={toggleDarkMode}
     >
-      {/* DarkModeIcon immer weiß und LightModeIcon immer schwarz */}
       {isDarkMode ? (
-        <LightModeIcon style={{ color: "#fff" }} /> // Immer schwarz
+        <LightModeIcon style={{ color: "#fff" }} />
       ) : (
-        <DarkModeIcon style={{ color: "#fff" }} /> // Immer weiß
+        <DarkModeIcon style={{ color: "#fff" }} />
       )}
     </div>
   );

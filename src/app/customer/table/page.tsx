@@ -24,7 +24,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { useRouter } from "next/navigation";
 import ToggleSwitch from "@/components/toggleBtn";
-import usersData from "../users/userdata.json";
+import usersData from "../../../components/users/userdata.json";
 
 type Data = {
   id: number;
@@ -357,12 +357,29 @@ export default function EnhancedTable() {
   );
 
   return (
-    <Box sx={{}}>
-      <Paper sx={{ mb: 5 }}>
+    <Box
+      sx={{
+        position: "relative",
+        left: "65px",
+        display: "flex",
+        alignContent: "center",
+        justifyContent: "center",
+        width: "95.9%",
+        flexDirection: "column",
+      }}
+    >
+      <Paper sx={{ mb: 3 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
+        <TableContainer
+          sx={{
+            overflow: "hidden",
+          }}
+        >
           <Table
-            sx={{ border: "1px solid #eee" }}
+            sx={{
+              border: "1px solid #eee",
+              minWidth: "100%",
+            }}
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
           >
@@ -456,7 +473,7 @@ export default function EnhancedTable() {
         />
       </Paper>
       <FormControlLabel
-        style={{ marginLeft: "10px" }}
+        style={{ marginLeft: "10px", width: "fit-content" }}
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
