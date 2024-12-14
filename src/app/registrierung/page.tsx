@@ -13,6 +13,7 @@ import {
 import { useRouter } from "next/navigation";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import axios from "axios";
 
 const Register: React.FC = () => {
   const [firstName, setFirstName] = useState<string>("");
@@ -75,44 +76,46 @@ const Register: React.FC = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          street,
-          houseNumber,
-          postalCode,
-          city,
-          region,
-          country,
-          addressSupplement,
-          email,
-          password,
-          username,
-          company,
-        }),
+      const response = await axios.post("http://localhost:5000/api/register", {
+        firstName,
+        lastName,
+        street,
+        houseNumber,
+        postalCode,
+        city,
+        region,
+        country,
+        addressSupplement,
+        email,
+        password,
+        username,
+        company,
       });
 
-      if (response.ok) {
+      // Erfolgreiche Registrierung
+      if (response.status === 200) {
         setSuccessMessage(
           "Erfolgreich registriert, Sie werden weitergeleitet."
         );
         setTimeout(() => {
           router.push("/dashboard");
-        }, 3000); // Weiterleitung nach 3 Sekunden
+        }, 3000);
       } else {
-        const errorData = await response.json();
-        setErrorMessage(
-          `Registrierung fehlgeschlagen: ${errorData.message || "Unbekannter Fehler"}`
-        );
+        // Fehler, wenn Status nicht 200 ist
+        setErrorMessage(`Email ist bereits vergeben: ${response.data.message}`);
       }
-    } catch (error) {
-      console.error("Registrierungsfehler:", error);
-      setErrorMessage("Es ist ein Problem bei der Registrierung aufgetreten.");
+    } catch (error: unknown) {
+      console.error(
+        "Serverfehler, bitte versuchen Sie es später erneut:",
+        error
+      );
+
+      // Fehlerbehandlung
+      if (error instanceof Error) {
+        setErrorMessage(error.message); // Nur, wenn `error` vom Typ `Error` ist
+      } else {
+        setErrorMessage("Ein unbekannter Fehler ist aufgetreten.");
+      }
     }
   };
 
@@ -354,8 +357,7 @@ const Register: React.FC = () => {
               </Grid>
 
               <Grid item xs={12}>
-                <Button type="submit"
-                 fullWidth variant="contained">
+                <Button type="submit" fullWidth variant="contained">
                   Registrieren
                 </Button>
               </Grid>

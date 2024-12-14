@@ -368,7 +368,7 @@ export default function EnhancedTable() {
         flexDirection: "column",
       }}
     >
-      <Paper sx={{ mb: 3 }}>
+      <Paper sx={{ mb: 1 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer
           sx={{

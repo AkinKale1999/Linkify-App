@@ -25,11 +25,8 @@ const DashboardPage = () => {
       }}
     >
       <h1>Dashboard</h1>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum dolorum
-      corporis quo dolorem dolores aperiam. Aut eaque ex temporibus, itaque
-      ratione quod et vero id error laudantium voluptatum expedita, ut
-      voluptate. Earum pariatur reiciendis deleniti eius voluptatem non maiores
-      atque! Saepe incidunt sit aperiam culpa a harum ipsam amet esse.
+      Hallo und herzlich willkommen, dass Sie sich bei Linkify registriert
+      haben.
     </div>
   );
 };
