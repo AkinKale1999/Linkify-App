@@ -30,7 +30,14 @@ const Register: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [showPasswords, setShowPasswords] = useState<boolean>(false);
   const [company, setCompany] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>(""); // Fehlernachricht
+  const [successMessage, setSuccessMessage] = useState<string>(""); // Erfolgsnachricht
   const router = useRouter();
+
+  const border = {
+    border: "2px solid #ccc",
+    borderRadius: "5px",
+  };
 
   const validatePassword = (password: string): boolean => {
     const passwordRegex =
@@ -40,21 +47,35 @@ const Register: React.FC = () => {
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrorMessage(""); // Fehlernachricht zurücksetzen
+    setSuccessMessage(""); // Erfolgsnachricht zurücksetzen
+
+    if (username.length < 4) {
+      setErrorMessage("Benutzername muss mindestens 4 Zeichen beinhalten.");
+      return;
+    }
+
+    // Erlaubt nur alphanumerische Zeichen
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
+    if (!usernameRegex.test(username)) {
+      setErrorMessage("Benutzername darf keine Sonderzeichen enthalten.");
+      return;
+    }
 
     if (password !== confirmPassword) {
-      alert("Passwörter stimmen nicht überein.");
+      setErrorMessage("Passwörter stimmen nicht überein.");
       return;
     }
 
     if (!validatePassword(password)) {
-      alert(
+      setErrorMessage(
         "Das Passwort muss mindestens 8 Zeichen lang sein und mindestens einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen (!@#$%^&*?) enthalten."
       );
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:3000/register", {
+      const response = await fetch("http://localhost:3000/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,19 +98,21 @@ const Register: React.FC = () => {
       });
 
       if (response.ok) {
-        router.push("/dashboard");
-        alert(
-          "Registrierung erfolgreich, Sie werden zum Dashboard weitergeleitet."
+        setSuccessMessage(
+          "Erfolgreich registriert, Sie werden weitergeleitet."
         );
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 3000); // Weiterleitung nach 3 Sekunden
       } else {
         const errorData = await response.json();
-        alert(
+        setErrorMessage(
           `Registrierung fehlgeschlagen: ${errorData.message || "Unbekannter Fehler"}`
         );
       }
     } catch (error) {
       console.error("Registrierungsfehler:", error);
-      alert("Es ist ein Problem bei der Registrierung aufgetreten.");
+      setErrorMessage("Es ist ein Problem bei der Registrierung aufgetreten.");
     }
   };
 
@@ -104,7 +127,7 @@ const Register: React.FC = () => {
         variant="outlined"
         onClick={handleLogin}
       >
-        Login
+        zurück zum Login
       </Button>
       <Container maxWidth="sm">
         <Box
@@ -141,6 +164,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setFirstName(e.target.value)}
                   required
                   fullWidth
+                  style={border}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -151,6 +175,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setLastName(e.target.value)}
                   required
                   fullWidth
+                  style={border}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -161,6 +186,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setStreet(e.target.value)}
                   required
                   fullWidth
+                  style={border}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -171,6 +197,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setHouseNumber(e.target.value)}
                   required
                   fullWidth
+                  style={border}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -181,6 +208,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setPostalCode(e.target.value)}
                   required
                   fullWidth
+                  style={border}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -191,6 +219,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setCity(e.target.value)}
                   required
                   fullWidth
+                  style={border}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -201,6 +230,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setRegion(e.target.value)}
                   required
                   fullWidth
+                  style={border}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -211,6 +241,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setCountry(e.target.value)}
                   required
                   fullWidth
+                  style={border}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -220,6 +251,7 @@ const Register: React.FC = () => {
                   value={addressSupplement}
                   onChange={(e) => setAddressSupplement(e.target.value)}
                   fullWidth
+                  style={border}
                 />
               </Grid>
 
@@ -230,6 +262,7 @@ const Register: React.FC = () => {
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
                   fullWidth
+                  style={border}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -240,6 +273,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setUsername(e.target.value)}
                   required
                   fullWidth
+                  style={border}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -250,6 +284,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   fullWidth
+                  style={border}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -260,6 +295,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   fullWidth
+                  style={border}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -285,6 +321,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                   fullWidth
+                  style={border}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -304,7 +341,21 @@ const Register: React.FC = () => {
               </Grid>
 
               <Grid item xs={12}>
-                <Button variant="contained" type="submit" fullWidth>
+                {errorMessage && (
+                  <Typography color="error" variant="body2">
+                    {errorMessage}
+                  </Typography>
+                )}
+                {successMessage && (
+                  <Typography color="green" variant="body2">
+                    {successMessage}
+                  </Typography>
+                )}
+              </Grid>
+
+              <Grid item xs={12}>
+                <Button type="submit"
+                 fullWidth variant="contained">
                   Registrieren
                 </Button>
               </Grid>

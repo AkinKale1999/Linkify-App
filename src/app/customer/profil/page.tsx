@@ -11,7 +11,7 @@ export default function Profile() {
         width: "85%",
       }}
     >
-      <h1 style={{ margin: "0" }}>Profile</h1>
+      <h1 style={{ margin: "0" } }>Profile</h1>
     </div>
   );
 }

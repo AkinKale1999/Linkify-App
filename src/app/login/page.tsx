@@ -1,40 +1,49 @@
 // app/login/page.tsx
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { TextField, Button, Container, Typography, Box } from "@mui/material";
 import { useRouter } from "next/navigation";
+import axios from "axios"; // Axios importieren
 
 const Login: React.FC = () => {
-  const router = useRouter(); // Використання useRouter для маршрутизації
+  const router = useRouter();
   const [username, setUsername] = useState("user@my.com");
   const [password, setPassword] = useState("1234");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // Fehlernachricht-Status
 
-  const handleRegistrierung = async () => {
+  const handleRegistrierung = () => {
     router.push("/registrierung");
   };
-  // const t = useTranslations();
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Перешкоджаємо перезавантаженню сторінки
-
-    try {
-      if (username === "user@my.com") {
-        if (password === "1234") {
-          localStorage.setItem("user", username);
-        } else {
-          alert("no go - pass");
-        }
-      } else {
-        alert("no go - user name");
-      }
-      const token = localStorage.getItem("user");
-      if (token === "user@my.com") {
-        router.push("/customer"); // Перенаправлення на dashboard після успішного логіну
-      }
-    } catch (error) {
-      console.error("Login failed:", error); // Обробка помилок
-    }
+  const handlePasswordReset = () => {
+    router.push("/password-vergessen");
   };
+
+  // const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   setErrorMessage(null); 
+
+  //   try {
+  //     const response = await axios.post("http://localhost:3000/api/login", {
+  //       username,
+  //       password,
+  //     });
+
+  //     if (response.status === 200 && response.data.token) {
+  //       localStorage.setItem("user", response.data.token);
+  //       router.push("/customer");
+  //     } else {
+  //       setErrorMessage(
+  //         "Ungültige Anmeldedaten. Bitte versuchen Sie es erneut."
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error("Login fehlgeschlagen:", error);
+  //     setErrorMessage(
+  //       error.response?.data?.message || "Ein Fehler ist aufgetreten."
+  //     );
+  //   }
+  // };
 
   return (
     <>
@@ -44,7 +53,6 @@ const Login: React.FC = () => {
         onClick={handleRegistrierung}
       >
         Registrierung
-        {/* {t('logout.Logout')} */}
       </Button>
       <Container maxWidth="sm">
         <Box
@@ -58,13 +66,15 @@ const Login: React.FC = () => {
             Login
           </Typography>
 
-          <form onSubmit={handleLogin}>
+          <form 
+          // onSubmit={handleLogin}
+          >
             <TextField
               label="Username"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="text"
+              placeholder="Username"
               fullWidth
               margin="normal"
               variant="outlined"
@@ -79,6 +89,15 @@ const Login: React.FC = () => {
               margin="normal"
               variant="outlined"
             />
+            {errorMessage && (
+              <Typography
+                color="error"
+                variant="body2"
+                style={{ marginTop: "8px" }}
+              >
+                {errorMessage}
+              </Typography>
+            )}
             <Button
               type="submit"
               variant="contained"
@@ -89,6 +108,14 @@ const Login: React.FC = () => {
               Login
             </Button>
           </form>
+          <Button
+            variant="text"
+            color="secondary"
+            style={{ marginTop: "16px" }}
+            onClick={handlePasswordReset}
+          >
+            Passwort vergessen?
+          </Button>
         </Box>
       </Container>
     </>

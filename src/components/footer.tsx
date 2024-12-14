@@ -4,11 +4,13 @@ import { Box, Container, Typography, Link } from "@mui/material";
 interface FooterProps {
   footerPosition?: string | number;
   footerIndex?: string | number;
+  borderTop?: string | number;
 }
 
 const Footer: React.FC<FooterProps> = ({
   footerPosition = "0",
   footerIndex = "9999",
+  borderTop = "1px solid rgba(255, 255, 255, 1)",
 }) => {
   return (
     <Box
@@ -16,17 +18,17 @@ const Footer: React.FC<FooterProps> = ({
       sx={{
         backgroundColor: "#1976d2",
         color: "#fff",
-        paddingTop: "20px",
         position: "fixed",
         bottom: "0",
-        width: "100%",
-        minHeight: "56px",
+        minWidth: "100%",
+        minHeight: "auto",
         zIndex: footerIndex,
         left: footerPosition,
         transition: "left 0.23s ease",
+        borderTop: borderTop,
       }}
     >
-      <Container maxWidth="lg" sx={{ margin: 0, padding: 0 }}>
+      <Container maxWidth="lg" sx={{ margin: 0, padding: 0, width: "100%" }}>
         <Link
           href="https://facebook.com"
           color="inherit"
@@ -52,7 +54,12 @@ const Footer: React.FC<FooterProps> = ({
           LinkedIn
         </Link>
 
-        <Box textAlign="center">
+        <Box
+          width={"100vmax"}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
           <Typography
             variant="body2"
             sx={{

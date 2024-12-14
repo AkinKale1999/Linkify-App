@@ -1,20 +1,31 @@
-"use client";
-
-import React from "react";
-import { useParams } from "next/navigation"; // Für URL-Parameter
+import React, { useState, useEffect, useRef } from "react";
+import { useParams, useRouter } from "next/navigation"; // Für URL-Parameter und Router
+import axios from "axios"; // Axios importieren
 import usersData from "../userdata.json"; // JSON-Datei importieren
 
 type User = {
   id: number;
   username: string;
+  group: string;
+  name: {
+    first_name: string;
+    last_name: string;
+  };
+  status: string;
 };
 
 const UserDetail: React.FC = () => {
   const { id } = useParams(); // ID aus der URL auslesen
+  const router = useRouter();
 
-  // Finde den Nutzer mit der entsprechenden ID
+  // Den Benutzer aus der JSON-Datei finden
   const user = usersData.users.find((user: User) => user.id === Number(id));
 
+  const [isEditing, setIsEditing] = useState(false);
+  const [updatedUser, setUpdatedUser] = useState<User | null>(user || null);
+  const [error, setError] = useState<string>("");
+
+  // Falls kein Benutzer gefunden wurde
   if (!user) {
     return (
       <div style={{ textAlign: "center" }}>
@@ -23,20 +34,118 @@ const UserDetail: React.FC = () => {
     );
   }
 
+  // Funktion zum Bearbeiten der Benutzerdaten
+  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (updatedUser) {
+      setUpdatedUser({
+        ...updatedUser,
+        [name]: value,
+      });
+    }
+  };
+
+  // Validierung der Benutzereingaben
+  const validateInputs = () => {
+    if (
+      !updatedUser?.username ||
+      !updatedUser?.group ||
+      !updatedUser?.name.first_name ||
+      !updatedUser?.name.last_name ||
+      !updatedUser?.status
+    ) {
+      setError("Alle Felder müssen ausgefüllt werden.");
+      return false;
+    }
+    setError(""); // Fehler zurücksetzen, wenn alles korrekt ist
+    return true;
+  };
+
+  // Funktion zum Speichern der bearbeiteten Daten mit Axios
+  const handleSaveChanges = async () => {
+    if (validateInputs()) {
+      try {
+        const response = await axios.put(
+          "http://localhost:3000/api/bearbeiten",
+          updatedUser
+        );
+        if (response.status === 200) {
+          console.log("Benutzerdaten gespeichert:", updatedUser);
+          setIsEditing(false);
+        }
+      } catch (error) {
+        console.error("Fehler beim Speichern:", error);
+      }
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/api/löschen/${updatedUser?.id}`
+      );
+      if (response.status === 200) {
+        console.log("Benutzer gelöscht:", updatedUser);
+        router.push("/users");
+      }
+    } catch (error) {
+      console.error("Fehler beim Löschen:", error);
+    }
+  };
+
+  const [modalTextColor, setModalTextColor] = useState("black");
+
+  useEffect(() => {
+    const bodyBackgroundColor = window.getComputedStyle(
+      document.body
+    ).backgroundColor;
+    if (bodyBackgroundColor === "rgb(0, 0, 0)") {
+      setModalTextColor("black");
+    } else {
+      setModalTextColor("black");
+    }
+  }, [isEditing]);
+
+  function handleGoingBack() {
+    router.back();
+  }
+
   return (
-    <div style={{ textAlign: "center" }}>
+    <div
+      style={{
+        textAlign: "center",
+        display: "flex",
+        alignContent: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        width: "100%",
+        marginBottom: "70px",
+        marginTop: "70px",
+      }}
+    >
       <h3>Benutzer Details</h3>
+
       <table
         style={{
-          margin: "0 auto",
+          margin: "0",
           borderCollapse: "collapse",
-          width: "50%",
+          width: "80%",
           textAlign: "left",
+          position: "relative",
+          left: "12%",
         }}
       >
         <thead>
           <tr style={{ backgroundColor: "#f2f2f2" }}>
-            <th style={{ padding: "10px", border: "1px solid #ddd" }}>Feld</th>
+            <th
+              style={{
+                padding: "10px",
+                border: "1px solid #ddd",
+                width: "50%",
+              }}
+            >
+              Feld
+            </th>
             <th style={{ padding: "10px", border: "1px solid #ddd" }}>Wert</th>
           </tr>
         </thead>
@@ -89,6 +198,146 @@ const UserDetail: React.FC = () => {
           </tr>
         </tbody>
       </table>
+
+      <div
+        style={{
+          display: "flex",
+          alignContent: "center",
+          justifyContent: "center",
+          marginTop: "10px",
+          position: "relative",
+        }}
+      >
+        <button
+          style={{ marginRight: "80px", marginLeft: "40px" }}
+          onClick={() => setIsEditing(true)}
+        >
+          Bearbeiten
+        </button>
+        <button onClick={handleDelete}>Löschen</button>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          position: "relative",
+          left: "12%",
+          width: "fit-content",
+          marginTop: "5%",
+        }}
+      >
+        <button onClick={handleGoingBack}>Zurück</button>
+      </div>
+      {isEditing && (
+        <div
+          style={{
+            position: "absolute",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            backgroundColor: "rgba(0,0,0,0.5)",
+            zIndex: "9999",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "850px",
+            color: modalTextColor,
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "#fff",
+              padding: "20px",
+              borderRadius: "8px",
+              minWidth: "300px",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+              color: modalTextColor, // Dynamische Textfarbe
+            }}
+          >
+            <h4>Benutzerdaten bearbeiten</h4>
+
+            {error && (
+              <div
+                style={{
+                  color: "red",
+                  fontSize: "14px",
+                  marginBottom: "10px",
+                  textAlign: "center",
+                }}
+              >
+                {error}
+              </div>
+            )}
+
+            <div style={{ marginBottom: "10px" }}>
+              <label>Benutzername:</label>
+              <input
+                type="text"
+                name="username"
+                value={updatedUser?.username}
+                onChange={handleEditChange}
+                style={{ width: "100%", padding: "8px" }}
+              />
+            </div>
+            <div style={{ marginBottom: "10px" }}>
+              <label>Gruppe:</label>
+              <input
+                type="text"
+                name="group"
+                value={updatedUser?.group}
+                onChange={handleEditChange}
+                style={{ width: "100%", padding: "8px" }}
+              />
+            </div>
+            <div style={{ marginBottom: "10px" }}>
+              <label>Vorname:</label>
+              <input
+                type="text"
+                name="first_name"
+                value={updatedUser?.name.first_name}
+                onChange={(e) => handleEditChange(e)}
+                style={{ width: "100%", padding: "8px" }}
+              />
+            </div>
+            <div style={{ marginBottom: "10px" }}>
+              <label>Nachname:</label>
+              <input
+                type="text"
+                name="last_name"
+                value={updatedUser?.name.last_name}
+                onChange={(e) => handleEditChange(e)}
+                style={{ width: "100%", padding: "8px" }}
+              />
+            </div>
+            <div style={{ marginBottom: "10px" }}>
+              <label>Status:</label>
+              <input
+                type="text"
+                name="status"
+                value={updatedUser?.status}
+                onChange={handleEditChange}
+                style={{ width: "100%", padding: "8px" }}
+              />
+            </div>
+
+            <div style={{ textAlign: "center" }}>
+              <button
+                onClick={handleSaveChanges}
+                style={{ marginRight: "10px", padding: "10px 20px" }}
+              >
+                Speichern
+              </button>
+              <button
+                onClick={() => setIsEditing(false)}
+                style={{ padding: "10px 20px" }}
+              >
+                Abbrechen
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

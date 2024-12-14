@@ -9,11 +9,18 @@ export default function ChangeMode() {
     setIsDarkMode((prevMode) => {
       const newMode = !prevMode;
 
+      const bodyBackgroundColor = newMode ? "#000" : "#fff";
+      const bodyTextColor = newMode ? "#fff" : "#000";
       const headerFooterBackgroundColor = newMode ? "#000" : "#1976d2";
-      const headerFooterTextColor = newMode ? "#fff" : "#fff";
+      const headerFooterTextColor = "#fff";
+      const headerBorderBottom = newMode ? "1px solid #fff" : "";
+
+      document.body.style.backgroundColor = bodyBackgroundColor;
+      document.body.style.color = bodyTextColor;
 
       const footer = document.querySelector("footer");
       const header = document.querySelector("header");
+
       if (footer) {
         footer.style.backgroundColor = headerFooterBackgroundColor;
         footer.style.color = headerFooterTextColor;
@@ -21,6 +28,7 @@ export default function ChangeMode() {
       if (header) {
         header.style.backgroundColor = headerFooterBackgroundColor;
         header.style.color = headerFooterTextColor;
+        header.style.borderBottom = headerBorderBottom;
       }
 
       return newMode;
