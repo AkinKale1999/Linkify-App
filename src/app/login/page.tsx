@@ -1,15 +1,14 @@
-// app/login/page.tsx
 "use client";
 import { useState } from "react";
 import { TextField, Button, Container, Typography, Box } from "@mui/material";
 import { useRouter } from "next/navigation";
-import axios from "axios"; // Axios importieren
+import axios from "axios";
 
 const Login: React.FC = () => {
   const router = useRouter();
   const [username, setUsername] = useState("user@my.com");
   const [password, setPassword] = useState("1234");
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); // Fehlernachricht-Status
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleRegistrierung = () => {
     router.push("/registrierung");
@@ -21,13 +20,19 @@ const Login: React.FC = () => {
 
   // const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
   //   e.preventDefault();
-  //   setErrorMessage(null); 
+  //   setErrorMessage(null);
 
   //   try {
-  //     const response = await axios.post("http://localhost:3000/api/login", {
-  //       username,
-  //       password,
-  //     });
+  //     const controller = new AbortController();
+  //     const timeout = setTimeout(() => controller.abort(), 10000);
+
+  //     const response = await axios.post(
+  //       "http://localhost:5000/api-login",
+  //       { username, password },
+  //       { signal: controller.signal }
+  //     );
+
+  //     clearTimeout(timeout);
 
   //     if (response.status === 200 && response.data.token) {
   //       localStorage.setItem("user", response.data.token);
@@ -38,12 +43,28 @@ const Login: React.FC = () => {
   //       );
   //     }
   //   } catch (error) {
-  //     console.error("Login fehlgeschlagen:", error);
-  //     setErrorMessage(
-  //       error.response?.data?.message || "Ein Fehler ist aufgetreten."
-  //     );
+  //     if (axios.isAxiosError(error)) {
+  //       if (error.response?.status === 401) {
+  //         setErrorMessage("Ungültiges Passwort.");
+  //       } else if (error.response?.status === 500) {
+  //         setErrorMessage("Serverfehler.");
+  //       } else if (error.code === "ERR_CANCELED") {
+  //         setErrorMessage("Anfragezeit überschritten.");
+  //       } else {
+  //         setErrorMessage(
+  //           error.response?.data?.message || "Ein Fehler ist aufgetreten."
+  //         );
+  //       }
+  //     } else {
+  //       setErrorMessage("Ein unbekannter Fehler ist aufgetreten.");
+  //     }
   //   }
   // };
+
+  function handleLogin() {
+    localStorage.setItem("user", "user@my.com");
+    router.push("/customer");
+  }
 
   return (
     <>
@@ -66,9 +87,7 @@ const Login: React.FC = () => {
             Login
           </Typography>
 
-          <form 
-          // onSubmit={handleLogin}
-          >
+          <form onSubmit={handleLogin}>
             <TextField
               label="Username"
               type="text"
