@@ -1,17 +1,7 @@
 "use client";
-import React, { useLayoutEffect } from "react";
-import { useRouter } from "next/navigation";
+import React from "react";
 
 const DashboardPage = () => {
-  const router = useRouter();
-
-  const token = localStorage.getItem("user");
-  useLayoutEffect(() => {
-    if (!token) {
-      router.push("/login");
-    }
-  }, []);
-
   return (
     <div
       style={{

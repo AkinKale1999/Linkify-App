@@ -119,8 +119,8 @@ const Register: React.FC = () => {
     }
   };
 
-  const handleLogin = async () => {
-    router.push("/");
+  const handleLogin = () => {
+    router.push("/login");
   };
 
   return (

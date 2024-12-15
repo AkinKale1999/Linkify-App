@@ -84,7 +84,7 @@ export default function Profile() {
     e.preventDefault();
     try {
       const response = await axios.put(
-        "http://localhost:3000/api/profile",
+        "http://localhost:5000/api/profile",
         formData
       );
       console.log("Data saved successfully:", response.data);

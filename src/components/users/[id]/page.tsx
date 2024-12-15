@@ -209,12 +209,14 @@ const UserDetail: React.FC = () => {
         }}
       >
         <button
-          style={{ marginRight: "80px", marginLeft: "40px" }}
+          style={{ marginRight: "80px", marginLeft: "40px", width: "80px" }}
           onClick={() => setIsEditing(true)}
         >
           Bearbeiten
         </button>
-        <button onClick={handleDelete}>Löschen</button>
+        <button style={{ width: "80px" }} onClick={handleDelete}>
+          Löschen
+        </button>
       </div>
 
       <div

@@ -23,16 +23,10 @@ const Login: React.FC = () => {
   //   setErrorMessage(null);
 
   //   try {
-  //     const controller = new AbortController();
-  //     const timeout = setTimeout(() => controller.abort(), 10000);
-
-  //     const response = await axios.post(
-  //       "http://localhost:5000/api-login",
-  //       { username, password },
-  //       { signal: controller.signal }
-  //     );
-
-  //     clearTimeout(timeout);
+  //     const response = await axios.post("http://localhost:5000/api-login", {
+  //       username,
+  //       password,
+  //     });
 
   //     if (response.status === 200 && response.data.token) {
   //       localStorage.setItem("user", response.data.token);
@@ -48,8 +42,6 @@ const Login: React.FC = () => {
   //         setErrorMessage("Ungültiges Passwort.");
   //       } else if (error.response?.status === 500) {
   //         setErrorMessage("Serverfehler.");
-  //       } else if (error.code === "ERR_CANCELED") {
-  //         setErrorMessage("Anfragezeit überschritten.");
   //       } else {
   //         setErrorMessage(
   //           error.response?.data?.message || "Ein Fehler ist aufgetreten."
@@ -61,11 +53,11 @@ const Login: React.FC = () => {
   //   }
   // };
 
-  function handleLogin() {
-    localStorage.setItem("user", "user@my.com");
-    router.push("/customer");
-  }
 
+  function handleLogin(){
+    localStorage.setItem("user", "user@my.com")
+    router.push("/customer")
+  }
   return (
     <>
       <Button

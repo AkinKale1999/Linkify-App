@@ -26,6 +26,7 @@ import { useRouter } from "next/navigation";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import ChangeMode from "./DarkLightMode";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 const drawerWidth = 240;
 // Breite der sidebar bei klick auf burgermenu
@@ -178,7 +179,6 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-
         {/* --------------------------------- */}
         <List>
           <ListItem disablePadding>
@@ -206,7 +206,6 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
             </ListItemButton>
           </ListItem>
         </List>
-
         <Divider />
         <List>
           <ListItem disablePadding>
@@ -233,6 +232,27 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
                 <FormatListBulletedIcon />
               </AccountCircleIcon>
               <ListItemText primary="Profil" style={{ marginLeft: "31px" }} />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem
+            disablePadding
+            style={{
+              display: "flex",
+              alignContent: "center",
+              justifyContent: "center",
+            }}
+          >
+            <ListItemButton
+              onClick={() => handleNavigation("/customer/einstellungen")}
+            >
+              <SettingsIcon>
+                <FormatListBulletedIcon />
+              </SettingsIcon>
+              <ListItemText
+                primary="Einstellungen"
+                style={{ marginLeft: "31px" }}
+              />
             </ListItemButton>
           </ListItem>
         </List>
