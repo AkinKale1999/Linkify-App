@@ -185,13 +185,13 @@ function EnhancedTableHead(props: EnhancedTableProps) {
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
-            color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
               "aria-label": "select all desserts",
             }}
+            className="TableCell"
           />
         </TableCell>
         {headCells.map((headCell) => (
@@ -200,6 +200,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
+            className="TableHeader"
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -267,7 +268,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
+        <Tooltip className="FilterList" title="Filter list">
           <IconButton>
             <FilterListIcon />
           </IconButton>
@@ -485,7 +486,10 @@ export default function EnhancedTable() {
         />
       </Paper>
       <FormControlLabel
-        style={{ marginLeft: "10px", width: "fit-content" }}
+        style={{
+          marginLeft: "10px",
+          width: "fit-content",
+        }}
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />

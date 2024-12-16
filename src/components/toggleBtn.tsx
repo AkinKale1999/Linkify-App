@@ -19,6 +19,7 @@ export default function ToggleSwitch({ align }: ToggleSwitchProps) {
           cursor: "pointer",
           color: toggle ? "green" : "initial", // Setzt die Farbe auf grün, wenn toggle true ist
         }}
+        className="toggleButton"
         onClick={() => setToggle(!toggle)}
       >
         {toggle ? (

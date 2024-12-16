@@ -180,7 +180,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
         </DrawerHeader>
         <Divider />
         {/* --------------------------------- */}
-        <List>
+        <List sx={{ height: "100%" }} className="ListContainer">
           <ListItem disablePadding>
             <ListItemButton onClick={() => handleLogout()}>
               <Logout />
@@ -188,9 +188,9 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
             </ListItemButton>
           </ListItem>
 
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => handleNavigation("/customer")}>
-              <ListItemIcon>
+          <ListItem disablePadding >
+            <ListItemButton  onClick={() => handleNavigation("/customer")}>
+              <ListItemIcon className="DashboadAndTableIcon">
                 <DashboardIcon />
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
@@ -199,15 +199,13 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
 
           <ListItem disablePadding>
             <ListItemButton onClick={() => handleNavigation("/customer/table")}>
-              <ListItemIcon>
+              <ListItemIcon className="DashboadAndTableIcon">
                 <FormatListBulletedIcon />
               </ListItemIcon>
               <ListItemText primary="Table" />
             </ListItemButton>
           </ListItem>
-        </List>
-        <Divider />
-        <List>
+          <Divider />
           <ListItem disablePadding>
             <ListItemButton onClick={() => handleNavigation("/customer/admin")}>
               <SupervisorAccountIcon>

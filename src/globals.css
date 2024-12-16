@@ -1,3 +1,8 @@
+:root {
+  --font-color: #fff;
+  --font-color-dark: #000;
+}
+
 body {
   transition:
     background-color 0.3s,
@@ -5,16 +10,16 @@ body {
 }
 
 .dark-mode {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--font-color-dark);
+  color: var(--font-color);
 }
 
 .dark-mode header,
 .dark-mode body,
 .dark-mode footer {
-  background-color: #000;
-  color: #fff;
-  border: 1px solid #fff;
+  background-color: var(--font-color-dark);
+  color: var(--font-color);
+  border: 1px solid var(--font-color);
 }
 
 .dark-mode input {
@@ -22,49 +27,71 @@ body {
 }
 
 .dark-mode #forgotPwdForm {
-  background-color: #fff;
-  color: #000;
+  background-color: var(--font-color);
+  color: var(--font-color-dark);
 }
 
 .dark-mode #RegisterBtnOnLoginPage {
   background-color: #007bff;
-  color: #fff;
+  color: var(--font-color);
 }
 
 .dark-mode #LoginBtnOnRegisterPage {
   background-color: #007bff;
-  color: #fff;
+  color: var(--font-color);
 }
 
 .dark-mode label {
-  color: #fff;
+  color: var(--font-color);
 }
 
 .dark-mode .TablePaper {
-  background-color: black;
-  color: #fff;
+  background-color: var(--font-color-dark);
+  color: var(--font-color);
+  border: 1px solid #eee;
 }
 
 .dark-mode .tableFont {
-  color: #fff;
+  color: var(--font-color);
 }
 
 .dark-mode .TableFooter {
+  color: var(--font-color);
+}
+
+.dark-mode .FilterList {
+  color: var(--font-color);
+}
+
+.dark-mode .TableHeader {
+  color: var(--font-color);
+}
+
+.dark-mode .TableCell {
+  color: var(--font-color);
+}
+
+/* .dark-mode .ListContainer {
+  background-color: var(--font-color-dark);
   color: #fff;
 }
 
+.dark-mode .DashboadAndTableIcon {
+  background-color: var(--font-color-dark);
+  color: #fff;
+} */
 /* -------------------- */
 .light-mode {
-  background-color: #fff;
-  color: #000;
+  background-color: var(--font-color);
+  color: var(--font-color-dark);
 }
 
 .light-mode body,
 .light-mode label {
-  color: #000;
+  color: var(--font-color-dark);
 }
 
 .light-mode header,
 .light-mode footer {
-  color: #fff;
+  color: var(--font-color);
 }
