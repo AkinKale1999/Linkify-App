@@ -1,6 +1,6 @@
 "use client";
 
-import Layout from "./Layout";
+import Layout from "./layout";
 import React from 'react';
 
 export default function ImpressumPage() {

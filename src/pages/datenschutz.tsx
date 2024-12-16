@@ -1,6 +1,6 @@
 "use client";
 
-import Layout from "./Layout";
+import Layout from "./layout";
 
 export default function DatenschutzPage() {
   return (

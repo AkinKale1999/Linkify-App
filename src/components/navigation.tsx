@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import Layout from "./Layout";
+import Layout from "../pages/layout";
 
 export default function Navigation() {
   return (

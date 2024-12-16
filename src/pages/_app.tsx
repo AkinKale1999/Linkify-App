@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import Layout from "./Layout";
+import Layout from "./layout";
 
 export default function MyApp({ Component, pageProps }) {
   const pathname = usePathname();
@@ -15,6 +15,7 @@ export default function MyApp({ Component, pageProps }) {
   }, [pathname, router]);
 
   return (
+    
     <Layout>
       <Component {...pageProps} />
     </Layout>
