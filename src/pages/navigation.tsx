@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Layout from "./Layout";
 
 export default function Navigation() {
   return (

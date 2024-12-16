@@ -1,9 +1,11 @@
 "use client";
+import Navigation from "./Navigation";
 
 export default function Layout({ children }) {
   return (
     <div>
-      {children} 
+      <Navigation />
+      <main>{children}</main>
     </div>
   );
 }

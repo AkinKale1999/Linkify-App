@@ -1,9 +1,10 @@
-"use client"; // Korrekte Platzierung der Direktive
+"use client";
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Layout from "./Layout";
 
-export default function MyApp() {
+export default function MyApp({ Component, pageProps }) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -13,5 +14,9 @@ export default function MyApp() {
     }
   }, [pathname, router]);
 
-  return <h1>Linkify</h1>;
+  return (
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  );
 }
