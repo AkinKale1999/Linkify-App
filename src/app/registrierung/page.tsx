@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import axios from "axios";
+import ChangeMode from "@/components/DarkLightMode";
 
 const Register: React.FC = () => {
   const [firstName, setFirstName] = useState<string>("");
@@ -98,7 +99,7 @@ const Register: React.FC = () => {
           "Erfolgreich registriert, Sie werden weitergeleitet."
         );
         setTimeout(() => {
-          router.push("/dashboard");
+          router.push("/customer");
         }, 3000);
       } else {
         // Fehler, wenn Status nicht 200 ist
@@ -126,12 +127,14 @@ const Register: React.FC = () => {
   return (
     <>
       <Button
+        id="LoginBtnOnRegisterPage"
         sx={{ float: "right", marginRight: "10px", marginTop: "10px" }}
         variant="outlined"
         onClick={handleLogin}
       >
         zurück zum Login
       </Button>
+
       <Container maxWidth="sm">
         <Box
           display="flex"

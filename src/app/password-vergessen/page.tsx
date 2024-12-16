@@ -41,93 +41,6 @@ const ForgotPassword: NextPage = () => {
     }
   };
 
-  const styles: { [key: string]: React.CSSProperties } = {
-    container: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      minHeight: "100vh",
-      flexDirection: "column",
-      backgroundColor: "#f9f9f9",
-      padding: "20px",
-    },
-    form: {
-      width: "100%",
-      maxWidth: "400px",
-      backgroundColor: "#fff",
-      padding: "20px",
-      borderRadius: "8px",
-      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-    },
-    heading: {
-      fontSize: "1.5rem",
-      marginBottom: "20px",
-      textAlign: "center",
-      color: "#333",
-    },
-    label: {
-      display: "block",
-      marginBottom: "8px",
-      fontSize: "0.9rem",
-      color: "#555",
-    },
-    input: {
-      width: "95%",
-      padding: "10px",
-      marginBottom: "20px",
-      border: "1px solid #ccc",
-      borderRadius: "4px",
-      fontSize: "1rem",
-    },
-    button: {
-      width: "100%",
-      padding: "10px",
-      backgroundColor: "#007BFF",
-      color: "#fff",
-      border: "none",
-      borderRadius: "4px",
-      fontSize: "1rem",
-      cursor: "pointer",
-    },
-    successMessage: {
-      backgroundColor: "#D4EDDA",
-      color: "#155724",
-      padding: "10px",
-      marginBottom: "20px",
-      borderRadius: "4px",
-      textAlign: "center",
-    },
-    errorMessage: {
-      backgroundColor: "#F8D7DA",
-      color: "#721C24",
-      padding: "10px",
-      marginBottom: "20px",
-      borderRadius: "4px",
-      textAlign: "center",
-    },
-    // ---------------------------------------------
-    loginLinkContainer: {
-      marginTop: "20px",
-      textAlign: "center",
-    },
-
-    loginLink: {
-      display: "inline-block",
-      padding: "10px 20px",
-      backgroundColor: "#007BFF",
-      color: "#fff",
-      borderRadius: "4px",
-      textDecoration: "none",
-      fontSize: "1rem",
-      transition: "background-color 0.3s",
-      cursor: "pointer",
-    },
-
-    loginLinkHover: {
-      backgroundColor: "#0056b3", // Dunklerer Farbton für Hover-Effekt
-    },
-  };
-
   const router = useRouter();
 
   function handleLoginLinkClick() {
@@ -135,17 +48,67 @@ const ForgotPassword: NextPage = () => {
   }
 
   return (
-    <div style={styles.container}>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <h1 style={styles.heading}>Passwort vergessen</h1>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        width: "100%",
+        flexDirection: "column",
+      }}
+    >
+      <form
+        id="forgotPwdForm"
+        onSubmit={handleSubmit}
+        style={{
+          padding: "30px",
+          borderRadius: "8px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          maxWidth: "400px", // Maximale Breite für bessere Lesbarkeit
+          textAlign: "center",
+        }}
+      >
+        <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>
+          Passwort vergessen
+        </h1>
 
         {successMessage && (
-          <div style={styles.successMessage}>{successMessage}</div>
+          <div
+            style={{
+              color: "#155724",
+              padding: "10px",
+              borderRadius: "4px",
+              marginBottom: "15px",
+            }}
+          >
+            {successMessage}
+          </div>
         )}
 
-        {errorMessage && <div style={styles.errorMessage}>{errorMessage}</div>}
+        {errorMessage && (
+          <div
+            style={{
+              color: "#721c24",
+              padding: "10px",
+              borderRadius: "4px",
+              marginBottom: "15px",
+            }}
+          >
+            {errorMessage}
+          </div>
+        )}
 
-        <label htmlFor="email" style={styles.label}>
+        <label
+          htmlFor="email"
+          style={{
+            display: "block",
+            textAlign: "left",
+            fontSize: "16px",
+            marginBottom: "8px",
+            color: "#000",
+          }}
+        >
           E-Mail-Adresse
         </label>
         <input
@@ -156,10 +119,30 @@ const ForgotPassword: NextPage = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
           placeholder="Geben Sie Ihre E-Mail-Adresse ein"
-          style={styles.input}
+          style={{
+            width: "100%",
+            padding: "10px",
+            fontSize: "16px",
+            border: "1px solid #ddd",
+            borderRadius: "4px",
+            marginBottom: "20px",
+            boxSizing: "border-box",
+          }}
         />
 
-        <button type="submit" style={styles.button}>
+        <button
+          type="submit"
+          style={{
+            width: "100%",
+            padding: "12px",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            fontSize: "16px",
+            cursor: "pointer",
+            backgroundColor: "#1976d2",
+          }}
+        >
           E-Mail senden
         </button>
       </form>
@@ -168,7 +151,11 @@ const ForgotPassword: NextPage = () => {
         onClick={handleLoginLinkClick}
         variant="text"
         color="secondary"
-        style={{ marginTop: "16px" }}
+        style={{
+          marginTop: "16px",
+          textDecoration: "underline",
+          fontSize: "16px",
+        }}
       >
         Zurück zum Login?
       </Button>

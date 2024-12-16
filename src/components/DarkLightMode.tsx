@@ -9,27 +9,9 @@ export default function ChangeMode() {
     setIsDarkMode((prevMode) => {
       const newMode = !prevMode;
 
-      const bodyBackgroundColor = newMode ? "#000" : "#fff";
-      const bodyTextColor = newMode ? "#fff" : "#000";
-      const headerFooterBackgroundColor = newMode ? "#000" : "#1976d2";
-      const headerFooterTextColor = "#fff";
-      const headerBorderBottom = newMode ? "1px solid #fff" : "";
-
-      document.body.style.backgroundColor = bodyBackgroundColor;
-      document.body.style.color = bodyTextColor;
-
-      const footer = document.querySelector("footer");
-      const header = document.querySelector("header");
-
-      if (footer) {
-        footer.style.backgroundColor = headerFooterBackgroundColor;
-        footer.style.color = headerFooterTextColor;
-      }
-      if (header) {
-        header.style.backgroundColor = headerFooterBackgroundColor;
-        header.style.color = headerFooterTextColor;
-        header.style.borderBottom = headerBorderBottom;
-      }
+      // Setze die globale Klasse
+      const bodyClass = newMode ? "dark-mode" : "light-mode";
+      document.body.className = bodyClass;
 
       return newMode;
     });
@@ -47,9 +29,13 @@ export default function ChangeMode() {
       onClick={toggleDarkMode}
     >
       {isDarkMode ? (
-        <LightModeIcon style={{ color: "#fff" }} />
+        <LightModeIcon
+          style={{ color: "#fff", width: "30px", height: "40px" }}
+        />
       ) : (
-        <DarkModeIcon style={{ color: "#fff" }} />
+        <DarkModeIcon
+          style={{ color: "#1976d2", width: "30px", height: "40px" }}
+        />
       )}
     </div>
   );

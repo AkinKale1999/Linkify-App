@@ -1,0 +1,70 @@
+body {
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.dark-mode {
+  background-color: #000;
+  color: #fff;
+}
+
+.dark-mode header,
+.dark-mode body,
+.dark-mode footer {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.dark-mode input {
+  background-color: #eeeeeebe;
+}
+
+.dark-mode #forgotPwdForm {
+  background-color: #fff;
+  color: #000;
+}
+
+.dark-mode #RegisterBtnOnLoginPage {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.dark-mode #LoginBtnOnRegisterPage {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.dark-mode label {
+  color: #fff;
+}
+
+.dark-mode .TablePaper {
+  background-color: black;
+  color: #fff;
+}
+
+.dark-mode .tableFont {
+  color: #fff;
+}
+
+.dark-mode .TableFooter {
+  color: #fff;
+}
+
+/* -------------------- */
+.light-mode {
+  background-color: #fff;
+  color: #000;
+}
+
+.light-mode body,
+.light-mode label {
+  color: #000;
+}
+
+.light-mode header,
+.light-mode footer {
+  color: #fff;
+}

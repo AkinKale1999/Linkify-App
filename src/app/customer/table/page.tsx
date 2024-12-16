@@ -368,7 +368,7 @@ export default function EnhancedTable() {
         flexDirection: "column",
       }}
     >
-      <Paper sx={{ mb: 1 }}>
+      <Paper sx={{ mb: 1 }} className="TablePaper">
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer
           sx={{
@@ -407,7 +407,9 @@ export default function EnhancedTable() {
                     tabIndex={-1}
                     key={row.id}
                     selected={isItemSelected}
-                    sx={{ cursor: "pointer" }}
+                    className="tableRow"
+
+                    // ---------------------------
                   >
                     <TableCell padding="checkbox">
                       <Checkbox
@@ -423,15 +425,24 @@ export default function EnhancedTable() {
                       id={labelId}
                       scope="row"
                       padding="none"
+                      className="tableFont"
                     >
                       {row.username}
                     </TableCell>
 
-                    <TableCell align="left">{row.first_name}</TableCell>
-                    <TableCell align="left">{row.last_name}</TableCell>
-                    <TableCell align="left">{row.group}</TableCell>
-                    <TableCell align="left">{row.status}</TableCell>
-                    <TableCell align="left">
+                    <TableCell className="tableFont" align="left">
+                      {row.first_name}
+                    </TableCell>
+                    <TableCell className="tableFont" align="left">
+                      {row.last_name}
+                    </TableCell>
+                    <TableCell className="tableFont" align="left">
+                      {row.group}
+                    </TableCell>
+                    <TableCell className="tableFont" align="left">
+                      {row.status}
+                    </TableCell>
+                    <TableCell className="tableFont" align="left">
                       <button
                         style={{
                           width: "60px",
@@ -470,6 +481,7 @@ export default function EnhancedTable() {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          className="TableFooter"
         />
       </Paper>
       <FormControlLabel

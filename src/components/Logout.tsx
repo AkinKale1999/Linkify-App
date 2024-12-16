@@ -1,9 +1,7 @@
 import React from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useRouter } from "next/navigation";
 
 const Logout: React.FC = () => {
-  const router = useRouter();
 
   return (
     <div style={{}}>

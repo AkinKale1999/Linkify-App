@@ -37,9 +37,9 @@ export default function Profile() {
   const legendStyle = {
     padding: "0 5px",
     fontWeight: "bold",
+    color: "#000",
   };
 
-  const [textColor, setTextColor] = useState<string>("#333");
   const [formData, setFormData] = useState<FormData>({
     username: "",
     companyName: "",
@@ -109,7 +109,7 @@ export default function Profile() {
     <div
       style={{
         margin: "0 auto",
-        maxWidth: "100%",
+        maxWidth: "80%",
         height: "950px",
         display: "flex",
         flexDirection: "column",
@@ -117,7 +117,6 @@ export default function Profile() {
         alignItems: "center",
         position: "relative",
         top: "-50px",
-        color: textColor,
         fontWeight: "bold",
       }}
     >
@@ -134,13 +133,15 @@ export default function Profile() {
           width: "50%",
           justifyContent: "center",
           alignContent: "center",
-          color: textColor,
+          color: "#000",
         }}
       >
-        <h1 style={{ textAlign: "center", margin: "0" }}>Profile</h1>
+        <h1 style={{ textAlign: "center", margin: "0", color: "#000" }}>
+          Profile
+        </h1>
         {/* Benutzer Section */}
         <div>
-          <label>* Benutzer:</label>
+          <label style={{ color: "#000" }}>* Benutzer:</label>
           <input
             type="text"
             name="username"
@@ -244,7 +245,7 @@ export default function Profile() {
 
         {/* Firmenname Section */}
         <div>
-          <label>+ Firmenname:</label>
+          <label style={{ color: "#000" }}>+ Firmenname:</label>
           <input
             type="text"
             name="companyName"
@@ -257,7 +258,7 @@ export default function Profile() {
 
         {/* Lizenz Gültigkeit Section (optional) */}
         <div>
-          <label>- Lizenz Gültigkeit</label>
+          <label style={{ color: "#000" }}>- Lizenz Gültigkeit</label>
           <input
             type="text"
             name="licenseValidity"
@@ -270,7 +271,7 @@ export default function Profile() {
 
         {/* Gruppe Section */}
         <div>
-          <label>- Gruppe</label>
+          <label style={{ color: "#000" }}>- Gruppe</label>
           <input
             type="text"
             name="group"

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { TextField, Button, Container, Typography, Box } from "@mui/material";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import ChangeMode from "@/components/DarkLightMode";
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -53,20 +54,21 @@ const Login: React.FC = () => {
   //   }
   // };
 
-
-  function handleLogin(){
-    localStorage.setItem("user", "user@my.com")
-    router.push("/customer")
+  function handleLogin() {
+    localStorage.setItem("user", "user@my.com");
+    router.push("/customer");
   }
   return (
     <>
       <Button
+      id="RegisterBtnOnLoginPage"
         sx={{ float: "right", marginTop: "10px", marginRight: "10px" }}
         variant="outlined"
         onClick={handleRegistrierung}
       >
         Registrierung
       </Button>
+
       <Container maxWidth="sm">
         <Box
           display="flex"
