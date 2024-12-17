@@ -1,0 +1,41 @@
+/* Main Navigation Styles */
+#main-navigation {
+  background-color: #1E293B; /* Dunkelblauer Hintergrund */
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.nav-list {
+  list-style: none;
+  display: flex;
+  justify-content: center; /* Zentriert die Links horizontal */
+  align-items: center;
+  gap: 20px; /* Abstand zwischen den Links */
+  margin: 0;
+  padding: 0;
+}
+.nav-item {
+  position: relative;
+}
+.nav-link {
+  text-decoration: none;
+  color: #F8FAFC; /* Helle Schriftfarbe */
+  font-size: 16px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+.nav-link:hover {
+  color: #38BDF8; /* Helles Blau beim Hover */
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #38BDF8;
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after {
+  width: 100%;
+}

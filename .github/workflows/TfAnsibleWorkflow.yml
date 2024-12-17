@@ -19,16 +19,6 @@ jobs:
       - name: Terraform Init
         working-directory: ./terraform
         run: terraform init
-  apply:
-    name: Terraform apply
-    runs-on: ubuntu-latest
-    needs: setup_terraform
-    if: github.event_name == 'push'
-    steps:
-      - uses: actions/checkout@v3
-      - name: Terraform Init  
-        working-directory: ./terraform
-        run: terraform init
       - name: Terraform Apply  
         working-directory: ./terraform
         run: terraform apply -auto-approve
