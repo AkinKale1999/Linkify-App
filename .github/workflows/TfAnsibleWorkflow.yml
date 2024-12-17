@@ -37,7 +37,7 @@ jobs:
           echo "${{ secrets.SSH_Linkify }}" > ~/.ssh/linkify1.pem  # Konsistenter Name
           chmod 600 ~/.ssh/linkify1.pem
       - name: Run Ansible Playbook
-        working-directory: ./terraform/ansible
+        working-directory: ./ansible
         run: ansible-playbook -i ec2Maschinen.ini meinPlaybook.yml
   destroy:
     name: Terraform destroy
