@@ -2,7 +2,11 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { useState } from "react";
 
-export default function ChangeMode() {
+interface ChangeModeProps {
+  color?: string;
+}
+
+export default function ChangeMode({ color = "#1976d2" }: ChangeModeProps) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleDarkMode = () => {
@@ -33,9 +37,7 @@ export default function ChangeMode() {
           style={{ color: "#fff", width: "30px", height: "40px" }}
         />
       ) : (
-        <DarkModeIcon
-          style={{ color: "#1976d2", width: "30px", height: "40px" }}
-        />
+        <DarkModeIcon style={{ color: color, width: "30px", height: "40px" }} />
       )}
     </div>
   );

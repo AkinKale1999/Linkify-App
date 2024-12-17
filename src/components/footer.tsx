@@ -14,10 +14,10 @@ interface FooterProps {
 let isDebugON = process.env.Debug === "ON" ? true : false;
 
 // Timeout wird aus der Umgebungsvariable gelesen, Standardwert = 60 Sekunden
-let Timeout = parseInt(process.env.Timeout || "30", 10);
+let Timeout = parseInt(process.env.Timeout || "3000", 10);
 
 // LogoutViewTimer definiert die letzten Sekunden, bevor das Modal angezeigt wird (Standardwert = 20)
-let LogoutViewTimer = parseInt(process.env.LogoutViewTimer || "20", 10);
+let LogoutViewTimer = parseInt(process.env.LogoutViewTimer || "200", 10);
 
 const Footer: React.FC<FooterProps> = ({
   footerPosition = "0",

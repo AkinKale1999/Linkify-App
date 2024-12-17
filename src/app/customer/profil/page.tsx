@@ -109,7 +109,7 @@ export default function Profile() {
     <div
       style={{
         margin: "0 auto",
-        maxWidth: "80%",
+        maxWidth: "1000px",
         height: "950px",
         display: "flex",
         flexDirection: "column",

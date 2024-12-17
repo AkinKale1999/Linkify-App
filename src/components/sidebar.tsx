@@ -141,6 +141,10 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
     setIsSideBarOpen(false);
   };
 
+  const handleImageClick = () => {
+    router.push("/customer");
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -160,11 +164,16 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h5" noWrap component="div">
-            Linkify
-          </Typography>
 
-          <ChangeMode />
+          <div style={{ width: "150px", cursor: "pointer" }}>
+            <img
+              onClick={handleImageClick}
+              src="\img\Linkify-Light.svg"
+              alt="Linkify"
+            />
+          </div>
+
+          <ChangeMode color="#fff" />
         </Toolbar>
       </AppBar>
 
@@ -188,8 +197,8 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
             </ListItemButton>
           </ListItem>
 
-          <ListItem disablePadding >
-            <ListItemButton  onClick={() => handleNavigation("/customer")}>
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => handleNavigation("/customer")}>
               <ListItemIcon className="DashboadAndTableIcon">
                 <DashboardIcon />
               </ListItemIcon>

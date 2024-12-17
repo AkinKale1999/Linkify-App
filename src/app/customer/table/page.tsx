@@ -264,7 +264,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
-            <DeleteIcon />
+            <DeleteIcon className="DeleteIconOnTable" />
           </IconButton>
         </Tooltip>
       ) : (
@@ -419,6 +419,7 @@ export default function EnhancedTable() {
                         inputProps={{
                           "aria-labelledby": labelId,
                         }}
+                        className="tableFont"
                       />
                     </TableCell>
                     <TableCell

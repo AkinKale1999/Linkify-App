@@ -19,13 +19,12 @@ export default function ToggleSwitch({ align }: ToggleSwitchProps) {
           cursor: "pointer",
           color: toggle ? "green" : "initial", // Setzt die Farbe auf grün, wenn toggle true ist
         }}
-        className="toggleButton"
         onClick={() => setToggle(!toggle)}
       >
         {toggle ? (
           <ToggleOnIcon style={{ scale: "1.5" }} />
         ) : (
-          <ToggleOffIcon style={{ scale: "1.5" }} />
+          <ToggleOffIcon className="toggleButton" style={{ scale: "1.5" }} />
         )}
       </button>
     </TableCell>

@@ -2,6 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation"; // Für URL-Parameter und Router
 import axios from "axios"; // Axios importieren
 import usersData from "../userdata.json"; // JSON-Datei importieren
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import AddIcon from "@mui/icons-material/Add";
+import CancelIcon from "@mui/icons-material/Cancel";
+import "../../../globals.css";
 
 type User = {
   id: number;
@@ -138,6 +144,7 @@ const UserDetail: React.FC = () => {
         <thead>
           <tr style={{ backgroundColor: "#f2f2f2" }}>
             <th
+              className="UserDetailTableHeader"
               style={{
                 padding: "10px",
                 border: "1px solid #ddd",
@@ -146,7 +153,12 @@ const UserDetail: React.FC = () => {
             >
               Feld
             </th>
-            <th style={{ padding: "10px", border: "1px solid #ddd" }}>Wert</th>
+            <th
+              className="UserDetailTableHeader"
+              style={{ padding: "10px", border: "1px solid #ddd" }}
+            >
+              Wert
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -202,33 +214,56 @@ const UserDetail: React.FC = () => {
       <div
         style={{
           display: "flex",
-          alignContent: "center",
-          justifyContent: "center",
+          justifyContent: "space-evenly",
           marginTop: "10px",
-          position: "relative",
         }}
       >
         <button
-          style={{ marginRight: "80px", marginLeft: "40px", width: "80px" }}
+          style={{
+            border: "none",
+            backgroundColor: "transparent",
+            cursor: "pointer",
+            transform: "scale(1.3)",
+          }}
+          title="Bearbeiten"
           onClick={() => setIsEditing(true)}
         >
-          Bearbeiten
+          <EditIcon />
         </button>
-        <button style={{ width: "80px" }} onClick={handleDelete}>
-          Löschen
+        <button
+          style={{
+            backgroundColor: "transparent",
+            border: "none",
+            cursor: "pointer",
+            transform: "scale(1.3)",
+          }}
+          title="Löschen"
+          onClick={handleDelete}
+        >
+          <DeleteIcon />
         </button>
       </div>
 
       <div
         style={{
-          display: "flex",
           position: "relative",
           left: "12%",
           width: "fit-content",
           marginTop: "5%",
         }}
       >
-        <button onClick={handleGoingBack}>Zurück</button>
+        <button
+          style={{
+            border: "none",
+            backgroundColor: "transparent",
+            cursor: "pointer",
+            transform: "scale(1.3)",
+          }}
+          title="Zurück"
+          onClick={handleGoingBack}
+        >
+          <KeyboardBackspaceIcon />
+        </button>
       </div>
       {isEditing && (
         <div
@@ -323,18 +358,35 @@ const UserDetail: React.FC = () => {
               />
             </div>
 
-            <div style={{ textAlign: "center" }}>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-evenly",
+              }}
+              className="CancelBtn"
+            >
               <button
                 onClick={handleSaveChanges}
-                style={{ marginRight: "10px", padding: "10px 20px" }}
+                style={{
+                  border: "none",
+                  backgroundColor: "transparent",
+                  cursor: "pointer",
+                }}
+                title="Speichern"
               >
-                Speichern
+                <AddIcon style={{ transform: "scale(1.5)" }} />
               </button>
               <button
+                className="C"
                 onClick={() => setIsEditing(false)}
-                style={{ padding: "10px 20px" }}
+                style={{
+                  border: "none",
+                  cursor: "pointer",
+                }}
+                title="Abbrechen"
               >
-                Abbrechen
+                <CancelIcon id="asasd" style={{ transform: "scale(1.5)" }} />
               </button>
             </div>
           </div>
