@@ -71,13 +71,8 @@ const Login: React.FC = () => {
   // };
 
   const handleLoginLocal = () => {
-    // Simuliert ein lokaler Login
-    if (username === "user@my.com" && password === "1234") {
-      localStorage.setItem("user", "user@my.com");
-      router.push("/customer"); // Navigiert zum Dashboard oder einer anderen Seite
-    } else {
-      setErrorMessage("Login fehlgeschlagen. Bitte überprüfen Sie Ihre Daten.");
-    }
+    localStorage.setItem("Auth", "Authenticated");
+    router.push("/customer");
   };
 
   return (

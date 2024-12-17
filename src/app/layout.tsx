@@ -2,6 +2,7 @@
 
 import ChangeMode from "@/components/DarkLightMode";
 import "../globals.css";
+import ProtectedRoute from "./_app";
 
 export default function RootLayout({
   children,
@@ -9,28 +10,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <html lang="en">
-        <body
-          style={{
-            margin: "0",
-            padding: "0",
-            minHeight: "100vh",
-          }}
-        >
-          <div
+    <ProtectedRoute>
+      <>
+        <html lang="en">
+          <body
             style={{
-              position: "absolute",
-              left: "0",
-              marginLeft: "60px",
-              marginTop: "10px",
+              margin: "0",
+              padding: "0",
+              minHeight: "100vh",
             }}
           >
-            <ChangeMode />
-          </div>
-          {children}
-        </body>
-      </html>
-    </>
+            <div
+              style={{
+                position: "absolute",
+                left: "0",
+                marginLeft: "60px",
+                marginTop: "10px",
+              }}
+            >
+              <ChangeMode />
+            </div>
+            {children}
+          </body>
+        </html>
+      </>
+    </ProtectedRoute>
   );
 }

@@ -9,8 +9,10 @@ interface FooterProps {
   borderTop?: string | number;
 }
 
+// .env datei muss im Root verzeichnis gespeichert sein
+
 const isDebugON = process.env.NEXT_PUBLIC_APP_DEBUG === "ON" ? true : false;
-const Timeout = parseInt(process.env.NEXT_PUBLIC_APP_TIMEOUT || "30", 10);
+const Timeout = parseInt(process.env.NEXT_PUBLIC_APP_TIMEOUT || "300", 10);
 const LogoutViewTimer = parseInt(
   process.env.NEXT_PUBLIC_APP_LOGOUT_VIEW_TIMER || "20",
   10

@@ -126,8 +126,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
   };
 
   const handleNavigation = (path: Url) => {
-    // @ts-ignore
-    router.push(path); // Використовуйте router.push для навігації
+    router.push(path);
   };
 
   const handleLogout = async () => {
