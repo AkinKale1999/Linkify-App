@@ -17,55 +17,55 @@
         state: started
         enabled: true
 
-    - name: Create custom HTML page for Info-Seite
-      copy:
-        content: |
-          <html>
-            <head>
-              <title>Info Seite</title>
-            </head>
-            <body>
-              <h1>Hello, willkommen bei der Info-Seite Linkify!</h1>
-            </body>
-          </html>
-        dest: /var/www/html/info.html
+    # - name: Create custom HTML page for Info-Seite
+    #   copy:
+    #     content: |
+    #       <html>
+    #         <head>
+    #           <title>Info Seite</title>
+    #         </head>
+    #         <body>
+    #           <h1>Hello, willkommen bei der Info-Seite Linkify!</h1>
+    #         </body>
+    #       </html>
+    #     dest: /var/www/html/info.html
 
-    - name: Create custom HTML page for App-Seite
-      copy:
-        content: |
-          <html>
-            <head>
-              <title>App Seite</title>
-            </head>
-            <body>
-              <h1>Hello in der App Linkify!</h1>
-            </body>
-          </html>
-        dest: /var/www/html/app.html
+    # - name: Create custom HTML page for App-Seite
+    #   copy:
+    #     content: |
+    #       <html>
+    #         <head>
+    #           <title>App Seite</title>
+    #         </head>
+    #         <body>
+    #           <h1>Hello in der App Linkify!</h1>
+    #         </body>
+    #       </html>
+    #     dest: /var/www/html/app.html
 
-    - name: Configure nginx to serve custom pages
-      copy:
-        content: |
-          server {
-            listen 80;
-            server_name _;
+    # - name: Configure nginx to serve custom pages
+    #   copy:
+    #     content: |
+    #       server {
+    #         listen 80;
+    #         server_name _;
             
-            location /info {
-              root /var/www/html;
-              index info.html;
-            }
+    #         location /info {
+    #           root /var/www/html;
+    #           index info.html;
+    #         }
             
-            location /app {
-              root /var/www/html;
-              index app.html;
-            }
-          }
-        dest: /etc/nginx/sites-available/default
-        owner: root
-        group: root
-        mode: 0644
+    #         location /app {
+    #           root /var/www/html;
+    #           index app.html;
+    #         }
+    #       }
+    #     dest: /etc/nginx/sites-available/default
+    #     owner: root
+    #     group: root
+    #     mode: 0644
 
-    - name: Reload nginx
-      service:
-        name: nginx
-        state: reloaded
+    # - name: Reload nginx
+    #   service:
+    #     name: nginx
+    #     state: reloaded
