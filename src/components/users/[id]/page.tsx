@@ -66,7 +66,7 @@ const UserDetail: React.FC = () => {
     if (validateInputs()) {
       try {
         const response = await axios.put(
-          "http://localhost:5000/api/bearbeiten",
+          `${process.env.BaseURL}/user/${updatedUser?.id}`,
           updatedUser
         );
         if (response.status === 200) {
@@ -82,7 +82,7 @@ const UserDetail: React.FC = () => {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/löschen/${updatedUser?.id}`
+        `${process.env.BaseURL}/user/${updatedUser?.id}`
       );
       if (response.status === 200) {
         console.log("Benutzer gelöscht:", updatedUser);

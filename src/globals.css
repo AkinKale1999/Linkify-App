@@ -80,6 +80,14 @@ body {
   background-color: var(--font-color-dark);
   color: #fff;
 } */
+
+.dark-mode .VisibilityOFF {
+  color: var(--font-color);
+}
+
+.dark-mode .VisibilityONN {
+  color: var(--font-color);
+}
 /* -------------------- */
 .light-mode {
   background-color: var(--font-color);

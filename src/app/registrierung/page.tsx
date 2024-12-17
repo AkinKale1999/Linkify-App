@@ -14,7 +14,6 @@ import { useRouter } from "next/navigation";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import axios from "axios";
-import ChangeMode from "@/components/DarkLightMode";
 
 const Register: React.FC = () => {
   const [firstName, setFirstName] = useState<string>("");
@@ -77,7 +76,7 @@ const Register: React.FC = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/register", {
+      const response = await axios.post(`${process.env.BaseURL}/api/register`, {
         firstName,
         lastName,
         street,
@@ -309,9 +308,9 @@ const Register: React.FC = () => {
                           onClick={() => setShowPasswords(!showPasswords)}
                         >
                           {showPasswords ? (
-                            <VisibilityOffIcon />
+                            <VisibilityOffIcon className="VisibilityOFF" />
                           ) : (
-                            <VisibilityIcon />
+                            <VisibilityIcon className="VisibilityONN" />
                           )}
                         </IconButton>
                       </InputAdornment>
@@ -335,9 +334,9 @@ const Register: React.FC = () => {
                           onClick={() => setShowPasswords(!showPasswords)}
                         >
                           {showPasswords ? (
-                            <VisibilityOffIcon />
+                            <VisibilityOffIcon className="VisibilityOFF" />
                           ) : (
-                            <VisibilityIcon />
+                            <VisibilityIcon className="VisibilityONN" />
                           )}
                         </IconButton>
                       </InputAdornment>

@@ -7,6 +7,12 @@ interface FooterProps {
   borderTop?: string | number;
 }
 
+let isDebugON = process.env.Debug === "ON" ? true : false;
+
+// isDebugON = true;
+
+let Timeout = process.env.Timeout;
+
 const Footer: React.FC<FooterProps> = ({
   footerPosition = "0",
   footerIndex = "9999",
@@ -71,8 +77,28 @@ const Footer: React.FC<FooterProps> = ({
           </Typography>
         </Box>
       </Container>
+
+      {isDebugON === true && (
+        <Box sx={{ textAlign: "center", zIndex: 9999 }}>
+          <Typography variant="body2" sx={{ color: "#fff" }}>
+            {Timeout}
+          </Typography>
+        </Box>
+      )}
     </Box>
   );
 };
+
+// 1. Counter
+// counter muss gesetzt werden, der bei {Timeout} anfängt und runter bis auf 0 zählt,
+// Jedesmal wenn sich die Maus des Users bewegt soll der timer zurückgesetzt werden auf den {Timeout} variable in der .env datei.
+// in den letzten {LogoutViewTimer=20} soll ein modula fenster kommen, welches den fokus des users darauf fokussiert.
+// wenn der Countdown auf 0 kommt Muss der user ausgelogged werden,
+
+// 2. Logout
+// eine anfrage wird an die Api:  axios.delete /logout gemacht, und das cookie/token wird gelöscht.
+// und dann auf die login page weitergeleitet werden.
+
+// Linkify Logo einbauen
 
 export default Footer;

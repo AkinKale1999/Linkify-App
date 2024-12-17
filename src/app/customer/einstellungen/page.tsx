@@ -30,13 +30,13 @@ const ConfigPage: React.FC = () => {
     try {
       if (openModal === "email") {
         // Axios Anfrage für E-Mail
-        await axios.post("/api/settings/email", { email });
+        await axios.post(`${process.env.BaseURL}/api/settings/email`, { email });
       } else if (openModal === "dms") {
         // Axios Anfrage für DMS
-        await axios.post("/api/settings/dms", { dms: dmsSetting });
+        await axios.post(`${process.env.BaseURL}/api/settings/dms`, { dms: dmsSetting });
       } else if (openModal === "lexoffice") {
         // Axios Anfrage für Lexoffice
-        await axios.post("/api/settings/lexoffice", {
+        await axios.post(`${process.env.BaseURL}/api/settings/lexoffice`, {
           lexoffice: lexofficeSetting,
         });
       }
