@@ -203,6 +203,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             className="TableHeader"
           >
             <TableSortLabel
+              className="tableFont"
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
