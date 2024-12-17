@@ -6,7 +6,7 @@
     - group_vars/webserver.yml
   tasks:
     - name: Install nginx
-      apt:
+      yum:
         name: nginx
         state: present
         update_cache: yes
