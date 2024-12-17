@@ -35,6 +35,16 @@ export default function Navigation() {
             Über uns
           </Link>
         </li>
+        <li className="nav-item">
+          <Link href="/Login" className="nav-link">
+           Login
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link href="/Registrierung" className="nav-link">
+            Registrierung
+          </Link>
+        </li>
       </ul>
     </nav>
     </header>

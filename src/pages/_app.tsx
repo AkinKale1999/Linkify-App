@@ -15,11 +15,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, [pathname, router]);
   return (
     <>
-      <Navigation />
-      <body>
+      <Navigation /> 
          <Component {...pageProps} />
-      </body>
-     
       <Footer/>
     </>
   );
