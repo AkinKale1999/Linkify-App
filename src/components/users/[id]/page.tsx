@@ -386,7 +386,13 @@ const UserDetail: React.FC = () => {
                 }}
                 title="Abbrechen"
               >
-                <CancelIcon id="asasd" style={{ transform: "scale(1.5)" }} />
+                <CancelIcon
+                  style={{
+                    transform: "scale(1.5)",
+                    backgroundColor: "yellow",
+                    width: "fit-content",
+                  }}
+                />
               </button>
             </div>
           </div>

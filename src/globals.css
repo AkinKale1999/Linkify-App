@@ -9,6 +9,8 @@ body {
     color 0.3s;
 }
 
+/* ------------------------ */
+
 .dark-mode {
   background-color: var(--font-color-dark);
   color: var(--font-color);
@@ -101,7 +103,8 @@ body {
 .dark-mode .DeleteIconOnTable {
   color: #fff;
 }
-/* -------------------- */
+/* ------------------------ */
+
 .light-mode {
   background-color: var(--font-color);
   color: var(--font-color-dark);
@@ -116,3 +119,5 @@ body {
 .light-mode footer {
   color: var(--font-color);
 }
+
+/* ------------------------ */

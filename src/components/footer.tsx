@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import { Box, Container, Typography, Link, Modal, Button } from "@mui/material";
-import axios from "axios";
 
 interface FooterProps {
   footerPosition?: string | number;
@@ -10,14 +9,12 @@ interface FooterProps {
   borderTop?: string | number;
 }
 
-// Debug-Modus wird über die Umgebungsvariable `Debug` gesteuert
-let isDebugON = process.env.Debug === "ON" ? true : false;
-
-// Timeout wird aus der Umgebungsvariable gelesen, Standardwert = 60 Sekunden
-let Timeout = parseInt(process.env.Timeout || "30", 10);
-
-// LogoutViewTimer definiert die letzten Sekunden, bevor das Modal angezeigt wird (Standardwert = 20)
-let LogoutViewTimer = parseInt(process.env.LogoutViewTimer || "20", 10);
+const isDebugON = process.env.NEXT_PUBLIC_APP_DEBUG === "ON" ? true : false;
+const Timeout = parseInt(process.env.NEXT_PUBLIC_APP_TIMEOUT || "30", 10);
+const LogoutViewTimer = parseInt(
+  process.env.NEXT_PUBLIC_APP_LOGOUT_VIEW_TIMER || "20",
+  10
+);
 
 const Footer: React.FC<FooterProps> = ({
   footerPosition = "0",
@@ -33,18 +30,6 @@ const Footer: React.FC<FooterProps> = ({
     setShowModal(false); // Modal wird geschlossen, falls es sichtbar ist
   }, []);
 
-  // Funktion für den Logout-Prozess
-  // const handleLogout = async () => {
-  //   try {
-  //     await axios.delete(`${process.env.BaseURL}/user/logout`); // API-Aufruf zum Löschen der Sitzung auf dem Server
-  //     document.cookie = "token=; Max-Age=0; path=/;"; // Token im Cookie löschen
-  //     window.location.href = "/login"; // Weiterleitung zur Login-Seite
-  //   } catch (error) {
-  //     console.error("Logout failed:", error);
-  //     // Fehler abfangen.
-  //   }
-  // };
-
   const handleLogoutLocal = () => {
     sessionStorage.clear();
     localStorage.clear();
@@ -57,7 +42,6 @@ const Footer: React.FC<FooterProps> = ({
       setCounter((prev) => {
         if (prev <= 1) {
           clearInterval(timer); // Timer stoppen, wenn der Countdown abläuft
-          // handleLogout(); // Logout-Prozess starten
           handleLogoutLocal();
           return 0; // Countdown auf 0 setzen
         }
@@ -75,8 +59,6 @@ const Footer: React.FC<FooterProps> = ({
       window.removeEventListener("mousemove", resetTimer);
     };
   }, [resetTimer]);
-
-  // -----------------------------------
 
   return (
     <Box
