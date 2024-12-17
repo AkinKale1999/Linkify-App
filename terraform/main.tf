@@ -67,5 +67,5 @@ resource "aws_security_group" "web_access" {
 
 # Output der öffentlichen IP-Adresse der Instanz
 output "instance_public_ips" {
-  value = aws_instance.GithubActionsInstanz.public_ip
+  value = aws_instance.GithubActionsInstanz.*.public_ip
 }
