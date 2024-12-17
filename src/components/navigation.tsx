@@ -1,52 +1,63 @@
 "use client";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import Logo from "./logo";
+
 export default function Navigation() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <header>
-    <nav id="main-navigation">
-      <ul className="nav-list">
-        <li className="nav-item">
-          <Link href="/info" className="nav-link">
-            Info
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link href="/datenschutz" className="nav-link">
-            Datenschutz
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link href="/impressum" className="nav-link">
-            Impressum
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link href="/kontakt" className="nav-link">
-            Kontakt
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link href="/technology" className="nav-link">
-            Technology
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link href="/uber-uns" className="nav-link">
-            Über uns
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link href="/Login" className="nav-link">
-           Login
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link href="/Registrierung" className="nav-link">
-            Registrierung
-          </Link>
-        </li>
-      </ul>
-    </nav>
+    <header className="header">
+      {/* Logo */}
+      <div className="logo">
+        <Logo />
+      </div>
+
+      {/* Burger-Menü */}
+      {isMobile && (
+        <button
+          className="burger-menu"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          ☰
+        </button>
+      )}
+
+      {/* Navigation */}
+      <nav className={`main-navigation ${isMenuOpen && isMobile ? "open" : ""}`}>
+        <ul className="nav-list">
+          <li className="nav-item">
+            
+          </li>
+          <li className="nav-item">
+            <Link href="/technology" className="nav-link">
+              Technology
+            </Link>
+          </li>
+          <li className="nav-item login">
+            <Link href="/login" className="nav-link">
+              Login
+            </Link>
+          </li>
+          <li className="nav-item registrieren">
+            <Link href="/registrieren" className="nav-link">
+              Registrieren
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 }
+

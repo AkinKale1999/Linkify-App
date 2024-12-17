@@ -1,41 +1,105 @@
-/* Main Navigation Styles */
-#main-navigation {
-  background-color: #1E293B; /* Dunkelblauer Hintergrund */
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: #1e293b;
+  color: white;
 }
+
+/* Logo */
+.logo-text {
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.logo-text:hover {
+  color: #38bdf8; /* Hellblau */
+}
+
+/* Navigation */
+.main-navigation {
+  display: flex;
+}
+
 .nav-list {
   list-style: none;
   display: flex;
-  justify-content: center; /* Zentriert die Links horizontal */
-  align-items: center;
-  gap: 20px; /* Abstand zwischen den Links */
+  gap: 20px;
   margin: 0;
   padding: 0;
 }
+
 .nav-item {
   position: relative;
 }
+
 .nav-link {
   text-decoration: none;
-  color: #F8FAFC; /* Helle Schriftfarbe */
-  font-size: 16px;
-  font-weight: 600;
-  transition: color 0.3s ease;
+  color: #f8fafc;
+  font-weight: bold;
+  transition: color 0.3s;
 }
+
 .nav-link:hover {
-  color: #38BDF8; /* Helles Blau beim Hover */
+  color: #38bdf8; /* Hellblau */
 }
-.nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: #38BDF8;
-  transition: width 0.3s ease;
+
+.login,
+.registrieren {
+  margin-left: auto; /* Rechtsbündig */
 }
-.nav-link:hover::after {
-  width: 100%;
+
+.burger-menu {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: white;
+  cursor: pointer;
+  display: none;
 }
+
+/* Footer */
+.footer {
+  background-color: #1e293b;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #f8fafc;
+}
+
+.footer-links a:hover {
+  color: #38bdf8; /* Hellblau */
+}
+
+/* Responsives Design */
+@media (max-width: 768px) {
+  .nav-list {
+    display: none; /* Links ausblenden */
+  }
+
+  .main-navigation.open .nav-list {
+    display: block; /* Menü anzeigen */
+    background-color: #1e293b;
+    padding: 10px;
+  }
+
+  .burger-menu {
+    display: block; /* Burger-Menü anzeigen */
+  }
+}
+
