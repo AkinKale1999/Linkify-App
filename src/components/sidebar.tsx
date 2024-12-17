@@ -187,7 +187,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
         </DrawerHeader>
         <Divider />
         {/* --------------------------------- */}
-        <List sx={{ height: "100%" }} className="ListContainer">
+        <List sx={{ minHeight: "360px" }} className="ListContainer">
           <ListItem disablePadding>
             <ListItemButton onClick={() => handleLogout()}>
               <Logout />
