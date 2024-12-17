@@ -84,7 +84,12 @@ const Footer: React.FC<FooterProps> = ({
           href="https://facebook.com"
           color="inherit"
           target="_blank"
-          sx={{ display: "inline-block", mb: 1, marginRight: "2%" }}
+          sx={{
+            display: "inline-block",
+            mb: 1,
+            marginRight: "2%",
+            marginLeft: "20px",
+          }}
         >
           Facebook
         </Link>
@@ -118,13 +123,14 @@ const Footer: React.FC<FooterProps> = ({
         </Box>
       </Container>
 
-      {isDebugON && (
+      {/* Kann hier Im Footer Countdown Anzeigen */}
+      {/* {isDebugON && (
         <Box sx={{ textAlign: "center", zIndex: 9999 }}>
           <Typography variant="body2" sx={{ color: "#fff" }}>
             Timeout: {counter} Sekunden
           </Typography>
         </Box>
-      )}
+      )} */}
 
       <Modal open={showModal} onClose={() => setShowModal(false)}>
         <Box

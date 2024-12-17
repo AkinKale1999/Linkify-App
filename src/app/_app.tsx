@@ -12,6 +12,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   useEffect(() => {
     const auth = localStorage.getItem("Auth");
 
+    // wenn auth ungleich Authenticated ist dann wird man IMMER
+    // zu einer Nicht definierten URL vom Frontend zu /login weitergeleitet,
+    // ansonsten wird man immer auf /customer weitergeleitet.
+
     if (auth !== "Authenticated") {
       router.push("/login");
     } else {
