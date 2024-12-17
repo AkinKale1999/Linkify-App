@@ -76,7 +76,7 @@ const Register: React.FC = () => {
     }
 
     try {
-      const response = await axios.post(`${process.env.BaseURL}/api/register`, {
+      const response = await axios.post(`${process.env.BaseURL}/user/register`, {
         firstName,
         lastName,
         street,

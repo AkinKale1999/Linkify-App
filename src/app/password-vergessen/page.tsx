@@ -19,7 +19,7 @@ const ForgotPassword: NextPage = () => {
     setErrorMessage("");
 
     try {
-      const response = await axios.put(`${process.env.BaseURL}/passforgot`, {
+      const response = await axios.put(`${process.env.BaseURL}/user/passforgot`, {
         email,
       });
 

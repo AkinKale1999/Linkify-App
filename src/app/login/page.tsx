@@ -33,39 +33,49 @@ const Login: React.FC = () => {
     router.push("/password-vergessen");
   };
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Verhindert das Neuladen der Seite
-    setErrorMessage(null); // Setzt vorherige Fehlermeldungen zurück
+  // const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault(); // Verhindert das Neuladen der Seite
+  //   setErrorMessage(null); // Setzt vorherige Fehlermeldungen zurück
 
-    try {
-      const response = await axios.post(`${process.env.BaseURL}/login`, {
-        username,
-        password,
-      });
+  //   try {
+  //     const response = await axios.post(`${process.env.BaseURL}/login`, {
+  //       username,
+  //       password,
+  //     });
 
-      if (response.status === 200 && response.data.token) {
-        localStorage.setItem("user", response.data.token);
-        router.push("/customer"); // Navigiert zum Dashboard oder einer anderen Seite
-      } else {
-        setErrorMessage(
-          "Login fehlgeschlagen. Bitte überprüfen Sie Ihre Daten."
-        );
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          setErrorMessage("Ungültige Anmeldedaten.");
-        } else if (error.response?.status === 500) {
-          setErrorMessage("Serverfehler. Bitte später erneut versuchen.");
-        } else {
-          setErrorMessage(
-            error.response?.data?.message ||
-              "Ein unbekannter Fehler ist aufgetreten."
-          );
-        }
-      } else {
-        setErrorMessage("Netzwerkfehler. Bitte prüfen Sie Ihre Verbindung.");
-      }
+  //     if (response.status === 200 && response.data.token) {
+  //       localStorage.setItem("user", response.data.token);
+  //       router.push("/customer"); // Navigiert zum Dashboard oder einer anderen Seite
+  //     } else {
+  //       setErrorMessage(
+  //         "Login fehlgeschlagen. Bitte überprüfen Sie Ihre Daten."
+  //       );
+  //     }
+  //   } catch (error) {
+  //     if (axios.isAxiosError(error)) {
+  //       if (error.response?.status === 401) {
+  //         setErrorMessage("Ungültige Anmeldedaten.");
+  //       } else if (error.response?.status === 500) {
+  //         setErrorMessage("Serverfehler. Bitte später erneut versuchen.");
+  //       } else {
+  //         setErrorMessage(
+  //           error.response?.data?.message ||
+  //             "Ein unbekannter Fehler ist aufgetreten."
+  //         );
+  //       }
+  //     } else {
+  //       setErrorMessage("Netzwerkfehler. Bitte prüfen Sie Ihre Verbindung.");
+  //     }
+  //   }
+  // };
+
+  const handleLoginLocal = () => {
+    // Simuliert ein lokaler Login
+    if (username === "user@my.com" && password === "1234") {
+      localStorage.setItem("user", "user@my.com");
+      router.push("/customer"); // Navigiert zum Dashboard oder einer anderen Seite
+    } else {
+      setErrorMessage("Login fehlgeschlagen. Bitte überprüfen Sie Ihre Daten.");
     }
   };
 
@@ -92,7 +102,10 @@ const Login: React.FC = () => {
             Login
           </Typography>
 
-          <form onSubmit={handleLogin}>
+          <form
+            onSubmit={handleLoginLocal}
+            // onSubmit={handleLogin}
+          >
             <TextField
               label="Username"
               type="text"

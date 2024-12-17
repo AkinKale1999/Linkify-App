@@ -59,7 +59,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.BaseURL}/api/profile`);
+        const response = await axios.get(`${process.env.BaseURL}/user/profile`);
         setFormData(response.data); // Setze die erhaltenen Daten in den Zustand
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -84,7 +84,7 @@ export default function Profile() {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `${process.env.BaseURL}/api/profile`,
+        `${process.env.BaseURL}/user/profile`,
         formData
       );
       console.log("Data saved successfully:", response.data);

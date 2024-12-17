@@ -1,5 +1,8 @@
-import React from "react";
-import { Box, Container, Typography, Link } from "@mui/material";
+"use client"
+
+import React, { useEffect, useState, useCallback } from "react";
+import { Box, Container, Typography, Link, Modal, Button } from "@mui/material";
+import axios from "axios";
 
 interface FooterProps {
   footerPosition?: string | number;
@@ -7,17 +10,72 @@ interface FooterProps {
   borderTop?: string | number;
 }
 
+// Debug-Modus wird über die Umgebungsvariable `Debug` gesteuert
 let isDebugON = process.env.Debug === "ON" ? true : false;
 
-// isDebugON = true;
+// Timeout wird aus der Umgebungsvariable gelesen, Standardwert = 60 Sekunden
+let Timeout = parseInt(process.env.Timeout || "30", 10);
 
-let Timeout = process.env.Timeout;
+// LogoutViewTimer definiert die letzten Sekunden, bevor das Modal angezeigt wird (Standardwert = 20)
+let LogoutViewTimer = parseInt(process.env.LogoutViewTimer || "20", 10);
 
 const Footer: React.FC<FooterProps> = ({
   footerPosition = "0",
   footerIndex = "9999",
   borderTop = "1px solid rgba(255, 255, 255, 1)",
 }) => {
+  const [counter, setCounter] = useState(Timeout); // Zustand für den Countdown
+  const [showModal, setShowModal] = useState(false); // Zustand für das Modal
+
+  // Funktion zum Zurücksetzen des Timers bei Benutzeraktivität (z. B. Mausbewegung)
+  const resetTimer = useCallback(() => {
+    setCounter(Timeout); // Timer wird auf den ursprünglichen Wert (Timeout) zurückgesetzt
+    setShowModal(false); // Modal wird geschlossen, falls es sichtbar ist
+  }, []);
+
+  // Funktion für den Logout-Prozess
+  // const handleLogout = async () => {
+  //   try {
+  //     await axios.delete(`${process.env.BaseURL}/user/logout`); // API-Aufruf zum Löschen der Sitzung auf dem Server
+  //     document.cookie = "token=; Max-Age=0; path=/;"; // Token im Cookie löschen
+  //     window.location.href = "/login"; // Weiterleitung zur Login-Seite
+  //   } catch (error) {
+  //     console.error("Logout failed:", error);
+  //     // Fehler abfangen.
+  //   }
+  // };
+
+  const handleLogoutLocal = () => {
+    sessionStorage.clear();
+    localStorage.clear();
+    window.location.href = "/login";
+  };
+
+  // Effekt für den Countdown-Mechanismus
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCounter((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer); // Timer stoppen, wenn der Countdown abläuft
+          // handleLogout(); // Logout-Prozess starten
+          handleLogoutLocal();
+          return 0; // Countdown auf 0 setzen
+        }
+        if (prev <= LogoutViewTimer) setShowModal(true); // Modal anzeigen, wenn der Countdown unter `LogoutViewTimer` fällt
+        return prev - 1; // Countdown um 1 Sekunde verringern
+      });
+    }, 1000); // Intervall: 1 Sekunde
+
+    // Event-Listener hinzufügen, um Timer bei Mausbewegung zurückzusetzen
+    window.addEventListener("mousemove", resetTimer);
+
+    // Aufräumen: Event-Listener entfernen und Timer stoppen
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener("mousemove", resetTimer);
+    };
+  }, [resetTimer]);
+
   return (
     <Box
       component="footer"
@@ -35,6 +93,7 @@ const Footer: React.FC<FooterProps> = ({
       }}
     >
       <Container maxWidth="lg" sx={{ margin: 0, padding: 0, width: "100%" }}>
+        {/* Social Media Links */}
         <Link
           href="https://facebook.com"
           color="inherit"
@@ -66,39 +125,49 @@ const Footer: React.FC<FooterProps> = ({
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Typography
-            variant="body2"
-            sx={{
-              color: "#fff",
-            }}
-          >
+          <Typography variant="body2" sx={{ color: "#fff" }}>
             &copy; {new Date().getFullYear()} Lorem ipsum dolor sit amet
             consectetur, adipisicing elit. Nemo, amet.
           </Typography>
         </Box>
       </Container>
 
-      {isDebugON === true && (
+      {isDebugON && (
         <Box sx={{ textAlign: "center", zIndex: 9999 }}>
           <Typography variant="body2" sx={{ color: "#fff" }}>
-            {Timeout}
+            Timeout: {counter} Sekunden
           </Typography>
         </Box>
       )}
+
+      <Modal open={showModal} onClose={() => setShowModal(false)}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 300,
+            bgcolor: "white",
+            boxShadow: 24,
+            p: 4,
+            textAlign: "center",
+            borderRadius: 2,
+          }}
+        >
+          <Typography variant="h6" color="textPrimary" gutterBottom>
+            Inaktivität erkannt
+          </Typography>
+          <Typography variant="body2" color="textSecondary" mb={2}>
+            Du wirst in {counter} Sekunden ausgeloggt!
+          </Typography>
+          <Button variant="contained" color="primary" onClick={resetTimer}>
+            Aktiv bleiben
+          </Button>
+        </Box>
+      </Modal>
     </Box>
   );
 };
-
-// 1. Counter
-// counter muss gesetzt werden, der bei {Timeout} anfängt und runter bis auf 0 zählt,
-// Jedesmal wenn sich die Maus des Users bewegt soll der timer zurückgesetzt werden auf den {Timeout} variable in der .env datei.
-// in den letzten {LogoutViewTimer=20} soll ein modula fenster kommen, welches den fokus des users darauf fokussiert.
-// wenn der Countdown auf 0 kommt Muss der user ausgelogged werden,
-
-// 2. Logout
-// eine anfrage wird an die Api:  axios.delete /logout gemacht, und das cookie/token wird gelöscht.
-// und dann auf die login page weitergeleitet werden.
-
-// Linkify Logo einbauen
 
 export default Footer;
