@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState, useCallback } from "react";
 import { Box, Container, Typography, Link, Modal, Button } from "@mui/material";
@@ -14,10 +14,10 @@ interface FooterProps {
 let isDebugON = process.env.Debug === "ON" ? true : false;
 
 // Timeout wird aus der Umgebungsvariable gelesen, Standardwert = 60 Sekunden
-let Timeout = parseInt(process.env.Timeout || "3000", 10);
+let Timeout = parseInt(process.env.Timeout || "30", 10);
 
 // LogoutViewTimer definiert die letzten Sekunden, bevor das Modal angezeigt wird (Standardwert = 20)
-let LogoutViewTimer = parseInt(process.env.LogoutViewTimer || "200", 10);
+let LogoutViewTimer = parseInt(process.env.LogoutViewTimer || "20", 10);
 
 const Footer: React.FC<FooterProps> = ({
   footerPosition = "0",
@@ -75,6 +75,8 @@ const Footer: React.FC<FooterProps> = ({
       window.removeEventListener("mousemove", resetTimer);
     };
   }, [resetTimer]);
+
+  // -----------------------------------
 
   return (
     <Box

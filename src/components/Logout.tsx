@@ -2,9 +2,8 @@ import React from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 const Logout: React.FC = () => {
-
   return (
-    <div style={{}}>
+    <div>
       <LogoutIcon style={{ cursor: "pointer" }} />
     </div>
   );

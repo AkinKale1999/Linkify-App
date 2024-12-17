@@ -8,7 +8,6 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -200,7 +199,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
           <ListItem disablePadding>
             <ListItemButton onClick={() => handleNavigation("/customer")}>
               <ListItemIcon className="DashboadAndTableIcon">
-                <DashboardIcon />
+                <DashboardIcon style={{ color: "black" }} />
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
             </ListItemButton>
@@ -209,7 +208,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
           <ListItem disablePadding>
             <ListItemButton onClick={() => handleNavigation("/customer/table")}>
               <ListItemIcon className="DashboadAndTableIcon">
-                <FormatListBulletedIcon />
+                <FormatListBulletedIcon style={{ color: "black" }} />
               </ListItemIcon>
               <ListItemText primary="Table" />
             </ListItemButton>

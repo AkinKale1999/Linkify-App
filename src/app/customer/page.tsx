@@ -15,8 +15,8 @@ const DashboardPage = () => {
       }}
     >
       <h1>Dashboard</h1>
-      Hallo und herzlich willkommen, dass Sie sich bei Linkify registriert
-      haben.
+      Hallo und herzlich willkommen! Vielen Dank, dass Sie sich bei Linkify
+      registriert haben.
     </div>
   );
 };
