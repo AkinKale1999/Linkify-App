@@ -9,6 +9,11 @@ import {
   TextField,
 } from "@mui/material";
 import axios from "axios";
+import EuroIcon from "@mui/icons-material/Euro";
+import FilePresentIcon from "@mui/icons-material/FilePresent";
+import EmailIcon from "@mui/icons-material/Email";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useRouter } from "next/navigation";
 
 const ConfigPage: React.FC = () => {
   const [openModal, setOpenModal] = useState<
@@ -29,61 +34,95 @@ const ConfigPage: React.FC = () => {
   const handleSave = async () => {
     try {
       if (openModal === "email") {
-        // Axios Anfrage für E-Mail
-        await axios.post(`${process.env.NEXT_PUBLICE_BaseURL}/settings/email`, {
+        await axios.post(`${process.env.NEXT_PUBLIC_BaseURL}/settings/email`, {
           email,
         });
       } else if (openModal === "dms") {
-        // Axios Anfrage für DMS
-        await axios.post(`${process.env.NEXT_PUBLICE_BaseURL}/settings/dms`, {
+        await axios.post(`${process.env.NEXT_PUBLIC_BaseURL}/settings/dms`, {
           dms: dmsSetting,
         });
       } else if (openModal === "lexoffice") {
-        // Axios Anfrage für Lexoffice
         await axios.post(
-          `${process.env.NEXT_PUBLICE_BaseURL}/settings/lexoffice`,
+          `${process.env.NEXT_PUBLIC_BaseURL}/settings/lexoffice`,
           {
             lexoffice: lexofficeSetting,
           }
         );
       }
 
-      handleClose(); // Schließt das Modal nach dem Speichern
+      handleClose();
     } catch (error) {
       console.error("Fehler beim Speichern:", error);
     }
   };
 
+  const router = useRouter();
+
+  function handleClickOnProfile() {
+    router.push("/customer/profil");
+  }
+
   return (
     <Container className="ContainerConfigPage" maxWidth="sm">
-      <Box className="BoxConfigPage" gap={2}>
+      <Box className="BoxConfigPage">
         <Typography variant="h4" gutterBottom>
           Einstellungen
         </Typography>
+
+        {/* Email Button */}
         <Button
           variant="contained"
           color="primary"
           onClick={() => handleOpen("email")}
+          className="ConfigPageButton"
         >
-          E-Mail anpassen
+          <Box className="BoxConfigPageButtonIcon">
+            <EmailIcon className="ConfigPageButtonIcon" />
+            <p className="ConfigPageFont">E-Mail anpassen</p>
+          </Box>
         </Button>
+
+        {/* DMS Button */}
         <Button
           variant="contained"
           color="secondary"
           onClick={() => handleOpen("dms")}
+          className="ConfigPageButton"
         >
-          DMS anpassen
+          <Box className="BoxConfigPageButtonIcon">
+            <FilePresentIcon className="ConfigPageButtonIcon" />
+            <p className="ConfigPageFont">DMS anpassen</p>
+          </Box>
         </Button>
+
+        {/* Lexoffice Button */}
         <Button
           variant="contained"
           color="success"
           onClick={() => handleOpen("lexoffice")}
+          className="ConfigPageButton"
         >
-          Lexoffice anpassen
+          <Box className="BoxConfigPageButtonIcon">
+            <EuroIcon className="ConfigPageButtonIcon" />
+            <p className="ConfigPageFont">Lexoffice anpassen</p>
+          </Box>
+        </Button>
+
+        {/* Profil Button */}
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => handleClickOnProfile()}
+          className="ConfigPageButton"
+        >
+          <Box className="BoxConfigPageButtonIcon">
+            <AccountCircleIcon className="ConfigPageButtonIcon" />
+            <p className="ConfigPageFont">Profil anpassen</p>
+          </Box>
         </Button>
       </Box>
 
-      {/* Modale Fenster */}
+      {/* Modal */}
       <Modal open={openModal !== null} onClose={handleClose}>
         <Box className="modalConfigPage">
           <Typography variant="h6" gutterBottom color="black">

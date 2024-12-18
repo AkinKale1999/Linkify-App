@@ -116,42 +116,13 @@ const UserDetail: React.FC = () => {
   }
 
   return (
-    <div
-      style={{
-        textAlign: "center",
-        display: "flex",
-        alignContent: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        width: "100%",
-        marginBottom: "70px",
-        marginTop: "70px",
-      }}
-    >
+    <div id="UserDetailContainer">
       <h3>Benutzer Details</h3>
 
-      <table
-        style={{
-          margin: "0",
-          borderCollapse: "collapse",
-          width: "80%",
-          textAlign: "left",
-          position: "relative",
-          left: "12%",
-        }}
-      >
+      <table id="UserDetailTable">
         <thead>
           <tr style={{ backgroundColor: "#f2f2f2" }}>
-            <th
-              className="UserDetailTableHeader"
-              style={{
-                padding: "10px",
-                border: "1px solid #ddd",
-                width: "50%",
-              }}
-            >
-              Feld
-            </th>
+            <th className="UserDetailTableHeader">Feld</th>
             <th
               className="UserDetailTableHeader"
               style={{ padding: "10px", border: "1px solid #ddd" }}
@@ -218,24 +189,15 @@ const UserDetail: React.FC = () => {
         }}
       >
         <button
-          style={{
-            border: "none",
-            backgroundColor: "transparent",
-            cursor: "pointer",
-            transform: "scale(1.3)",
-          }}
-          title="Bearbeiten"
+        className="UserDetailButton"
+        title="Bearbeiten"
           onClick={() => setIsEditing(true)}
         >
           <EditIcon />
         </button>
         <button
-          style={{
-            backgroundColor: "transparent",
-            border: "none",
-            cursor: "pointer",
-            transform: "scale(1.3)",
-          }}
+        className="UserDetailButton"
+
           title="Löschen"
           onClick={handleDelete}
         >
@@ -244,20 +206,11 @@ const UserDetail: React.FC = () => {
       </div>
 
       <div
-        style={{
-          position: "relative",
-          left: "12%",
-          width: "fit-content",
-          marginTop: "5%",
-        }}
+      id="UserDetailModalContainer"
       >
         <button
-          style={{
-            border: "none",
-            backgroundColor: "transparent",
-            cursor: "pointer",
-            transform: "scale(1.3)",
-          }}
+        className="UserDetailButton"
+
           title="Zurück"
           onClick={handleGoingBack}
         >
@@ -266,28 +219,15 @@ const UserDetail: React.FC = () => {
       </div>
       {isEditing && (
         <div
+        id="UserDetailModal"
           style={{
-            position: "absolute",
-            top: "0",
-            left: "0",
-            right: "0",
-            bottom: "0",
-            backgroundColor: "rgba(0,0,0,0.5)",
-            zIndex: "9999",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: "850px",
             color: modalTextColor,
           }}
         >
           <div
+          id="UserDetailModalContent"
+
             style={{
-              backgroundColor: "#fff",
-              padding: "20px",
-              borderRadius: "8px",
-              minWidth: "300px",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
               color: modalTextColor, // Dynamische Textfarbe
             }}
           >
@@ -295,12 +235,7 @@ const UserDetail: React.FC = () => {
 
             {error && (
               <div
-                style={{
-                  color: "red",
-                  fontSize: "14px",
-                  marginBottom: "10px",
-                  textAlign: "center",
-                }}
+              id="UserDetailModalError"
               >
                 {error}
               </div>

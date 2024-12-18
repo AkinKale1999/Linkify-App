@@ -124,13 +124,13 @@ const Footer: React.FC<FooterProps> = ({
       </Container>
 
       {/* Kann hier Im Footer Countdown Anzeigen */}
-      {/* {isDebugON && (
+      {isDebugON && (
         <Box sx={{ textAlign: "center", zIndex: 9999 }}>
           <Typography variant="body2" sx={{ color: "#fff" }}>
             Timeout: {counter} Sekunden
           </Typography>
         </Box>
-      )} */}
+      )}
 
       <Modal open={showModal} onClose={() => setShowModal(false)}>
         <Box
