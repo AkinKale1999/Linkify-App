@@ -13,7 +13,6 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import LoginIcon from "@mui/icons-material/Login";
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -151,7 +150,7 @@ const Login: React.FC = () => {
               fullWidth
               style={{ marginTop: "16px" }}
             >
-              <LoginIcon />
+              Login
             </Button>
           </form>
           <Button

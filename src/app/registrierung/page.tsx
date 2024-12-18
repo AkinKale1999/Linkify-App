@@ -14,7 +14,6 @@ import { useRouter } from "next/navigation";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import axios from "axios";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 
 const Register: React.FC = () => {
   const [firstName, setFirstName] = useState<string>("");
@@ -364,7 +363,7 @@ const Register: React.FC = () => {
 
               <Grid item xs={12}>
                 <Button type="submit" fullWidth variant="contained">
-                  <AppRegistrationIcon />
+                  Registrierung
                 </Button>
               </Grid>
             </Grid>

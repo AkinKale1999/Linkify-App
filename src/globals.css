@@ -188,14 +188,15 @@ body {
 }
 /* ----------------------------------------- */
 
-#ContainerAdmin {
-  position: relative;
-  left: 15%;
+#AdminPageContainer {
   display: flex;
-  align-content: center;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
-  width: 85%;
+}
+
+.input-group {
+  min-width: 400px;
 }
 
 /* ----------------------------------------- */
@@ -435,6 +436,45 @@ body {
   #ContainerProfile {
     left: 25px;
     width: 50%;
+  }
+}
+
+@media (max-width: 430px) {
+  #AdminContainer {
+    height: 110vh;
+  }
+  .input-group {
+    min-width: 280px;
+    margin-left: 50px;
+  }
+
+  #AdminHeader {
+    font-size: 17px;
+    margin-left: 50px;
+    margin-bottom: 20px;
+  }
+
+  #AdminActionsContainer {
+    flex-direction: column;
+    margin-left: 50px;
+  }
+
+  #PasswordSaveLabel {
+    margin-left: 50px;
+  }
+
+  #AuthentificationLabel {
+    margin-left: 115px;
+  }
+}
+
+@media (max-width: 376px) {
+  #AdminContainer {
+    height: 115vh;
+  }
+
+  #AuthentificationLabel {
+    margin-left: 90px;
   }
 }
 
