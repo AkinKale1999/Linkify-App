@@ -89,8 +89,8 @@ const ForgotPassword: NextPage = () => {
         color="secondary"
         style={{
           marginTop: "16px",
-          textDecoration: "underline",
-          fontSize: "16px",
+          fontSize: "14px",
+          fontWeight: "500",
         }}
       >
         Zurück zum Login?
