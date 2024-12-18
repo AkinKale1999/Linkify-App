@@ -10,7 +10,7 @@ interface FooterProps {
 }
 
 // .env datei muss im Root verzeichnis gespeichert sein
-
+// Die .env Variablen Müssen mit NEXT_PUBLIC anfangen
 const isDebugON = process.env.NEXT_PUBLIC_APP_DEBUG === "ON" ? true : false;
 const Timeout = parseInt(process.env.NEXT_PUBLIC_APP_TIMEOUT || "300", 10);
 const LogoutViewTimer = parseInt(

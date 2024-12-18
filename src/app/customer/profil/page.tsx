@@ -21,13 +21,6 @@ interface FormData {
 }
 
 export default function Profile() {
-  const inputStyle = {
-    width: "100%",
-    padding: "10px",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
-  };
-
   const fieldsetStyle = {
     border: "1px solid #ccc",
     borderRadius: "4px",
@@ -106,36 +99,8 @@ export default function Profile() {
   };
 
   return (
-    <div
-      style={{
-        margin: "0 auto",
-        maxWidth: "1000px",
-        height: "950px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        position: "relative",
-        top: "-50px",
-        fontWeight: "bold",
-      }}
-    >
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "15px",
-          backgroundColor: "#f9f9f9",
-          padding: "10px",
-          borderRadius: "8px",
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-          width: "50%",
-          justifyContent: "center",
-          alignContent: "center",
-          color: "#000",
-        }}
-      >
+    <div id="ContainerProfile">
+      <form onSubmit={handleSubmit} id="FormProfile">
         <h1 style={{ textAlign: "center", margin: "0", color: "#000" }}>
           Profile
         </h1>
@@ -147,7 +112,7 @@ export default function Profile() {
             name="username"
             placeholder="Benutzername"
             required
-            style={inputStyle}
+            className="inputStyleProfile"
             value={formData.username}
             onChange={handleInputChange}
           />
@@ -163,7 +128,7 @@ export default function Profile() {
               type="text"
               name="companyName"
               placeholder="Firmenname"
-              style={inputStyle}
+              className="inputStyleProfile"
               value={formData.companyName}
               onChange={handleInputChange}
             />
@@ -172,7 +137,7 @@ export default function Profile() {
               name="name"
               placeholder="Name"
               required
-              style={inputStyle}
+              className="inputStyleProfile"
               value={formData.name}
               onChange={handleInputChange}
               onInput={handleNameInput}
@@ -182,7 +147,7 @@ export default function Profile() {
               name="firstName"
               placeholder="Vorname"
               required
-              style={inputStyle}
+              className="inputStyleProfile"
               value={formData.firstName}
               onChange={handleInputChange}
               onInput={handleNameInput}
@@ -192,7 +157,7 @@ export default function Profile() {
               name="street"
               placeholder="Straße und Hausnummer"
               required
-              style={inputStyle}
+              className="inputStyleProfile"
               value={formData.street}
               onChange={handleInputChange}
             />
@@ -201,7 +166,7 @@ export default function Profile() {
               name="postalCode"
               placeholder="Postleitzahl"
               required
-              style={inputStyle}
+              className="inputStyleProfile"
               value={formData.postalCode}
               onChange={handleInputChange}
               onInput={handlePostalCodeInput}
@@ -211,7 +176,7 @@ export default function Profile() {
               name="city"
               placeholder="Ort"
               required
-              style={inputStyle}
+              className="inputStyleProfile"
               value={formData.city}
               onChange={handleInputChange}
             />
@@ -219,7 +184,7 @@ export default function Profile() {
               type="text"
               name="region"
               placeholder="Region"
-              style={inputStyle}
+              className="inputStyleProfile"
               value={formData.region}
               onChange={handleInputChange}
             />
@@ -228,7 +193,7 @@ export default function Profile() {
               name="country"
               placeholder="Land"
               required
-              style={inputStyle}
+              className="inputStyleProfile"
               value={formData.country}
               onChange={handleInputChange}
             />
@@ -236,7 +201,7 @@ export default function Profile() {
               type="text"
               name="addressAdditional"
               placeholder="Adresszusatz"
-              style={inputStyle}
+              className="inputStyleProfile"
               value={formData.addressAdditional}
               onChange={handleInputChange}
             />
@@ -250,7 +215,7 @@ export default function Profile() {
             type="text"
             name="companyName"
             placeholder="Firmenname"
-            style={inputStyle}
+            className="inputStyleProfile"
             value={formData.companyName}
             onChange={handleInputChange}
           />
@@ -263,7 +228,7 @@ export default function Profile() {
             type="text"
             name="licenseValidity"
             placeholder="Lizenz Gültigkeit"
-            style={inputStyle}
+            className="inputStyleProfile"
             value={formData.licenseValidity}
             onChange={handleInputChange}
           />
@@ -276,7 +241,7 @@ export default function Profile() {
             type="text"
             name="group"
             placeholder="Gruppe"
-            style={inputStyle}
+            className="inputStyleProfile"
             value={formData.group}
             onChange={handleInputChange}
           />
@@ -291,17 +256,7 @@ export default function Profile() {
         />
 
         {/* Submit Button */}
-        <button
-          type="submit"
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#007bff",
-            color: "#fff",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
+        <button type="submit" id="SubmitButtonProfile">
           Speichern
         </button>
       </form>

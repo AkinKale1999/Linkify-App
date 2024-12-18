@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
-
 const ConfigPage: React.FC = () => {
   const [openModal, setOpenModal] = useState<
     "email" | "dms" | "lexoffice" | null
@@ -31,15 +30,22 @@ const ConfigPage: React.FC = () => {
     try {
       if (openModal === "email") {
         // Axios Anfrage für E-Mail
-        await axios.post(`${process.env.BaseURL}/settings/email`, { email });
+        await axios.post(`${process.env.NEXT_PUBLICE_BaseURL}/settings/email`, {
+          email,
+        });
       } else if (openModal === "dms") {
         // Axios Anfrage für DMS
-        await axios.post(`${process.env.BaseURL}/settings/dms`, { dms: dmsSetting });
+        await axios.post(`${process.env.NEXT_PUBLICE_BaseURL}/settings/dms`, {
+          dms: dmsSetting,
+        });
       } else if (openModal === "lexoffice") {
         // Axios Anfrage für Lexoffice
-        await axios.post(`${process.env.BaseURL}/settings/lexoffice`, {
-          lexoffice: lexofficeSetting,
-        });
+        await axios.post(
+          `${process.env.NEXT_PUBLICE_BaseURL}/settings/lexoffice`,
+          {
+            lexoffice: lexofficeSetting,
+          }
+        );
       }
 
       handleClose(); // Schließt das Modal nach dem Speichern
@@ -49,22 +55,8 @@ const ConfigPage: React.FC = () => {
   };
 
   return (
-    <Container
-      maxWidth="sm"
-      style={{
-        height: "500px",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        gap={2}
-        style={{ textAlign: "center" }}
-      >
+    <Container className="ContainerConfigPage" maxWidth="sm">
+      <Box className="BoxConfigPage" gap={2}>
         <Typography variant="h4" gutterBottom>
           Einstellungen
         </Typography>
@@ -93,25 +85,14 @@ const ConfigPage: React.FC = () => {
 
       {/* Modale Fenster */}
       <Modal open={openModal !== null} onClose={handleClose}>
-        <Box
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "400px",
-            backgroundColor: "white",
-            padding: "20px",
-            borderRadius: "8px",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-          }}
-        >
-          <Typography variant="h6" gutterBottom>
+        <Box className="modalConfigPage">
+          <Typography variant="h6" gutterBottom color="black">
             {openModal === "email" && "E-Mail anpassen"}
             {openModal === "dms" && "DMS anpassen"}
             {openModal === "lexoffice" && "Lexoffice anpassen"}
           </Typography>
           <TextField
+            style={{ backgroundColor: "black" }}
             fullWidth
             margin="normal"
             variant="outlined"

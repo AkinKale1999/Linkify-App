@@ -19,9 +19,12 @@ const ForgotPassword: NextPage = () => {
     setErrorMessage("");
 
     try {
-      const response = await axios.put(`${process.env.BaseURL}/user/passforgot`, {
-        email,
-      });
+      const response = await axios.put(
+        `${process.env.BaseURL}/user/passforgot`,
+        {
+          email,
+        }
+      );
 
       if (response.status === 200) {
         setSuccessMessage(
@@ -48,101 +51,34 @@ const ForgotPassword: NextPage = () => {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        width: "100%",
-        flexDirection: "column",
-      }}
-    >
-      <form
-        id="forgotPwdForm"
-        onSubmit={handleSubmit}
-        style={{
-          padding: "30px",
-          borderRadius: "8px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          maxWidth: "400px", // Maximale Breite für bessere Lesbarkeit
-          textAlign: "center",
-        }}
-      >
+    <div id="ContainerPwdForgot">
+      <form id="forgotPwdForm" onSubmit={handleSubmit}>
         <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>
           Passwort vergessen
         </h1>
 
         {successMessage && (
-          <div
-            style={{
-              color: "#155724",
-              padding: "10px",
-              borderRadius: "4px",
-              marginBottom: "15px",
-            }}
-          >
-            {successMessage}
-          </div>
+          <div id="ContainerSuccessMessagePWDForgot">{successMessage}</div>
         )}
 
         {errorMessage && (
-          <div
-            style={{
-              color: "#721c24",
-              padding: "10px",
-              borderRadius: "4px",
-              marginBottom: "15px",
-            }}
-          >
-            {errorMessage}
-          </div>
+          <div id="ContainerErrorMessagePWDForgot">{errorMessage}</div>
         )}
 
-        <label
-          htmlFor="email"
-          style={{
-            display: "block",
-            textAlign: "left",
-            fontSize: "16px",
-            marginBottom: "8px",
-            color: "#000",
-          }}
-        >
+        <label htmlFor="email" id="LabelPWDForgot">
           E-Mail-Adresse
         </label>
         <input
           type="email"
-          id="email"
+          id="EmailPWDForgot"
           name="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
           placeholder="Geben Sie Ihre E-Mail-Adresse ein"
-          style={{
-            width: "100%",
-            padding: "10px",
-            fontSize: "16px",
-            border: "1px solid #ddd",
-            borderRadius: "4px",
-            marginBottom: "20px",
-            boxSizing: "border-box",
-          }}
         />
 
-        <button
-          type="submit"
-          style={{
-            width: "100%",
-            padding: "12px",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            fontSize: "16px",
-            cursor: "pointer",
-            backgroundColor: "#1976d2",
-          }}
-        >
+        <button type="submit" id="SubmitBtnPWDForgot">
           E-Mail senden
         </button>
       </form>

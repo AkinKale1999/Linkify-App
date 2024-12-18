@@ -7,7 +7,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import AddIcon from "@mui/icons-material/Add";
 import CancelIcon from "@mui/icons-material/Cancel";
-import "../../../globals.css";
 
 type User = {
   id: number;
@@ -308,7 +307,7 @@ const UserDetail: React.FC = () => {
             )}
 
             <div style={{ marginBottom: "10px" }}>
-              <label>Benutzername:</label>
+              <label className="EditPageFontColor">Benutzername:</label>
               <input
                 type="text"
                 name="username"
@@ -318,7 +317,7 @@ const UserDetail: React.FC = () => {
               />
             </div>
             <div style={{ marginBottom: "10px" }}>
-              <label>Gruppe:</label>
+              <label className="EditPageFontColor">Gruppe:</label>
               <input
                 type="text"
                 name="group"
@@ -328,7 +327,7 @@ const UserDetail: React.FC = () => {
               />
             </div>
             <div style={{ marginBottom: "10px" }}>
-              <label>Vorname:</label>
+              <label className="EditPageFontColor">Vorname:</label>
               <input
                 type="text"
                 name="first_name"
@@ -338,7 +337,7 @@ const UserDetail: React.FC = () => {
               />
             </div>
             <div style={{ marginBottom: "10px" }}>
-              <label>Nachname:</label>
+              <label className="EditPageFontColor">Nachname:</label>
               <input
                 type="text"
                 name="last_name"
@@ -348,7 +347,7 @@ const UserDetail: React.FC = () => {
               />
             </div>
             <div style={{ marginBottom: "10px" }}>
-              <label>Status:</label>
+              <label className="EditPageFontColor">Status:</label>
               <input
                 type="text"
                 name="status"
@@ -378,7 +377,6 @@ const UserDetail: React.FC = () => {
                 <AddIcon style={{ transform: "scale(1.5)" }} />
               </button>
               <button
-                className="C"
                 onClick={() => setIsEditing(false)}
                 style={{
                   border: "none",
@@ -389,7 +387,7 @@ const UserDetail: React.FC = () => {
                 <CancelIcon
                   style={{
                     transform: "scale(1.5)",
-                    backgroundColor: "yellow",
+                    backgroundColor: "#fff",
                     width: "fit-content",
                   }}
                 />
