@@ -5,8 +5,16 @@ const DashboardPage = () => {
   return (
     <div id="ContainerDashboard">
       <h1>Dashboard</h1>
-      Hallo und herzlich willkommen! Vielen Dank, dass Sie sich bei Linkify
-      registriert haben.
+
+      <p
+        style={{
+          margin: "0",
+          textAlign: "center",
+        }}
+      >
+        Hallo und herzlich willkommen! Vielen Dank, dass Sie sich bei Linkify
+        registriert haben.
+      </p>
     </div>
   );
 };

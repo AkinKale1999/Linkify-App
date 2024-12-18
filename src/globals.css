@@ -136,11 +136,18 @@ body {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .modalConfigPage {
+  background-color: black;
+  color: #fff;
 }
 
 .ContainerConfigPage {
-  height: 500px;
+  height: 550px;
+  width: 90%;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -169,7 +176,7 @@ body {
 
 #ContainerProfile {
   margin: 0 auto;
-  max-width: 1000px;
+  width: fit-content;
   height: 950px;
   display: flex;
   flex-direction: column;
@@ -188,7 +195,7 @@ body {
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 50%;
+  width: fit-content;
   justify-content: center;
   align-content: center;
   color: #000;
@@ -213,13 +220,13 @@ body {
 /* ----------------------------------------- */
 
 #ContainerDashboard {
-  position: relative;
-  left: 15%;
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 75%;
+  width: 60%;
+  position: absolute;
+  left: 19%;
 }
 
 /* ----------------------------------------- */
@@ -293,4 +300,50 @@ body {
   align-items: center;
   flex-direction: column;
   background-color: #f8d7da;
+}
+
+/* ----------------------------------------- */
+
+@media (max-width: 700px) {
+  #ContainerProfile {
+    left: 30px;
+  }
+}
+
+@media (max-width: 550px) {
+  .ContainerConfigPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 50px;
+  }
+
+  #ContainerProfile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 500px) {
+  #ContainerDashboard {
+    margin-left: 6%;
+  }
+
+  .ContainerConfigPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #ContainerProfile {
+    left: 25px;
+    width: 50%;
+  }
+}
+
+@media (max-width: 360px) {
+  #ContainerDashboard {
+    margin-left: 8%;
+  }
 }

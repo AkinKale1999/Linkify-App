@@ -49,17 +49,20 @@ export default function Profile() {
     id: "", // ID bleibt hidden
   });
 
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${process.env.BaseURL}/user/profile`);
         setFormData(response.data); // Setze die erhaltenen Daten in den Zustand
+        setSuccessMessage(response.data.message);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        setErrorMessage(response.data.error);
       }
     };
 
-    // -------------------------------
     // fetchData();
   }, []);
 
@@ -80,9 +83,10 @@ export default function Profile() {
         `${process.env.BaseURL}/user/profile`,
         formData
       );
-      console.log("Data saved successfully:", response.data);
+
+      setSuccessMessage(response.data.message);
     } catch (error) {
-      console.error("Error saving data:", error);
+      setErrorMessage(response.data.error);
     }
   };
 
@@ -136,7 +140,6 @@ export default function Profile() {
               type="text"
               name="name"
               placeholder="Name"
-              required
               className="inputStyleProfile"
               value={formData.name}
               onChange={handleInputChange}
@@ -146,7 +149,6 @@ export default function Profile() {
               type="text"
               name="firstName"
               placeholder="Vorname"
-              required
               className="inputStyleProfile"
               value={formData.firstName}
               onChange={handleInputChange}
@@ -156,7 +158,6 @@ export default function Profile() {
               type="text"
               name="street"
               placeholder="Straße und Hausnummer"
-              required
               className="inputStyleProfile"
               value={formData.street}
               onChange={handleInputChange}
@@ -165,7 +166,6 @@ export default function Profile() {
               type="text"
               name="postalCode"
               placeholder="Postleitzahl"
-              required
               className="inputStyleProfile"
               value={formData.postalCode}
               onChange={handleInputChange}
@@ -175,7 +175,6 @@ export default function Profile() {
               type="text"
               name="city"
               placeholder="Ort"
-              required
               className="inputStyleProfile"
               value={formData.city}
               onChange={handleInputChange}
@@ -192,7 +191,6 @@ export default function Profile() {
               type="text"
               name="country"
               placeholder="Land"
-              required
               className="inputStyleProfile"
               value={formData.country}
               onChange={handleInputChange}

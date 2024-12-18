@@ -92,7 +92,6 @@ const ConfigPage: React.FC = () => {
             {openModal === "lexoffice" && "Lexoffice anpassen"}
           </Typography>
           <TextField
-            style={{ backgroundColor: "black" }}
             fullWidth
             margin="normal"
             variant="outlined"
