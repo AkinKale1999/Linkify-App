@@ -126,7 +126,8 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
   };
 
   const handleNavigation = (path: Url) => {
-    router.push(path);
+    // router.push(path);
+    console.log(path);
   };
 
   const handleLogout = async () => {
