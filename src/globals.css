@@ -1,6 +1,7 @@
 :root {
   --font-color: #fff;
   --font-color-dark: #000;
+  --flex-direction-column: column;
 }
 
 body {
@@ -73,16 +74,6 @@ body {
   color: var(--font-color);
 }
 
-/* .dark-mode .ListContainer {
-  background-color: var(--font-color-dark);
-  color: #fff;
-}
-
-.dark-mode .DashboadAndTableIcon {
-  background-color: var(--font-color-dark);
-  color: #fff;
-} */
-
 .dark-mode .VisibilityOFF {
   color: var(--font-color);
 }
@@ -106,6 +97,16 @@ body {
 
 .dark-mode .EditPageFontColor {
   color: var(--font-color-dark);
+}
+
+.dark-mode #CancelButton {
+  background-color: red;
+  color: var(--font-color-);
+}
+
+.dark-mode . {
+  color: var(--font-color-);
+  background-color: #fff;
 }
 
 /* ----------------------------------------- */
@@ -139,11 +140,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-.dark-mode .modalConfigPage {
-  background-color: black;
-  color: #fff;
-}
-
+/* ----------------------------------------- */
 .ContainerConfigPage {
   height: 550px;
   width: 90%;
@@ -155,7 +152,7 @@ body {
 
 .BoxConfigPage {
   display: flex;
-  flex-direction: column;
+  flex-direction: var(--flex-direction-column);
   align-items: center;
   text-align: center;
   gap: 15px;
@@ -171,7 +168,7 @@ body {
 
 .BoxConfigPageButtonIcon {
   display: flex;
-  flex-direction: column;
+  flex-direction: var(--flex-direction-column);
   align-items: center;
   gap: 8px;
 }
@@ -192,7 +189,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: var(--flex-direction-column);
 }
 
 .input-group {
@@ -206,7 +203,7 @@ body {
   width: fit-content;
   height: 950px;
   display: flex;
-  flex-direction: column;
+  flex-direction: var(--flex-direction-column);
   justify-content: center;
   align-items: center;
   position: relative;
@@ -216,7 +213,7 @@ body {
 
 #FormProfile {
   display: flex;
-  flex-direction: column;
+  flex-direction: var(--flex-direction-column);
   gap: 15px;
   background-color: #f9f9f9;
   padding: 10px;
@@ -250,7 +247,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: var(--flex-direction-column);
   width: 60%;
   position: absolute;
   left: 19%;
@@ -264,7 +261,7 @@ body {
   justify-content: center;
   height: 100vh;
   width: 100%;
-  flex-direction: column;
+  flex-direction: var(--flex-direction-column);
 }
 
 #forgotPwdForm {
@@ -325,7 +322,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: var(--flex-direction-column);
   background-color: #f8d7da;
 }
 
@@ -335,7 +332,7 @@ body {
   display: flex;
   align-content: center;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: var(--flex-direction-column);
   width: 100%;
   margin-bottom: 70px;
   margin-top: 70px;
@@ -455,12 +452,12 @@ body {
   }
 
   #AdminActionsContainer {
-    flex-direction: column;
+    flex-direction: var(--flex-direction-column);
     margin-left: 50px;
   }
 
   #PasswordSaveLabel {
-    margin-left: 50px;
+    margin-left: 135px;
   }
 
   #AuthentificationLabel {
@@ -481,5 +478,15 @@ body {
 @media (max-width: 360px) {
   #ContainerDashboard {
     margin-left: 8%;
+  }
+}
+
+@media (max-width: 321px) {
+  #AuthentificationLabel {
+    margin-left: 80px;
+  }
+
+  #PasswordSaveLabel {
+    margin-left: 120px;
   }
 }

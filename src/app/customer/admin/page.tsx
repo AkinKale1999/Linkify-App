@@ -50,7 +50,26 @@ const Administrator: React.FC = () => {
       newErrors.email = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
     }
     if (!password) newErrors.password = "Passwort darf nicht leer sein.";
+    if (!savePassword) {
+      newErrors.savePassword =
+        "Bitte aktivieren Sie die Option 'Passwort speichern'.";
+    }
     return newErrors;
+  };
+
+  // Prüfen, ob alle Felder gültig sind
+  const isFormValid = () => {
+    return (
+      smtpServer &&
+      smtpPort &&
+      !isNaN(Number(smtpPort)) &&
+      encryption &&
+      username &&
+      email &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
+      password &&
+      savePassword
+    );
   };
 
   const handleSave = async () => {
@@ -220,7 +239,7 @@ const Administrator: React.FC = () => {
         </Grid>
 
         {/* Optionen */}
-        <Grid item xs={12}>
+        <Grid item xs={12} marginLeft={"-85px"}>
           <FormControlLabel
             control={
               <Switch
@@ -231,7 +250,13 @@ const Administrator: React.FC = () => {
             label="Passwort speichern"
             id="PasswordSaveLabel"
           />
+          {errors.savePassword && (
+            <Typography color="error" variant="body2">
+              {errors.savePassword}
+            </Typography>
+          )}
         </Grid>
+
         <Grid item xs={12}>
           <FormControlLabel
             control={
@@ -268,9 +293,11 @@ const Administrator: React.FC = () => {
             >
               Test-E-Mail senden
             </Button>
-            <Button variant="contained" color="success" onClick={handleSave}>
-              Fertigstellen
-            </Button>
+            {isFormValid() && (
+              <Button variant="contained" color="success" onClick={handleSave}>
+                Fertigstellen
+              </Button>
+            )}
           </Box>
         </Grid>
       </Grid>

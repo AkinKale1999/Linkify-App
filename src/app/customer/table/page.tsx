@@ -360,6 +360,7 @@ export default function EnhancedTable() {
 
   return (
     <Box
+    id="BoxTable"
       sx={{
         position: "relative",
         left: "65px",
