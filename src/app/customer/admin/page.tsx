@@ -103,7 +103,7 @@ const Administrator: React.FC = () => {
       );
     }
   };
-
+// ----
   const handleTestEmail = async () => {
     const newErrors = validateInputs();
     if (Object.keys(newErrors).length > 0) {
