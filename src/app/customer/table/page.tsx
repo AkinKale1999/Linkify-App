@@ -140,18 +140,18 @@ const headCells: readonly HeadCell[] = [
     label: "Status",
   },
   // Wenn du eine "actions"-Spalte verwendest, solltest du eine Methode oder Dummy-Daten hinzufügen
-  {
-    id: "actions",
-    numeric: false, // Hier könnte es Buttons oder Links geben, daher numeric: false
-    disablePadding: false,
-    label: "Actions",
-  },
-  {
-    id: "admin",
-    numeric: false, // Hier könnte es sich um einen booleschen Wert handeln
-    disablePadding: false,
-    label: "Admin",
-  },
+  // {
+  //   id: "actions",
+  //   numeric: false, // Hier könnte es Buttons oder Links geben, daher numeric: false
+  //   disablePadding: false,
+  //   label: "Actions",
+  // },
+  // {
+  //   id: "admin",
+  //   numeric: false, // Hier könnte es sich um einen booleschen Wert handeln
+  //   disablePadding: false,
+  //   label: "Admin",
+  // },
 ];
 
 interface EnhancedTableProps {
@@ -360,7 +360,7 @@ export default function EnhancedTable() {
 
   return (
     <Box
-    id="BoxTable"
+      id="BoxTable"
       sx={{
         position: "relative",
         left: "65px",
