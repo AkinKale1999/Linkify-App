@@ -59,7 +59,7 @@ export default function Profile() {
         setFormData(response.data); // Setze die erhaltenen Daten in den Zustand
         setSuccessMessage(response.data.message);
       } catch (error) {
-        setErrorMessage(response.data.error);
+        // setErrorMessage(response.data.error);
       }
     };
 
@@ -86,7 +86,7 @@ export default function Profile() {
 
       setSuccessMessage(response.data.message);
     } catch (error) {
-      setErrorMessage(response.data.error);
+      // setErrorMessage(response.data.error);
     }
   };
 
