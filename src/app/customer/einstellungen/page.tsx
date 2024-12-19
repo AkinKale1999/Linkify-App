@@ -28,7 +28,14 @@ const ConfigPage: React.FC = () => {
   const [lexofficeSetting, setLexofficeSetting] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const dmsOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
+  const dmsOptions = [
+    "SharePoint",
+    "DocuWare",
+    "M-Files",
+    "OpenText",
+    "Alfresco",
+    "Laserfiche",
+  ];
 
   const filteredDmsOptions = dmsOptions.filter((option) =>
     option.toLowerCase().includes(searchTerm.toLowerCase())
@@ -122,7 +129,7 @@ const ConfigPage: React.FC = () => {
         {/* Profil Button */}
         <Button
           variant="contained"
-          color="secondary"
+          color="warning"
           onClick={() => handleClickOnProfile()}
           className="ConfigPageButton"
         >
@@ -165,11 +172,15 @@ const ConfigPage: React.FC = () => {
                   onChange={(e) => setDmsSetting(e.target.value)}
                   variant="outlined"
                 >
-                  {filteredDmsOptions.map((option) => (
-                    <MenuItem key={option} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
+                  {filteredDmsOptions.length === 0 ? (
+                    <MenuItem disabled>Keine Ergebnisse</MenuItem> // Wenn keine Ergebnisse, zeige "Keine Ergebnisse"
+                  ) : (
+                    filteredDmsOptions.map((option) => (
+                      <MenuItem key={option} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))
+                  )}
                 </Select>
               </FormControl>
             </>
