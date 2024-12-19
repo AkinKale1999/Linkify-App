@@ -268,4 +268,3 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
     </Box>
   );
 }
-// ---------Run npm run lint
