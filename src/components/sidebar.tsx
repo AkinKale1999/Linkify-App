@@ -126,8 +126,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
   };
 
   const handleNavigation = (path: Url) => {
-    // router.push(path);
-    console.log(path);
+    router.push(path as string);
   };
 
   const handleLogout = async () => {
@@ -270,13 +269,3 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
   );
 }
 // ---------Run npm run lint
-
-> my-app@0.1.0 lint
-> next lint
-
-? How would you like to configure ESLint? https://nextjs.org/docs/app/building-your-application/configuring/eslint
-25l❯  Strict (recommended)
-   Base
- ⚠ If you set up ESLint yourself, we recommend adding the Next.js ESLint plugin. See https://nextjs.org/docs/app/building-your-application/configuring/eslint#migrating-existing-config
-   Cancel
-Error: Process completed with exit code 1.
