@@ -269,3 +269,4 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
     </Box>
   );
 }
+// ---------
