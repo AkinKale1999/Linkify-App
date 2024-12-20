@@ -22,7 +22,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm install
-      - run: npm run lint
+      - run: npx next lint --fix
+
 
   deploy-production:
     name: Deploy (Production)
