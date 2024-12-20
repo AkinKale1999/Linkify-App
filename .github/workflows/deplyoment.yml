@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm install
-      - run: npx next lint --fix  # Es wird keine Eingabe mehr benötigt, da die Konfiguration bereits im Repo vorhanden ist
+      - run: npm run lint
 
   deploy-production:
     name: Deploy (Production)
