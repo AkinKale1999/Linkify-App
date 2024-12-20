@@ -23,7 +23,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { useRouter } from "next/navigation";
-import Users from "./[id]/page";
 
 interface Data {
   id: number;
@@ -80,7 +79,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
 type Order = "asc" | "desc";
 
-function getComparator<Key extends keyof any>(
+function getComparator<Key extends keyof { [key: string]: number | string }>(
   order: Order,
   orderBy: Key
 ): (
@@ -91,6 +90,7 @@ function getComparator<Key extends keyof any>(
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
+
 
 interface HeadCell {
   disablePadding: boolean;

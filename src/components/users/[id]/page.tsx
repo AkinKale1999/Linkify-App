@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation"; // Für URL-Parameter und Router
 import axios from "axios"; // Axios importieren
 import usersData from "../userdata.json"; // JSON-Datei importieren
@@ -29,6 +29,19 @@ const UserDetail: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedUser, setUpdatedUser] = useState<User | null>(user || null);
   const [error, setError] = useState<string>("");
+  const [modalTextColor, setModalTextColor] = useState("black"); // Declare state outside of conditionals
+
+
+  useEffect(() => {
+    const bodyBackgroundColor = window.getComputedStyle(
+      document.body
+    ).backgroundColor;
+    if (bodyBackgroundColor === "rgb(0, 0, 0)") {
+      setModalTextColor("black");
+    } else {
+      setModalTextColor("black");
+    }
+  }, [isEditing]); 
 
   // Falls kein Benutzer gefunden wurde
   if (!user) {
@@ -98,22 +111,11 @@ const UserDetail: React.FC = () => {
     }
   };
 
-  const [modalTextColor, setModalTextColor] = useState("black");
-
-  useEffect(() => {
-    const bodyBackgroundColor = window.getComputedStyle(
-      document.body
-    ).backgroundColor;
-    if (bodyBackgroundColor === "rgb(0, 0, 0)") {
-      setModalTextColor("black");
-    } else {
-      setModalTextColor("black");
-    }
-  }, [isEditing]);
-
   function handleGoingBack() {
     router.back();
   }
+
+
 
   return (
     <div id="UserDetailContainer">
@@ -189,15 +191,14 @@ const UserDetail: React.FC = () => {
         }}
       >
         <button
-        className="UserDetailButton"
-        title="Bearbeiten"
+          className="UserDetailButton"
+          title="Bearbeiten"
           onClick={() => setIsEditing(true)}
         >
           <EditIcon />
         </button>
         <button
-        className="UserDetailButton"
-
+          className="UserDetailButton"
           title="Löschen"
           onClick={handleDelete}
         >
@@ -205,12 +206,9 @@ const UserDetail: React.FC = () => {
         </button>
       </div>
 
-      <div
-      id="UserDetailModalContainer"
-      >
+      <div id="UserDetailModalContainer">
         <button
-        className="UserDetailButton"
-
+          className="UserDetailButton"
           title="Zurück"
           onClick={handleGoingBack}
         >
@@ -218,28 +216,11 @@ const UserDetail: React.FC = () => {
         </button>
       </div>
       {isEditing && (
-        <div
-        id="UserDetailModal"
-          style={{
-            color: modalTextColor,
-          }}
-        >
-          <div
-          id="UserDetailModalContent"
-
-            style={{
-              color: modalTextColor, // Dynamische Textfarbe
-            }}
-          >
+        <div id="UserDetailModal" style={{ color: modalTextColor }}>
+          <div id="UserDetailModalContent" style={{ color: modalTextColor }}>
             <h4>Benutzerdaten bearbeiten</h4>
 
-            {error && (
-              <div
-              id="UserDetailModalError"
-              >
-                {error}
-              </div>
-            )}
+            {error && <div id="UserDetailModalError">{error}</div>}
 
             <div style={{ marginBottom: "10px" }}>
               <label className="EditPageFontColor">Benutzername:</label>
@@ -312,20 +293,11 @@ const UserDetail: React.FC = () => {
                 <AddIcon style={{ transform: "scale(1.5)" }} />
               </button>
               <button
+                className="UserDetailButton"
+                title="Schließen"
                 onClick={() => setIsEditing(false)}
-                style={{
-                  border: "none",
-                  cursor: "pointer",
-                }}
-                title="Abbrechen"
               >
-                <CancelIcon
-                  style={{
-                    transform: "scale(1.5)",
-                    backgroundColor: "#fff",
-                    width: "fit-content",
-                  }}
-                />
+                <CancelIcon />
               </button>
             </div>
           </div>

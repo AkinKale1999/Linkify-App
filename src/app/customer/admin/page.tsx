@@ -91,19 +91,24 @@ const Administrator: React.FC = () => {
 
     try {
       setServerError(null); // Vorherige Fehler zurücksetzen
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BaseURL}/email/config`,
-        payload
-      );
+      await axios.post(`${process.env.NEXT_PUBLIC_BaseURL}/email/config`, payload);
       alert("SMTP-Einstellungen erfolgreich gespeichert!");
-    } catch (error: any) {
-      setServerError(
-        error.response?.data?.message ||
-          "Fehler beim Speichern der Einstellungen."
-      );
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        // Axios-spezifischer Fehler
+        setServerError(
+          error.response?.data?.message || "Fehler beim Speichern der Einstellungen."
+        );
+      } else if (error instanceof Error) {
+        // Allgemeiner JavaScript-Fehler
+        setServerError(error.message);
+      } else {
+        // Fallback für unbekannte Fehler
+        setServerError("Ein unbekannter Fehler ist aufgetreten.");
+      }
     }
   };
-// ----
+
   const handleTestEmail = async () => {
     const newErrors = validateInputs();
     if (Object.keys(newErrors).length > 0) {
@@ -118,12 +123,22 @@ const Administrator: React.FC = () => {
         { email }
       );
       alert(`Test-E-Mail gesendet: ${response.data.message}`);
-    } catch (error: any) {
-      setServerError(
-        error.response?.data?.message || "Fehler beim Testen der E-Mail."
-      );
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        // Axios-spezifischer Fehler
+        setServerError(
+          error.response?.data?.message || "Fehler beim Testen der E-Mail."
+        );
+      } else if (error instanceof Error) {
+        // Allgemeiner JavaScript-Fehler
+        setServerError(error.message);
+      } else {
+        // Fallback für unbekannte Fehler
+        setServerError("Ein unbekannter Fehler ist aufgetreten.");
+      }
     }
   };
+
 
   return (
     <Container

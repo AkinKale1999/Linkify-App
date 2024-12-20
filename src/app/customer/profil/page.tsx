@@ -56,15 +56,20 @@ export default function Profile() {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${process.env.BaseURL}/user/profile`);
-        setFormData(response.data); // Setze die erhaltenen Daten in den Zustand
+        setFormData(response.data);
         setSuccessMessage(response.data.message);
-      } catch (error) {
-        // setErrorMessage(response.data.error);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          setErrorMessage(error.message); // Fehlernachricht des Error-Objekts
+        } else {
+          setErrorMessage("Ein unbekannter Fehler ist aufgetreten."); // Fallback für unbekannte Fehler
+        }
       }
     };
 
-    // fetchData();
+    fetchData();
   }, []);
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -83,12 +88,16 @@ export default function Profile() {
         `${process.env.BaseURL}/user/profile`,
         formData
       );
-
       setSuccessMessage(response.data.message);
-    } catch (error) {
-      // setErrorMessage(response.data.error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message); // Fehlernachricht aus dem Error-Objekt
+      } else {
+        setErrorMessage("Ein unbekannter Fehler ist aufgetreten.");
+      }
     }
-  };
+  }
+
 
   const handleNameInput = (e: React.FormEvent<HTMLInputElement>) => {
     if (!/^[A-Za-z]+$/.test(e.currentTarget.value)) {
@@ -258,6 +267,17 @@ export default function Profile() {
           Speichern
         </button>
       </form>
+
+
+      {errorMessage && (
+
+        <div><p>{errorMessage}</p></div>
+      )}
+
+      {successMessage && (
+        <div><p>{successMessage}</p></div>
+
+      )}
     </div>
   );
 }

@@ -99,7 +99,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
 type Order = "asc" | "desc";
 
-function getComparator<Key extends keyof any>(
+function getComparator<Key extends string>(
   order: Order,
   orderBy: Key
 ): (
@@ -110,6 +110,7 @@ function getComparator<Key extends keyof any>(
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
+
 
 interface HeadCell {
   disablePadding: boolean;
@@ -421,7 +422,7 @@ export default function EnhancedTable() {
                     selected={isItemSelected}
                     className="tableRow"
 
-                    // ---------------------------
+                  // ---------------------------
                   >
                     <TableCell padding="checkbox">
                       <Checkbox

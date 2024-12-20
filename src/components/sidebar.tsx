@@ -29,7 +29,6 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import Image from "next/image";
 
 const drawerWidth = 240;
-// Breite der sidebar bei klick auf burgermenu
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -57,7 +56,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -112,18 +110,25 @@ const Drawer = styled(MuiDrawer, {
     },
   ],
 }));
-type mini = {
-  setIsSideBarOpen: any;
+
+// Type für die Props anpassen
+type MiniDrawerProps = {
+  setIsSideBarOpen: (open: boolean) => void; // Funktion, die den Status setzt
 };
 
-export default function MiniDrawer({ setIsSideBarOpen }: mini) {
+export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
 
   const handleDrawerOpen = () => {
     setOpen(true);
-    setIsSideBarOpen(true);
+    setIsSideBarOpen(true); // Funktion mit true aufrufen
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+    setIsSideBarOpen(false); // Funktion mit false aufrufen
   };
 
   const handleNavigation = (path: Url) => {
@@ -134,11 +139,6 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
     localStorage.clear();
     sessionStorage.clear();
     router.push("/login");
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-    setIsSideBarOpen(false);
   };
 
   const handleImageClick = () => {
@@ -191,7 +191,6 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        {/* --------------------------------- */}
         <List sx={{ minHeight: "360px" }} className="ListContainer">
           <ListItem disablePadding>
             <ListItemButton onClick={() => handleLogout()}>
@@ -220,9 +219,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
           <Divider />
           <ListItem disablePadding>
             <ListItemButton onClick={() => handleNavigation("/customer/admin")}>
-              <SupervisorAccountIcon>
-                <FormatListBulletedIcon />
-              </SupervisorAccountIcon>
+              <SupervisorAccountIcon />
               <ListItemText primary="Admin" style={{ marginLeft: "31px" }} />
             </ListItemButton>
           </ListItem>
@@ -238,9 +235,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
             <ListItemButton
               onClick={() => handleNavigation("/customer/profil")}
             >
-              <AccountCircleIcon>
-                <FormatListBulletedIcon />
-              </AccountCircleIcon>
+              <AccountCircleIcon />
               <ListItemText primary="Profil" style={{ marginLeft: "31px" }} />
             </ListItemButton>
           </ListItem>
@@ -256,9 +251,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
             <ListItemButton
               onClick={() => handleNavigation("/customer/einstellungen")}
             >
-              <SettingsIcon>
-                <FormatListBulletedIcon />
-              </SettingsIcon>
+              <SettingsIcon />
               <ListItemText
                 primary="Einstellungen"
                 style={{ marginLeft: "31px" }}
