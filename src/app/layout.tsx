@@ -2,7 +2,7 @@
 
 import ChangeMode from "@/components/DarkLightMode";
 import "../globals.css";
-import ProtectedRoute from "./_app";
+import ProtectedRoute from "./page";
 
 export default function RootLayout({
   children,
