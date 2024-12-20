@@ -33,6 +33,8 @@ type Data = {
   last_name: string;
   group: string;
   status: string;
+  admin: string;
+  actions: string;
 };
 
 type UserData = {
@@ -44,6 +46,8 @@ type UserData = {
   };
   group: string;
   status: string;
+  admin: string;
+  actions: string;
 };
 
 // Funktion, um das Data-Objekt zu erstellen
@@ -53,7 +57,9 @@ function createData(
   first_name: string,
   last_name: string,
   group: string,
-  status: string
+  status: string,
+  admin: string,
+  actions: string
 ): Data {
   return {
     id,
@@ -62,6 +68,8 @@ function createData(
     last_name,
     group,
     status,
+    admin,
+    actions,
   };
 }
 
@@ -73,7 +81,9 @@ const rows: Data[] = usersData.users.map((user: UserData) =>
     user.name.first_name,
     user.name.last_name,
     user.group,
-    user.status
+    user.status,
+    user.admin,
+    user.actions
   )
 );
 
@@ -139,19 +149,18 @@ const headCells: readonly HeadCell[] = [
     disablePadding: false,
     label: "Status",
   },
-  // Wenn du eine "actions"-Spalte verwendest, solltest du eine Methode oder Dummy-Daten hinzufügen
-  // {
-  //   id: "actions",
-  //   numeric: false, // Hier könnte es Buttons oder Links geben, daher numeric: false
-  //   disablePadding: false,
-  //   label: "Actions",
-  // },
-  // {
-  //   id: "admin",
-  //   numeric: false, // Hier könnte es sich um einen booleschen Wert handeln
-  //   disablePadding: false,
-  //   label: "Admin",
-  // },
+  {
+    id: "actions",
+    numeric: false,
+    disablePadding: false,
+    label: "Actions",
+  },
+  {
+    id: "admin",
+    numeric: false,
+    disablePadding: false,
+    label: "Admin",
+  },
 ];
 
 interface EnhancedTableProps {

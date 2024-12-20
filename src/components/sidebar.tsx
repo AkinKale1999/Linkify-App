@@ -26,6 +26,7 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import ChangeMode from "./DarkLightMode";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
+import Image from "next/image";
 
 const drawerWidth = 240;
 // Breite der sidebar bei klick auf burgermenu
@@ -163,13 +164,16 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
             <MenuIcon />
           </IconButton>
 
-          <div style={{ width: "150px", cursor: "pointer" }}>
-            <img
-              onClick={handleImageClick}
-              src="\img\Linkify-Light.svg"
-              alt="Linkify"
-            />
-          </div>
+          <Image
+            onClick={handleImageClick}
+            src="\img\Linkify-Light.svg"
+            alt="Linkify"
+            width={150}
+            height={50}
+            style={{
+              cursor: "pointer",
+            }}
+          />
 
           <ChangeMode color="#fff" />
         </Toolbar>

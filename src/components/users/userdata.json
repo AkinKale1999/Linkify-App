@@ -11,6 +11,8 @@
       "password": "hashed_password_1",
       "group": "admin",
       "status": "active",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-11-09T14:15:09.694363",
         "valid_until": "2024-11-29T14:15:09.694384"
@@ -33,6 +35,8 @@
       "password": "hashed_password_2",
       "group": "user",
       "status": "active",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-10-30T14:15:09.694406",
         "valid_until": "2024-12-09T14:15:09.694410"
@@ -55,6 +59,8 @@
       "password": "hashed_password_3",
       "group": "admin",
       "status": "inactive",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-10-20T14:15:09.694429",
         "valid_until": "2024-12-19T14:15:09.694432"
@@ -77,6 +83,8 @@
       "password": "hashed_password_4",
       "group": "user",
       "status": "active",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-10-10T14:15:09.694446",
         "valid_until": "2024-12-29T14:15:09.694449"
@@ -99,6 +107,8 @@
       "password": "hashed_password_5",
       "group": "admin",
       "status": "active",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-09-30T14:15:09.694463",
         "valid_until": "2025-01-08T14:15:09.694466"
@@ -121,6 +131,8 @@
       "password": "hashed_password_6",
       "group": "user",
       "status": "inactive",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-09-20T14:15:09.694479",
         "valid_until": "2025-01-18T14:15:09.694483"
@@ -143,6 +155,8 @@
       "password": "hashed_password_7",
       "group": "admin",
       "status": "active",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-09-10T14:15:09.694496",
         "valid_until": "2025-01-28T14:15:09.694500"
@@ -165,6 +179,8 @@
       "password": "hashed_password_8",
       "group": "user",
       "status": "active",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-08-31T14:15:09.694516",
         "valid_until": "2025-02-07T14:15:09.694521"
@@ -187,6 +203,8 @@
       "password": "hashed_password_9",
       "group": "admin",
       "status": "inactive",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-08-21T14:15:09.694535",
         "valid_until": "2025-02-17T14:15:09.694538"
@@ -209,6 +227,8 @@
       "password": "hashed_password_10",
       "group": "user",
       "status": "active",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-08-11T14:15:09.694552",
         "valid_until": "2025-02-27T14:15:09.694556"
@@ -231,6 +251,8 @@
       "password": "hashed_password_11",
       "group": "admin",
       "status": "active",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-08-01T14:15:09.694570",
         "valid_until": "2025-03-09T14:15:09.694574"
@@ -253,6 +275,8 @@
       "password": "hashed_password_12",
       "group": "user",
       "status": "inactive",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-07-22T14:15:09.694587",
         "valid_until": "2025-03-19T14:15:09.694591"
@@ -275,6 +299,8 @@
       "password": "hashed_password_13",
       "group": "admin",
       "status": "active",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-07-12T14:15:09.694605",
         "valid_until": "2025-03-29T14:15:09.694608"
@@ -297,6 +323,8 @@
       "password": "hashed_password_14",
       "group": "user",
       "status": "active",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-07-02T14:15:09.694637",
         "valid_until": "2025-04-08T14:15:09.694641"
@@ -319,6 +347,8 @@
       "password": "hashed_password_15",
       "group": "admin",
       "status": "inactive",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-06-22T14:15:09.694654",
         "valid_until": "2025-04-18T14:15:09.694658"
@@ -341,6 +371,8 @@
       "password": "hashed_password_16",
       "group": "user",
       "status": "active",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-06-12T14:15:09.694671",
         "valid_until": "2025-04-28T14:15:09.694674"
@@ -363,6 +395,8 @@
       "password": "hashed_password_17",
       "group": "admin",
       "status": "active",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-06-02T14:15:09.694687",
         "valid_until": "2025-05-08T14:15:09.694690"
@@ -385,6 +419,8 @@
       "password": "hashed_password_18",
       "group": "user",
       "status": "inactive",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-05-23T14:15:09.694704",
         "valid_until": "2025-05-18T14:15:09.694707"
@@ -407,6 +443,8 @@
       "password": "hashed_password_19",
       "group": "admin",
       "status": "active",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-05-13T14:15:09.694721",
         "valid_until": "2025-05-28T14:15:09.694725"
@@ -429,6 +467,8 @@
       "password": "hashed_password_20",
       "group": "user",
       "status": "active",
+      "actions": "actions",
+      "admin": "admin",
       "license": {
         "paid_at": "2024-05-03T14:15:09.694738",
         "valid_until": "2025-06-07T14:15:09.694741"
