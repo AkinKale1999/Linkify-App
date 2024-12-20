@@ -132,7 +132,8 @@ export default function MiniDrawer({ setIsSideBarOpen }: mini) {
 
   const handleLogout = async () => {
     localStorage.clear();
-    router.push("/");
+    sessionStorage.clear();
+    router.push("/login");
   };
 
   const handleDrawerClose = () => {
