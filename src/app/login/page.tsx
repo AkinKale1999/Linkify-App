@@ -33,41 +33,41 @@ const Login: React.FC = () => {
     router.push("/password-vergessen");
   };
 
-   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-     e.preventDefault(); 
-     setErrorMessage(null);
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setErrorMessage(null);
 
-     try {
-       const response = await axios.post(`${process.env.BaseURL}/login`, {
-         username,
-         password,
-       });
+    try {
+      const response = await axios.post(`${process.env.BaseURL}/login`, {
+        username,
+        password,
+      });
 
-       if (response.status === 200 && response.data.token) {
-         localStorage.setItem("user", response.data.token);
-         router.push("/customer"); 
-       } else {
-         setErrorMessage(
-           "Login fehlgeschlagen. Bitte überprüfen Sie Ihre Daten."
-         );
-       }
-     } catch (error) {
-       if (axios.isAxiosError(error)) {
-         if (error.response?.status === 401) {
-           setErrorMessage("Ungültige Anmeldedaten.");
-         } else if (error.response?.status === 500) {
-           setErrorMessage("Serverfehler. Bitte später erneut versuchen.");
-         } else {
-           setErrorMessage(
-             error.response?.data?.message ||
-               "Ein unbekannter Fehler ist aufgetreten."
-           );
-         }
-       } else {
-         setErrorMessage("Netzwerkfehler. Bitte prüfen Sie Ihre Verbindung.");
-       }
-     }
-   };
+      if (response.status === 200 && response.data.token) {
+        localStorage.setItem("user", response.data.token);
+        router.push("/customer");
+      } else {
+        setErrorMessage(
+          "Login fehlgeschlagen. Bitte überprüfen Sie Ihre Daten."
+        );
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          setErrorMessage("Ungültige Anmeldedaten.");
+        } else if (error.response?.status === 500) {
+          setErrorMessage("Serverfehler. Bitte später erneut versuchen.");
+        } else {
+          setErrorMessage(
+            error.response?.data?.message ||
+            "Ein unbekannter Fehler ist aufgetreten."
+          );
+        }
+      } else {
+        setErrorMessage("Netzwerkfehler. Bitte prüfen Sie Ihre Verbindung.");
+      }
+    }
+  };
 
   return (
     <>
@@ -80,7 +80,7 @@ const Login: React.FC = () => {
         Registrierung
       </Button>
 
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" className="ContainerLogin">
         <Box
           display="flex"
           flexDirection="column"
@@ -92,9 +92,7 @@ const Login: React.FC = () => {
             Login
           </Typography>
 
-          <form
-             onSubmit={handleLogin}
-          >
+          <form onSubmit={handleLogin}>
             <TextField
               label="Username"
               type="text"
@@ -114,6 +112,8 @@ const Login: React.FC = () => {
               fullWidth
               margin="normal"
               variant="outlined"
+              className="ContainerVisibility"
+
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -137,24 +137,27 @@ const Login: React.FC = () => {
                 {errorMessage}
               </Typography>
             )}
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
-              style={{ marginTop: "16px" }}
-            >
-              Login
-            </Button>
+
+            <Box display="flex" justifyContent="space-between" width="100%" mt={2}>
+              <Button
+                variant="text"
+                color="secondary"
+                style={{ width: "40%" }}
+                onClick={handlePasswordReset}
+              >
+                Passwort vergessen?
+              </Button>
+
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                style={{ width: "60%", }}
+              >
+                Login
+              </Button>
+            </Box>
           </form>
-          <Button
-            variant="text"
-            color="secondary"
-            style={{ marginTop: "16px" }}
-            onClick={handlePasswordReset}
-          >
-            Passwort vergessen?
-          </Button>
         </Box>
       </Container>
     </>

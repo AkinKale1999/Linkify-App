@@ -41,7 +41,7 @@ const UserDetail: React.FC = () => {
     } else {
       setModalTextColor("black");
     }
-  }, [isEditing]); 
+  }, [isEditing]);
 
   // Falls kein Benutzer gefunden wurde
   if (!user) {
@@ -127,7 +127,6 @@ const UserDetail: React.FC = () => {
             <th className="UserDetailTableHeader">Feld</th>
             <th
               className="UserDetailTableHeader"
-              style={{ padding: "10px", border: "1px solid #ddd" }}
             >
               Wert
             </th>
@@ -135,48 +134,48 @@ const UserDetail: React.FC = () => {
         </thead>
         <tbody>
           <tr>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>ID</td>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>
+            <td className="UserDetailTableBody">ID</td>
+            <td className="UserDetailTableBody">
               {user.id}
             </td>
           </tr>
           <tr>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>
+            <td className="UserDetailTableBody">
               Benutzername
             </td>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>
+            <td className="UserDetailTableBody">
               {user.username}
             </td>
           </tr>
           <tr>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>
+            <td className="UserDetailTableBody">
               Gruppe
             </td>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>
+            <td className="UserDetailTableBody">
               {user.group}
             </td>
           </tr>
           <tr>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>
+            <td className="UserDetailTableBody">
               Vorname
             </td>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>
+            <td className="UserDetailTableBody">
               {user.name.first_name}
             </td>
           </tr>
           <tr>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>
+            <td className="UserDetailTableBody">
               Nachname
             </td>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>
+            <td className="UserDetailTableBody">
               {user.name.last_name}
             </td>
           </tr>
           <tr>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>
+            <td className="UserDetailTableBody">
               Status
             </td>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>
+            <td className="UserDetailTableBody">
               {user.status}
             </td>
           </tr>
@@ -215,6 +214,9 @@ const UserDetail: React.FC = () => {
           <KeyboardBackspaceIcon />
         </button>
       </div>
+
+
+      {/* -------------------------------- */}
       {isEditing && (
         <div id="UserDetailModal" style={{ color: modalTextColor }}>
           <div id="UserDetailModalContent" style={{ color: modalTextColor }}>
@@ -293,7 +295,7 @@ const UserDetail: React.FC = () => {
                 <AddIcon style={{ transform: "scale(1.5)" }} />
               </button>
               <button
-                className="UserDetailButton"
+                className="BtnCancel"
                 title="Schließen"
                 onClick={() => setIsEditing(false)}
               >

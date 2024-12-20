@@ -303,6 +303,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   fullWidth
+                  className="ContainerVisibility"
                   style={border}
                   InputProps={{
                     endAdornment: (
@@ -329,6 +330,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                   fullWidth
+                  className="ContainerVisibility"
                   style={border}
                   InputProps={{
                     endAdornment: (

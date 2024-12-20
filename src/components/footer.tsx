@@ -11,7 +11,7 @@ interface FooterProps {
 
 // .env datei muss im Root verzeichnis gespeichert sein
 // Die .env Variablen Müssen mit NEXT_PUBLIC anfangen
-const isDebugON = process.env.NEXT_PUBLIC_APP_DEBUG === "ON" ? true : false;
+// const isDebugON = process.env.NEXT_PUBLIC_APP_DEBUG === "ON" ? true : false;
 const Timeout = parseInt(process.env.NEXT_PUBLIC_APP_TIMEOUT || "300", 10);
 const LogoutViewTimer = parseInt(
   process.env.NEXT_PUBLIC_APP_LOGOUT_VIEW_TIMER || "20",
@@ -77,8 +77,9 @@ const Footer: React.FC<FooterProps> = ({
         transition: "left 0.23s ease",
         borderTop: borderTop,
       }}
+
     >
-      <Container maxWidth="lg" sx={{ margin: 0, padding: 0, width: "100%" }}>
+      <Container maxWidth="lg" sx={{ margin: 0, padding: 0, width: "100vw" }}>
         {/* Social Media Links */}
         <Link
           href="https://facebook.com"
@@ -111,12 +112,12 @@ const Footer: React.FC<FooterProps> = ({
         </Link>
 
         <Box
-          width={"100vmax"}
+          width={"100vw"}
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Typography variant="body2" sx={{ color: "#fff" }}>
+          <Typography variant="body2" sx={{ color: "#fff", }} className="FooterLorem">
             &copy; {new Date().getFullYear()} Lorem ipsum dolor sit amet
             consectetur, adipisicing elit. Nemo, amet.
           </Typography>
@@ -124,13 +125,13 @@ const Footer: React.FC<FooterProps> = ({
       </Container>
 
       {/* Kann hier Im Footer Countdown Anzeigen */}
-      {isDebugON && (
+      {/* {isDebugON && (
         <Box sx={{ textAlign: "center", zIndex: 9999 }}>
           <Typography variant="body2" sx={{ color: "#fff" }}>
             Timeout: {counter} Sekunden
           </Typography>
         </Box>
-      )}
+      )} */}
 
       <Modal open={showModal} onClose={() => setShowModal(false)}>
         <Box

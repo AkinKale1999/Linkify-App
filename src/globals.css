@@ -26,7 +26,7 @@ body {
 }
 
 .dark-mode input {
-  background-color: #eeeeeebe;
+  background-color: #fff;
 }
 
 .dark-mode #forgotPwdForm {
@@ -45,7 +45,7 @@ body {
 }
 
 .dark-mode label {
-  color: var(--font-color);
+  color: var(--font-color-dark);
 }
 
 .dark-mode .TablePaper {
@@ -74,17 +74,18 @@ body {
   color: var(--font-color);
 }
 
-.dark-mode .VisibilityOFF {
-  color: var(--font-color);
-}
-
-.dark-mode .VisibilityONN {
-  color: var(--font-color);
+.dark-mode .ContainerVisibility {
+  background-color: #fff;
 }
 
 .dark-mode .UserDetailTableHeader {
-  color: var(--font-color);
-  background-color: #333;
+  color: var(--font-color-dark);
+}
+
+
+.dark-mode .UserDetailTableBody {
+  background-color: #fff;
+  color: black;
 }
 
 .dark-mode .toggleButton {
@@ -102,6 +103,22 @@ body {
 .dark-mode #CancelButton {
   background-color: red;
   color: var(--font-color-);
+}
+
+.dark-mode #PasswordSaveLabel {
+  color: #fff;
+}
+
+.dark-mode #AuthentificationLabel {
+  color: #fff;
+}
+
+.dark-mode .UserDetailButton {
+  color: #fff;
+}
+
+.dark-mode #BtnCancel {
+  color: black;
 }
 
 /* ----------------------------------------- */
@@ -178,6 +195,7 @@ body {
   width: 40px;
   height: 40px;
 }
+
 /* ----------------------------------------- */
 
 #AdminPageContainer {
@@ -309,6 +327,7 @@ body {
   cursor: pointer;
   background-color: #1976d2;
 }
+
 /* ----------------------------------------- */
 
 #ContainerNotFound {
@@ -329,26 +348,52 @@ body {
   justify-content: center;
   flex-direction: var(--flex-direction-column);
   width: 100%;
-  margin-bottom: 70px;
-  margin-top: 70px;
+  height: 700px;
+  margin-bottom: 50px;
+
 }
 
 #UserDetailTable {
   margin: 0;
   border-collapse: collapse;
-  width: 80%;
-  text-align: left;
-  position: relative;
-  left: 12%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
 }
 
 .UserDetailTableHeader {
   padding: 10px;
   border: 1px solid #ddd;
-  width: 50%;
+  width: 25vmax;
+  height: 7vh;
+
+}
+
+.UserDetailTableBody {
+  padding: 10px;
+  border: 2px solid #ddd;
+  width: 25vmax;
+  height: 7vh;
+
+}
+
+#UserDetailModalContainer {
+  position: absolute;
+  left: 150px;
+  top: 750px;
 }
 
 .UserDetailButton {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transform: scale(1.3);
+}
+
+.BtnCancel {
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -367,6 +412,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 850px;
+  width: 100%;
 }
 
 #UserDetailModalContent {
@@ -393,6 +439,15 @@ body {
 
 /* ----------------------------------------- */
 
+.ContainerLogin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/* ----------------------------------------- */
 @media (max-width: 700px) {
   #ContainerProfile {
     left: 30px;
@@ -435,6 +490,7 @@ body {
   #AdminContainer {
     height: 110vh;
   }
+
   .input-group {
     min-width: 280px;
     margin-left: 50px;
@@ -458,6 +514,33 @@ body {
   #AuthentificationLabel {
     margin-left: 115px;
   }
+
+
+  #UserDetailContainer {
+    margin-left: 30px;
+  }
+
+  .UserDetailTableHeader {
+    width: 126px;
+  }
+
+  .UserDetailTableBody {
+    width: 125px;
+  }
+
+  #UserDetailModalContainer {
+    left: 100px;
+  }
+
+  .FooterLorem {
+    margin-left: 25px;
+  }
+
+  .modalConfigPage {
+    width: 75%;
+    position: relative;
+    top: 350px;
+  }
 }
 
 @media (max-width: 376px) {
@@ -468,6 +551,7 @@ body {
   #AuthentificationLabel {
     margin-left: 90px;
   }
+
 }
 
 @media (max-width: 360px) {
@@ -483,5 +567,13 @@ body {
 
   #PasswordSaveLabel {
     margin-left: 120px;
+  }
+
+  #UserDetailContainer {
+    margin-left: 52px;
+  }
+
+  #UserDetailModalContainer {
+    left: 60px;
   }
 }

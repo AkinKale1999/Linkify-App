@@ -232,7 +232,7 @@ const Administrator: React.FC = () => {
             error={!!errors.password}
             helperText={errors.password}
             required
-            className="input-group"
+            className="input-group ContainerVisibility"
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -242,9 +242,9 @@ const Administrator: React.FC = () => {
                     aria-label="Passwort umschalten"
                   >
                     {showPassword ? (
-                      <VisibilityOffIcon className="VisibilityOFF" />
+                      <VisibilityOffIcon />
                     ) : (
-                      <VisibilityIcon className="VisibilityONN" />
+                      <VisibilityIcon />
                     )}
                   </IconButton>
                 </InputAdornment>
