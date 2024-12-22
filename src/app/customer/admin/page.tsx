@@ -144,7 +144,7 @@ const Administrator: React.FC = () => {
     <Container
       id="AdminContainer"
       maxWidth="md"
-      style={{ minHeight: "761px", position: "relative", top: "-20px" }}
+      style={{ minHeight: "890px", position: "relative", top: "-0px", }}
     >
       <Typography
         variant="h4"

@@ -38,10 +38,11 @@ const Login: React.FC = () => {
     setErrorMessage(null);
 
     try {
-      const response = await axios.post(`${process.env.BaseURL}/login`, {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/login`, {
         username,
         password,
       });
+      console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/login`)
 
       if (response.status === 200 && response.data.token) {
         localStorage.setItem("user", response.data.token);
