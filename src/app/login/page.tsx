@@ -39,13 +39,12 @@ const Login: React.FC = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}login`,
         { username, password },
-        { withCredentials: true } // Sorgt dafür, dass Cookies mitgesendet werden
+        { withCredentials: true } 
       );
 
       if (response.status === 200) {
-        // Erfolgreiches Login
         router.push("/customer");
       } else {
         setErrorMessage("Login fehlgeschlagen. Bitte überprüfen Sie Ihre Daten.");
