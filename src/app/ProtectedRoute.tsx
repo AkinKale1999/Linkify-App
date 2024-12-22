@@ -13,7 +13,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     const auth = localStorage.getItem("Auth");
     const currentPath = window.location.pathname;
 
-    // Verhindere unnötige Umleitungen
     if (auth !== "Authenticated" && currentPath !== "/login") {
       router.push("/login");
     } else if (auth === "Authenticated" && currentPath !== "/customer") {

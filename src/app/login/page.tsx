@@ -41,7 +41,7 @@ const Login: React.FC = () => {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
         { username, password },
-        { withCredentials: true } 
+        { withCredentials: true }
       );
 
       console.log(response)
@@ -71,6 +71,7 @@ const Login: React.FC = () => {
 
   return (
     <>
+
       <Button
         id="RegisterBtnOnLoginPage"
         sx={{ float: "right", marginTop: "10px", marginRight: "10px" }}
