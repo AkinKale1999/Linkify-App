@@ -44,6 +44,8 @@ const Login: React.FC = () => {
         { withCredentials: true } 
       );
 
+      console.log(response)
+
       if (response.status === 200) {
         router.push("/customer");
       } else {
