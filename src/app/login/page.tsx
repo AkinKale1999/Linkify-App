@@ -42,6 +42,7 @@ const Login: React.FC = () => {
         username,
         password,
       });
+
       console.log("API-Endpoint:", `${process.env.NEXT_PUBLIC_BASE_URL}/user/login`);
       console.log("API-Endpoint:", `${process.env.NEXT_PUBLIC_BASE_URL}`);
       console.log("Request Body:", { username, password });
