@@ -43,6 +43,7 @@ const Login: React.FC = () => {
         password,
       });
       console.log("API-Endpoint:", `${process.env.NEXT_PUBLIC_BASE_URL}/login`);
+      console.log("API-Endpoint:", `${process.env.NEXT_PUBLIC_BASE_URL}`);
       console.log("Request Body:", { username, password });
 
       if (response.status === 200 && response.data.token) {
