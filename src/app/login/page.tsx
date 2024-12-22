@@ -38,22 +38,17 @@ const Login: React.FC = () => {
     setErrorMessage(null);
 
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/login`, {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
+        { username, password },
+        { withCredentials: true } // Sorgt dafür, dass Cookies mitgesendet werden
+      );
 
-      console.log("API-Endpoint:", `${process.env.NEXT_PUBLIC_BASE_URL}/user/login`);
-      console.log("API-Endpoint:", `${process.env.NEXT_PUBLIC_BASE_URL}`);
-      console.log("Request Body:", { username, password });
-
-      if (response.status === 200 && response.data.token) {
-        localStorage.setItem("user", response.data.token);
+      if (response.status === 200) {
+        // Erfolgreiches Login
         router.push("/customer");
       } else {
-        setErrorMessage(
-          "Login fehlgeschlagen. Bitte überprüfen Sie Ihre Daten."
-        );
+        setErrorMessage("Login fehlgeschlagen. Bitte überprüfen Sie Ihre Daten.");
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -63,8 +58,7 @@ const Login: React.FC = () => {
           setErrorMessage("Serverfehler. Bitte später erneut versuchen.");
         } else {
           setErrorMessage(
-            error.response?.data?.message ||
-            "Ein unbekannter Fehler ist aufgetreten."
+            error.response?.data?.message || "Ein unbekannter Fehler ist aufgetreten."
           );
         }
       } else {
@@ -72,6 +66,7 @@ const Login: React.FC = () => {
       }
     }
   };
+
 
   return (
     <>
