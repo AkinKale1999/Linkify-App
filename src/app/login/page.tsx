@@ -38,11 +38,11 @@ const Login: React.FC = () => {
     setErrorMessage(null);
 
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}login`, {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/login`, {
         username,
         password,
       });
-      console.log("API-Endpoint:", `${process.env.NEXT_PUBLIC_BASE_URL}login`);
+      console.log("API-Endpoint:", `${process.env.NEXT_PUBLIC_BASE_URL}/user/login`);
       console.log("API-Endpoint:", `${process.env.NEXT_PUBLIC_BASE_URL}`);
       console.log("Request Body:", { username, password });
 
