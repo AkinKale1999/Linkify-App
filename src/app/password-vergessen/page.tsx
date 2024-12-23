@@ -20,7 +20,7 @@ const ForgotPassword: NextPage = () => {
 
     try {
       const response = await axios.put(
-        `${process.env.BaseURL}/user/passforgot`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/user/passforgot`,
         {
           email,
         }

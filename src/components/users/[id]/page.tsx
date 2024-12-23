@@ -84,7 +84,7 @@ const UserDetail: React.FC = () => {
     if (validateInputs()) {
       try {
         const response = await axios.put(
-          `${process.env.BaseURL}/user/${updatedUser?.id}`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/user/${updatedUser?.id}`,
           updatedUser
         );
         if (response.status === 200) {
@@ -100,7 +100,7 @@ const UserDetail: React.FC = () => {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        `${process.env.BaseURL}/user/${updatedUser?.id}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/user/${updatedUser?.id}`
       );
       if (response.status === 200) {
         console.log("Benutzer gelöscht:", updatedUser);

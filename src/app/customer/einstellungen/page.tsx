@@ -52,16 +52,16 @@ const ConfigPage: React.FC = () => {
   const handleSave = async () => {
     try {
       if (openModal === "email") {
-        await axios.post(`${process.env.NEXT_PUBLIC_BaseURL}/settings/email`, {
+        await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/settings/email`, {
           email,
         });
       } else if (openModal === "dms") {
-        await axios.post(`${process.env.NEXT_PUBLIC_BaseURL}/settings/dms`, {
+        await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/settings/dms`, {
           dms: dmsSetting,
         });
       } else if (openModal === "lexoffice") {
         await axios.post(
-          `${process.env.NEXT_PUBLIC_BaseURL}/settings/lexoffice`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/settings/lexoffice`,
           {
             lexoffice: lexofficeSetting,
           }

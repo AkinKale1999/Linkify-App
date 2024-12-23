@@ -55,7 +55,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.BaseURL}/user/profile`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/user/profile`);
         setFormData(response.data);
         setSuccessMessage(response.data.message);
       } catch (error: unknown) {
@@ -85,7 +85,7 @@ export default function Profile() {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `${process.env.BaseURL}/user/profile`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/user/profile`,
         formData
       );
       setSuccessMessage(response.data.message);
