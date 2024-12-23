@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation"; // Für URL-Parameter und Router
-import axios from "axios"; // Axios importieren
-import usersData from "../userdata.json"; // JSON-Datei importieren
+import axios from "axios";
+import usersData from "../userdata.json"; 
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -75,16 +75,15 @@ const UserDetail: React.FC = () => {
       setError("Alle Felder müssen ausgefüllt werden.");
       return false;
     }
-    setError(""); // Fehler zurücksetzen, wenn alles korrekt ist
+    setError(""); 
     return true;
   };
 
-  // Funktion zum Speichern der bearbeiteten Daten mit Axios
   const handleSaveChanges = async () => {
     if (validateInputs()) {
       try {
         const response = await axios.put(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/user/${updatedUser?.id}`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}user/${updatedUser?.id}`,
           updatedUser
         );
         if (response.status === 200) {
@@ -100,7 +99,7 @@ const UserDetail: React.FC = () => {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/user/${updatedUser?.id}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}user/${updatedUser?.id}`
       );
       if (response.status === 200) {
         console.log("Benutzer gelöscht:", updatedUser);

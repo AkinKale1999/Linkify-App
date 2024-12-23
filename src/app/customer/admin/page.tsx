@@ -91,7 +91,7 @@ const Administrator: React.FC = () => {
 
     try {
       setServerError(null); // Vorherige Fehler zurücksetzen
-      await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/email/config`, payload);
+      await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}email/config`, payload);
       alert("SMTP-Einstellungen erfolgreich gespeichert!");
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
@@ -119,7 +119,7 @@ const Administrator: React.FC = () => {
     try {
       setServerError(null);
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/email/test`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}email/test`,
         { email }
       );
       alert(`Test-E-Mail gesendet: ${response.data.message}`);
