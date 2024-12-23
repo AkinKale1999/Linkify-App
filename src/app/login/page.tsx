@@ -40,7 +40,7 @@ const Login: React.FC = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}Login`,
         { username, password },
         { withCredentials: true }
       );
