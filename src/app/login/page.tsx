@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import Cookies from "js-cookie";  // Importiere die js-cookie Bibliothek
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -44,7 +45,10 @@ const Login: React.FC = () => {
         { withCredentials: true }
       );
 
-      console.log(response)
+      const token = response.data.token;
+
+      // Speichern des Tokens in den Cookies
+      Cookies.set("authToken", token, { expires: 7 });  // Das Token wird für 7 Tage gespeichert
 
       if (response.status === 200) {
         router.push("/customer");
@@ -68,10 +72,8 @@ const Login: React.FC = () => {
     }
   };
 
-
   return (
     <>
-
       <Button
         id="RegisterBtnOnLoginPage"
         sx={{ float: "right", marginTop: "10px", marginRight: "10px" }}
