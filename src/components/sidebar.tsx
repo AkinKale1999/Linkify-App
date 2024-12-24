@@ -27,6 +27,8 @@ import ChangeMode from "./DarkLightMode";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Image from "next/image";
+import Cookies from "js-cookie";  // Importiere die js-cookie Bibliothek
+
 
 const drawerWidth = 240;
 
@@ -136,8 +138,8 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
   };
 
   const handleLogout = async () => {
-    localStorage.clear();
-    sessionStorage.clear();
+    Cookies.remove("authToken")
+
     router.push("/login");
   };
 
