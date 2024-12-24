@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation"; // Für URL-Parameter und Router
 import axios from "axios";
-import usersData from "../userdata.json"; 
+import usersData from "../userdata.json";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -75,7 +75,7 @@ const UserDetail: React.FC = () => {
       setError("Alle Felder müssen ausgefüllt werden.");
       return false;
     }
-    setError(""); 
+    setError("");
     return true;
   };
 
@@ -113,8 +113,6 @@ const UserDetail: React.FC = () => {
   function handleGoingBack() {
     router.back();
   }
-
-
 
   return (
     <div id="UserDetailContainer">

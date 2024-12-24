@@ -1,5 +1,5 @@
-import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useState } from "react";
 
 interface ChangeModeProps {
