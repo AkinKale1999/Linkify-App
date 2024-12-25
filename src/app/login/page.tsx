@@ -13,7 +13,6 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import Cookies from "js-cookie";  // Importiere die js-cookie Bibliothek
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -40,14 +39,12 @@ const Login: React.FC = () => {
 
     try {
       const response = await axios.post(
+
         `${process.env.NEXT_PUBLIC_BASE_URL}user/login`,
         { username, password },
         { withCredentials: true }
       );
 
-      const token = response.data.token;
-
-      Cookies.set("authToken", token, { expires: 7 });
 
       if (response.status === 200) {
         router.push("/customer");
