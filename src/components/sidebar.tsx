@@ -22,13 +22,14 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { Url } from "next/dist/shared/lib/router/router";
 import Logout from "./Logout";
 import { useRouter } from "next/navigation";
-import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import ChangeMode from "./DarkLightMode";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Image from "next/image";
 import Cookies from "js-cookie";  // Importiere die js-cookie Bibliothek
-
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import SecurityIcon from '@mui/icons-material/Security';
 
 const drawerWidth = 240;
 
@@ -220,9 +221,9 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton onClick={() => handleNavigation("/customer/admin")}>
+            <ListItemButton onClick={() => handleNavigation("/customer/SMTP-Email")}>
               <SupervisorAccountIcon />
-              <ListItemText primary="Admin" style={{ marginLeft: "31px" }} />
+              <ListItemText primary="SMTP-Email" style={{ marginLeft: "31px" }} />
             </ListItemButton>
           </ListItem>
 
@@ -260,6 +261,49 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
               />
             </ListItemButton>
           </ListItem>
+
+          <Divider />
+
+          <ListItem
+            disablePadding
+            style={{
+              display: "flex",
+              alignContent: "center",
+              justifyContent: "center",
+            }}
+          >
+            <ListItemButton
+              onClick={() => handleNavigation("/customer/admin")}
+            >
+              <AdminPanelSettingsIcon />
+              <ListItemText
+                primary="Admin"
+                style={{ marginLeft: "31px" }}
+              />
+            </ListItemButton>
+          </ListItem>
+
+          <Divider />
+
+          <ListItem
+            disablePadding
+            style={{
+              display: "flex",
+              alignContent: "center",
+              justifyContent: "center",
+            }}
+          >
+            <ListItemButton
+              onClick={() => handleNavigation("/customer/superadmin")}
+            >
+              <SecurityIcon />
+              <ListItemText
+                primary="Superadmin"
+                style={{ marginLeft: "31px" }}
+              />
+            </ListItemButton>
+          </ListItem>
+
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
