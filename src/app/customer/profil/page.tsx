@@ -55,7 +55,12 @@ export default function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}user/profile`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}user/profile`,
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        );
         setFormData(response.data);
         setSuccessMessage(response.data.message);
       } catch (error: unknown) {
