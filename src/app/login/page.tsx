@@ -88,17 +88,25 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
+    const sessionTimeout = 3600000; // Beispiel für eine 1-Stunden-Sitzung (3600000ms)
+    const refreshThreshold = sessionTimeout * 0.9; // 90% der Sitzung
 
     if (isLoggedIn) {
       timer = setInterval(() => {
-        loginRefresh(); // Call memoized loginRefresh
-      }, 9000); // Adjust the interval as needed
+        const currentTime = Date.now();
+        const sessionRemaining = sessionTimeout - (currentTime % sessionTimeout);
 
-      return () => clearInterval(timer); // Clean up the timer on component unmount
+        if (sessionRemaining <= refreshThreshold) {
+          loginRefresh(); // Login-Refresh ausführen, wenn 90% erreicht sind
+        }
+      }, 1000); // Alle 1 Sekunde den verbleibenden Zeitraum prüfen
+
+      return () => clearInterval(timer);
     }
 
-    return undefined; // Return nothing if not logged in
-  }, [isLoggedIn, loginRefresh]); // Use the memoized function here
+    return undefined;
+  }, [isLoggedIn, loginRefresh]);
+
 
   return (
     <>
