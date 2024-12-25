@@ -77,7 +77,7 @@ const Login: React.FC = () => {
     if (isLoggedIn) {
       try {
         await axios.post(
-          `${process.env.NEXT_PUBLIC_BASE_URL}user/refresh-login`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}user/login-refresh`,
           {},
           { withCredentials: true }
         );
