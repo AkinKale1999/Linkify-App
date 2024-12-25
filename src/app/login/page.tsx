@@ -39,10 +39,14 @@ const Login: React.FC = () => {
 
     try {
       const response = await axios.post(
-
         `${process.env.NEXT_PUBLIC_BASE_URL}user/login`,
-        { username, password },
-        { withCredentials: true }
+        { username, password }, // Payload als Objekt
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true, // Für Cookies oder Sitzungsdaten
+        }
       );
 
 
