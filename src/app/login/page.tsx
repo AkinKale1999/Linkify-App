@@ -40,15 +40,12 @@ const Login: React.FC = () => {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}user/login`,
-        { username, password }, // Payload als Objekt
+        { username, password },
         {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true, // Für Cookies oder Sitzungsdaten
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
         }
       );
-
 
       if (response.status === 200) {
         router.push("/customer");
