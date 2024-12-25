@@ -1,5 +1,4 @@
-"use client";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   TextField,
   Button,
@@ -20,6 +19,7 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState("1234");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // Track login status
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -48,6 +48,7 @@ const Login: React.FC = () => {
       );
 
       if (response.status === 200) {
+        setIsLoggedIn(true); // Mark as logged in
         router.push("/customer");
       } else {
         setErrorMessage("Login fehlgeschlagen. Bitte überprüfen Sie Ihre Daten.");
@@ -68,6 +69,36 @@ const Login: React.FC = () => {
       }
     }
   };
+
+  // Memoize loginRefresh function using useCallback
+  const loginRefresh = useCallback(async () => {
+    if (isLoggedIn) {
+      try {
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}user/refresh-login`,
+          {},
+          { withCredentials: true }
+        );
+        console.log("Login Refresh erfolgreich!");
+      } catch (error) {
+        console.error("Fehler beim Refresh:", error);
+      }
+    }
+  }, [isLoggedIn]); // Add isLoggedIn as a dependency
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    if (isLoggedIn) {
+      timer = setInterval(() => {
+        loginRefresh(); // Call memoized loginRefresh
+      }, 9000); // Adjust the interval as needed
+
+      return () => clearInterval(timer); // Clean up the timer on component unmount
+    }
+
+    return undefined; // Return nothing if not logged in
+  }, [isLoggedIn, loginRefresh]); // Use the memoized function here
 
   return (
     <>
@@ -152,7 +183,7 @@ const Login: React.FC = () => {
                 type="submit"
                 variant="contained"
                 color="primary"
-                style={{ width: "60%", }}
+                style={{ width: "60%" }}
               >
                 Login
               </Button>
