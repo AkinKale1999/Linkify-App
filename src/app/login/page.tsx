@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect, useCallback } from "react";
 import {
   TextField,
@@ -22,6 +20,7 @@ const Login: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // Track login status
+  const [timeRemaining, setTimeRemaining] = useState<number | null>(null); // State to track the remaining time
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -97,6 +96,7 @@ const Login: React.FC = () => {
       timer = setInterval(() => {
         const currentTime = Date.now();
         const sessionRemaining = sessionTimeout - (currentTime % sessionTimeout);
+        setTimeRemaining(sessionRemaining); // Update the time remaining
 
         if (sessionRemaining <= refreshThreshold) {
           loginRefresh(); // Login-Refresh ausführen, wenn 90% erreicht sind
@@ -108,7 +108,6 @@ const Login: React.FC = () => {
 
     return undefined;
   }, [isLoggedIn, loginRefresh]);
-
 
   return (
     <>
@@ -199,6 +198,12 @@ const Login: React.FC = () => {
               </Button>
             </Box>
           </form>
+
+          {isLoggedIn && timeRemaining !== null && (
+            <Typography variant="body1" style={{ marginTop: "20px" }}>
+              Verbleibende Zeit: {Math.floor(timeRemaining / 1000)} Sekunden
+            </Typography>
+          )}
         </Box>
       </Container>
     </>
