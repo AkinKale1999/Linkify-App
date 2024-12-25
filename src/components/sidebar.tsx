@@ -26,7 +26,6 @@ import ChangeMode from "./DarkLightMode";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Image from "next/image";
-import Cookies from "js-cookie";  // Importiere die js-cookie Bibliothek
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import SecurityIcon from '@mui/icons-material/Security';
@@ -138,11 +137,12 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
     router.push(path as string);
   };
 
-  const handleLogout = async () => {
-    Cookies.remove("_CTA")
-
+  const handleLogout = () => {
+    document.cookie = "_CTA=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+  
     router.push("/login");
   };
+  
 
   const handleImageClick = () => {
     router.push("/customer");
