@@ -138,7 +138,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
   };
 
   const handleLogout = async () => {
-    Cookies.remove("authToken")
+    Cookies.remove("_CTA")
 
     router.push("/login");
   };
