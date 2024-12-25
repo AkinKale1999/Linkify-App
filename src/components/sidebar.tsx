@@ -139,10 +139,10 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
 
   const handleLogout = () => {
     document.cookie = "_CTA=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
-  
+
     router.push("/login");
   };
-  
+
 
   const handleImageClick = () => {
     router.push("/customer");
@@ -270,6 +270,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
               display: "flex",
               alignContent: "center",
               justifyContent: "center",
+              backgroundColor: "pink",
             }}
           >
             <ListItemButton
@@ -291,6 +292,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
               display: "flex",
               alignContent: "center",
               justifyContent: "center",
+              backgroundColor: "green",
             }}
           >
             <ListItemButton
