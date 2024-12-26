@@ -60,7 +60,6 @@ export default function EnhancedTable() {
     contact_phone: number;
     email: string;
     actions: boolean
-
   };
 
   // Funktion, um das Data-Objekt zu erstellen
