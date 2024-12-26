@@ -203,7 +203,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
             )}
           </IconButton>
         </DrawerHeader>
-        <Divider />
+        <Divider style={{ backgroundColor: "black", height: "2px" }} />
         <List sx={{ minHeight: "360px" }} className="ListContainer">
           <ListItem disablePadding>
             <ListItemButton onClick={() => handleLogout()}>
@@ -229,9 +229,6 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
               <ListItemText primary="User" />
             </ListItemButton>
           </ListItem>
-          <Divider />
-
-
           <ListItem
             disablePadding
             style={{
@@ -248,7 +245,9 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
             </ListItemButton>
           </ListItem>
 
-          <Divider />
+
+
+          <Divider style={{ backgroundColor: "black", height: "2px" }} />
 
           <ListItem
             disablePadding
@@ -271,12 +270,28 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
           </ListItem>
 
           <ListItem disablePadding>
+            <ListItemButton onClick={() => handleNavigation("/customer/tenant/profile")}>
+              <AccountCircleIcon />
+              <ListItemText primary="Admin-Profile" style={{ marginLeft: "31px" }} />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem disablePadding>
             <ListItemButton onClick={() => handleNavigation("/customer/SMTP-Email")}>
               <SupervisorAccountIcon />
               <ListItemText primary="SMTP-Email" style={{ marginLeft: "31px" }} />
             </ListItemButton>
           </ListItem>
 
+
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => handleNavigation("/customer/tenant")}>
+              <ListItemIcon className="DashboadAndTableIcon">
+                <FormatListBulletedIcon style={{ color: "black" }} />
+              </ListItemIcon>
+              <ListItemText primary="Adminliste" />
+            </ListItemButton>
+          </ListItem>
 
           <ListItem
             disablePadding
@@ -299,7 +314,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
 
 
 
-          <Divider />
+          <Divider style={{ backgroundColor: "black", height: "2px" }} />
 
           <ListItem
             disablePadding
