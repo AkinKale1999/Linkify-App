@@ -77,7 +77,7 @@ const ConfigPage: React.FC = () => {
   const router = useRouter();
 
   function handleClickOnProfile() {
-    router.push("/customer/profil");
+    router.push("/customer/profile");
   }
 
   return (
@@ -135,7 +135,7 @@ const ConfigPage: React.FC = () => {
         >
           <Box className="BoxConfigPageButtonIcon">
             <AccountCircleIcon className="ConfigPageButtonIcon" />
-            <p className="ConfigPageFont">Profil anpassen</p>
+            <p className="ConfigPageFont">Profile anpassen</p>
           </Box>
         </Button>
       </Box>

@@ -23,70 +23,49 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { useRouter } from "next/navigation";
-import ToggleSwitch from "@/components/toggleBtn";
-import usersData from "../../../components/users/userdata.json";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 
-type Data = {
+interface Data {
   id: number;
-  username: string;
-  first_name: string;
-  last_name: string;
-  group: string;
-  status: string;
-  admin: string;
-  actions: string;
-};
+  calories: number;
+  carbs: number;
+  fat: number;
+  name: string;
+  protein: number;
+}
 
-type UserData = {
-  id: number;
-  username: string;
-  name: {
-    first_name: string;
-    last_name: string;
-  };
-  group: string;
-  status: string;
-  admin: string;
-  actions: string;
-};
-
-// Funktion, um das Data-Objekt zu erstellen
 function createData(
   id: number,
-  username: string,
-  first_name: string,
-  last_name: string,
-  group: string,
-  status: string,
-  admin: string,
-  actions: string
+  name: string,
+  calories: number,
+  fat: number,
+  carbs: number,
+  protein: number
 ): Data {
   return {
     id,
-    username,
-    first_name,
-    last_name,
-    group,
-    status,
-    admin,
-    actions,
+    name,
+    calories,
+    fat,
+    carbs,
+    protein,
   };
 }
 
-// Verwenden von usersData.users, da es das Array ist
-const rows: Data[] = usersData.users.map((user: UserData) =>
-  createData(
-    user.id,
-    user.username,
-    user.name.first_name,
-    user.name.last_name,
-    user.group,
-    user.status,
-    user.admin,
-    user.actions
-  )
-);
+const rows = [
+  createData(1, "adad", 305, 3.7, 67, 4.3),
+  createData(2, "Donut", 452, 25.0, 51, 4.9),
+  createData(3, "Eclair", 262, 16.0, 24, 6.0),
+  createData(4, "Frozen yoghurt", 159, 6.0, 24, 4.0),
+  createData(5, "Gingerbread", 356, 16.0, 49, 3.9),
+  createData(6, "Honeycomb", 408, 3.2, 87, 6.5),
+  createData(7, "Ice cream sandwich", 237, 9.0, 37, 4.3),
+  createData(8, "Jelly Bean", 375, 0.0, 94, 0.0),
+  createData(9, "KitKat", 518, 26.0, 65, 7.0),
+  createData(10, "Lollipop", 392, 0.2, 98, 0.0),
+  createData(11, "Marshmallow", 318, 0, 81, 2.0),
+  createData(12, "Nougat", 360, 19.0, 9, 37.0),
+  createData(13, "Oreo", 437, 18.0, 63, 4.0),
+];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -100,7 +79,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
 type Order = "asc" | "desc";
 
-function getComparator<Key extends string>(
+function getComparator<Key extends keyof { [key: string]: number | string }>(
   order: Order,
   orderBy: Key
 ): (
@@ -122,50 +101,38 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: "username",
+    id: "name",
     numeric: false,
     disablePadding: true,
-    label: "Username",
+    label: "Dessert (100g serving)",
   },
   {
-    id: "first_name",
-    numeric: false, // Text, daher numeric: false
+    id: "calories",
+    numeric: true,
     disablePadding: false,
-    label: "Vorname",
+    label: "Calories",
   },
   {
-    id: "last_name",
-    numeric: false, // Text, daher numeric: false
+    id: "fat",
+    numeric: true,
     disablePadding: false,
-    label: "Nachname",
+    label: "Fat (g)",
   },
   {
-    id: "group",
-    numeric: false, // Text, daher numeric: false
+    id: "carbs",
+    numeric: true,
     disablePadding: false,
-    label: "Gruppe",
+    label: "Carbs (g)",
   },
   {
-    id: "status",
-    numeric: false, // Text, daher numeric: false
+    id: "protein",
+    numeric: true,
     disablePadding: false,
-    label: "Status",
-  },
-  {
-    id: "actions",
-    numeric: false,
-    disablePadding: false,
-    label: "Actions",
-  },
-  {
-    id: "admin",
-    numeric: false,
-    disablePadding: false,
-    label: "Admin",
+    label: "Protein (g)",
   },
 ];
 
-interface EnhancedTableProps {
+interface UsersTableProps {
   numSelected: number;
   onRequestSort: (
     event: React.MouseEvent<unknown>,
@@ -177,7 +144,7 @@ interface EnhancedTableProps {
   rowCount: number;
 }
 
-function EnhancedTableHead(props: EnhancedTableProps) {
+function UsersTableHead(props: UsersTableProps) {
   const {
     onSelectAllClick,
     order,
@@ -196,13 +163,13 @@ function EnhancedTableHead(props: EnhancedTableProps) {
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
+            color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
               "aria-label": "select all desserts",
             }}
-            className="TableCell"
           />
         </TableCell>
         {headCells.map((headCell) => (
@@ -211,10 +178,8 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
-            className="TableHeader"
           >
             <TableSortLabel
-              className="tableFont"
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
@@ -232,10 +197,10 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     </TableHead>
   );
 }
-interface EnhancedTableToolbarProps {
+interface UsersTableToolbarProps {
   numSelected: number;
 }
-function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
+function UsersTableToolbar(props: UsersTableToolbarProps) {
   const { numSelected } = props;
   return (
     <Toolbar
@@ -265,22 +230,21 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
       ) : (
         <Typography
           sx={{ flex: "1 1 100%" }}
-          variant="h4"
+          variant="h6"
           id="tableTitle"
           component="div"
-          textAlign={"center"}
         >
-          User Liste
+          Nutrition
         </Typography>
       )}
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
-            <DeleteIcon className="DeleteIconOnTable" />
+            <DeleteIcon />
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip className="FilterList" title="Filter list">
+        <Tooltip title="Filter list">
           <IconButton>
             <FilterListIcon />
           </IconButton>
@@ -289,20 +253,20 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
     </Toolbar>
   );
 }
-
-export default function EnhancedTable() {
+export default function UsersTable() {
   const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("username");
+  const [orderBy, setOrderBy] = React.useState<keyof Data>("calories");
   const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const router = useRouter();
+  // Ініціалізація useRouter
 
   const handleRowClick = (id: number) => {
     console.log(id);
 
-    router.push(`/customer/user/${id}`);
+    router.push(`/customer/table/${id}`);
   };
 
   const handleRequestSort = (
@@ -370,34 +334,16 @@ export default function EnhancedTable() {
   );
 
   return (
-    <Box
-      id="BoxTable"
-      sx={{
-        position: "relative",
-        left: "65px",
-        display: "flex",
-        alignContent: "center",
-        justifyContent: "center",
-        width: "95.9%",
-        flexDirection: "column",
-      }}
-    >
-      <Paper sx={{ mb: 1 }} className="TablePaper">
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer
-          sx={{
-            overflow: "hidden",
-          }}
-        >
+    <Box sx={{ width: "90%", marginLeft: "5%" }}>
+      <Paper sx={{ width: "100%", mb: 2 }}>
+        <UsersTableToolbar numSelected={selected.length} />
+        <TableContainer>
           <Table
-            sx={{
-              border: "1px solid #eee",
-              minWidth: "100%",
-            }}
+            sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
           >
-            <EnhancedTableHead
+            <UsersTableHead
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
@@ -414,6 +360,8 @@ export default function EnhancedTable() {
                   <TableRow
                     hover
                     onClick={(event) => {
+                      console.log(row.id);
+
                       handleClick(event, row.id);
                     }}
                     role="checkbox"
@@ -421,9 +369,7 @@ export default function EnhancedTable() {
                     tabIndex={-1}
                     key={row.id}
                     selected={isItemSelected}
-                    className="tableRow"
-
-                  // ---------------------------
+                    sx={{ cursor: "pointer" }}
                   >
                     <TableCell padding="checkbox">
                       <Checkbox
@@ -432,7 +378,6 @@ export default function EnhancedTable() {
                         inputProps={{
                           "aria-labelledby": labelId,
                         }}
-                        className="tableFont"
                       />
                     </TableCell>
                     <TableCell
@@ -440,43 +385,19 @@ export default function EnhancedTable() {
                       id={labelId}
                       scope="row"
                       padding="none"
-                      className="tableFont"
                     >
-                      {row.username}
+                      {row.name}
                     </TableCell>
+                    <TableCell align="right">{row.calories}</TableCell>
+                    <TableCell align="right">{row.fat}</TableCell>
+                    <TableCell align="right">{row.carbs}</TableCell>
+                    <TableCell align="right">{row.protein}</TableCell>
 
-                    <TableCell className="tableFont" align="left">
-                      {row.first_name}
-                    </TableCell>
-                    <TableCell className="tableFont" align="left">
-                      {row.last_name}
-                    </TableCell>
-                    <TableCell className="tableFont" align="left">
-                      {row.group}
-                    </TableCell>
-                    <TableCell className="tableFont" align="left">
-                      {row.status}
-                    </TableCell>
-                    <TableCell className="tableFont" align="left">
-                      <button
-                        style={{
-                          width: "50px",
-                          backgroundColor: "#1976d2",
-                          height: "auto",
-                          color: "#fff",
-                          cursor: "pointer",
-                          borderRadius: "15px",
-                        }}
-                        onClick={() => handleRowClick(row.id)}
-                      >
-                        <VisibilityIcon />
-                        <div style={{ position: "absolute", margin: "0", padding: "0", opacity: "0" }}>
-                          {row.id}
-                        </div>
+                    <TableCell align="right">
+                      <button onClick={() => handleRowClick(row.id)}>
+                        View{row.id}
                       </button>
                     </TableCell>
-
-                    <ToggleSwitch align="left" />
                   </TableRow>
                 );
               })}
@@ -500,14 +421,9 @@ export default function EnhancedTable() {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-          className="TableFooter"
         />
       </Paper>
       <FormControlLabel
-        style={{
-          marginLeft: "10px",
-          width: "fit-content",
-        }}
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />

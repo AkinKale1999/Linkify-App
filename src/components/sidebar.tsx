@@ -29,6 +29,7 @@ import Image from "next/image";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import SecurityIcon from '@mui/icons-material/Security';
+import axios from "axios";
 
 const drawerWidth = 240;
 
@@ -137,12 +138,21 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
     router.push(path as string);
   };
 
-  const handleLogout = () => {
-    document.cookie = "_CTA=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
 
-    router.push("/login");
+  const handleLogout = async () => {
+    try {
+      await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}user/logout`,
+        {
+          withCredentials: true,
+        });
+
+      document.cookie = "_CTA=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+
+      router.push("/login");
+    } catch (error) {
+      console.error("Fehler beim Logout:", error);
+    }
   };
-
 
   const handleImageClick = () => {
     router.push("/customer");
@@ -220,12 +230,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
             </ListItemButton>
           </ListItem>
           <Divider />
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => handleNavigation("/customer/SMTP-Email")}>
-              <SupervisorAccountIcon />
-              <ListItemText primary="SMTP-Email" style={{ marginLeft: "31px" }} />
-            </ListItemButton>
-          </ListItem>
+
 
           <ListItem
             disablePadding
@@ -240,25 +245,6 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
             >
               <AccountCircleIcon />
               <ListItemText primary="Profile" style={{ marginLeft: "31px" }} />
-            </ListItemButton>
-          </ListItem>
-
-          <ListItem
-            disablePadding
-            style={{
-              display: "flex",
-              alignContent: "center",
-              justifyContent: "center",
-            }}
-          >
-            <ListItemButton
-              onClick={() => handleNavigation("/customer/einstellungen")}
-            >
-              <SettingsIcon />
-              <ListItemText
-                primary="Einstellungen"
-                style={{ marginLeft: "31px" }}
-              />
             </ListItemButton>
           </ListItem>
 
@@ -283,6 +269,35 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
               />
             </ListItemButton>
           </ListItem>
+
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => handleNavigation("/customer/SMTP-Email")}>
+              <SupervisorAccountIcon />
+              <ListItemText primary="SMTP-Email" style={{ marginLeft: "31px" }} />
+            </ListItemButton>
+          </ListItem>
+
+
+          <ListItem
+            disablePadding
+            style={{
+              display: "flex",
+              alignContent: "center",
+              justifyContent: "center",
+            }}
+          >
+            <ListItemButton
+              onClick={() => handleNavigation("/customer/einstellungen")}
+            >
+              <SettingsIcon />
+              <ListItemText
+                primary="Einstellungen"
+                style={{ marginLeft: "31px" }}
+              />
+            </ListItemButton>
+          </ListItem>
+
+
 
           <Divider />
 
