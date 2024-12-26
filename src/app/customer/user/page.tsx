@@ -20,7 +20,6 @@ const UserList = () => {
         console.error('Fehler beim Abrufen der Daten:', error);
       }
     };
-
     fetchUsers();
   }, []);
 
