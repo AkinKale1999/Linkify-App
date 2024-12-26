@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import ApiService from "../../services/apiService";
 
-// Define the User type
+
+
 type User = { id: number; username: string; }
 
 const UserList = () => {
@@ -12,8 +13,9 @@ const UserList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const data: User[] = await ApiService.get<User[]>('user'); // Explicitly type the response
-        setUsers(data);
+        const resp = await ApiService.get<{ data: { users: User[] } }>("user");
+        const users: User[] = resp.data.users;
+        setUsers(users);
       } catch (error) {
         console.error('Fehler beim Abrufen der Daten:', error);
       }
