@@ -306,7 +306,7 @@ export default function EnhancedTable() {
             component="div"
             textAlign={"center"}
           >
-            Tentant Liste
+            Tenant Liste
           </Typography>
         )}
         {numSelected > 0 ? (

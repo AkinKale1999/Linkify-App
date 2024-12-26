@@ -216,7 +216,7 @@ const UserDetail: React.FC = () => {
 
             {/* Firmenname, Adresse und andere Felder sind nur lesbar */}
             <div style={{ marginBottom: "10px" }}>
-              <label className="EditPageFontColor">Username:</label>
+              <label className="EditPageFontColor">Username * :</label>
               <input
                 type="text"
                 name="contact_phone"
@@ -263,7 +263,7 @@ const UserDetail: React.FC = () => {
 
             {/* Die änderbaren Felder */}
             <div style={{ marginBottom: "10px" }}>
-              <label className="EditPageFontColor">Kontaktnummer:</label>
+              <label className="EditPageFontColor">Kontaktnummer * :</label>
               <input
                 type="text"
                 name="invoice_address"
@@ -273,7 +273,7 @@ const UserDetail: React.FC = () => {
               />
             </div>
             <div style={{ marginBottom: "10px" }}>
-              <label className="EditPageFontColor">Email:</label>
+              <label className="EditPageFontColor">Email * :</label>
               <input
                 type="text"
                 name="contact_email"

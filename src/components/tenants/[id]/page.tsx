@@ -256,7 +256,7 @@ const TenantDetails: React.FC = () => {
 
                         {/* Die änderbaren Felder */}
                         <div style={{ marginBottom: "10px" }}>
-                            <label className="EditPageFontColor">Rechnungsadresse:</label>
+                            <label className="EditPageFontColor">Rechnungsadresse * :</label>
                             <input
                                 type="text"
                                 name="invoice_address"
@@ -266,7 +266,7 @@ const TenantDetails: React.FC = () => {
                             />
                         </div>
                         <div style={{ marginBottom: "10px" }}>
-                            <label className="EditPageFontColor">Kontakt-Email:</label>
+                            <label className="EditPageFontColor">Kontakt-Email * :</label>
                             <input
                                 type="text"
                                 name="contact_email"
@@ -276,7 +276,7 @@ const TenantDetails: React.FC = () => {
                             />
                         </div>
                         <div style={{ marginBottom: "10px" }}>
-                            <label className="EditPageFontColor">Rechnungs-E-Mail:</label>
+                            <label className="EditPageFontColor">Rechnungs-E-Mail * :</label>
                             <input
                                 type="text"
                                 name="invoice_email"
