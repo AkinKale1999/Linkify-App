@@ -24,271 +24,9 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { useRouter } from "next/navigation";
 import ToggleSwitch from "@/components/toggleBtn";
-import usersData from "../../../components/users/userdata.json";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import axios from 'axios';
 
-type Data = {
-  id: number;
-  username: string;
-  first_name: string;
-  last_name: string;
-  group: string;
-  status: string;
-  admin: string;
-  actions: string;
-};
-
-type UserData = {
-  id: number;
-  username: string;
-  name: {
-    first_name: string;
-    last_name: string;
-  };
-  group: string;
-  status: string;
-  admin: string;
-  actions: string;
-};
-
-// Funktion, um das Data-Objekt zu erstellen
-function createData(
-  id: number,
-  username: string,
-  first_name: string,
-  last_name: string,
-  group: string,
-  status: string,
-  admin: string,
-  actions: string
-): Data {
-  return {
-    id,
-    username,
-    first_name,
-    last_name,
-    group,
-    status,
-    admin,
-    actions,
-  };
-}
-
-// Verwenden von usersData.users, da es das Array ist
-const rows: Data[] = usersData.users.map((user: UserData) =>
-  createData(
-    user.id,
-    user.username,
-    user.name.first_name,
-    user.name.last_name,
-    user.group,
-    user.status,
-    user.admin,
-    user.actions
-  )
-);
-
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-type Order = "asc" | "desc";
-
-function getComparator<Key extends string>(
-  order: Order,
-  orderBy: Key
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string }
-) => number {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-
-interface HeadCell {
-  disablePadding: boolean;
-  id: keyof Data;
-  label: string;
-  numeric: boolean;
-}
-
-const headCells: readonly HeadCell[] = [
-  {
-    id: "username",
-    numeric: false,
-    disablePadding: true,
-    label: "Username",
-  },
-  {
-    id: "first_name",
-    numeric: false, // Text, daher numeric: false
-    disablePadding: false,
-    label: "Vorname",
-  },
-  {
-    id: "last_name",
-    numeric: false, // Text, daher numeric: false
-    disablePadding: false,
-    label: "Nachname",
-  },
-  {
-    id: "group",
-    numeric: false, // Text, daher numeric: false
-    disablePadding: false,
-    label: "Gruppe",
-  },
-  {
-    id: "status",
-    numeric: false, // Text, daher numeric: false
-    disablePadding: false,
-    label: "Status",
-  },
-  {
-    id: "actions",
-    numeric: false,
-    disablePadding: false,
-    label: "Actions",
-  },
-  {
-    id: "admin",
-    numeric: false,
-    disablePadding: false,
-    label: "Admin",
-  },
-];
-
-interface EnhancedTableProps {
-  numSelected: number;
-  onRequestSort: (
-    event: React.MouseEvent<unknown>,
-    property: keyof Data
-  ) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
-}
-
-function EnhancedTableHead(props: EnhancedTableProps) {
-  const {
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-  } = props;
-  const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
-      onRequestSort(event, property);
-    };
-
-  return (
-    <TableHead>
-      <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all desserts",
-            }}
-            className="TableCell"
-          />
-        </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
-            sortDirection={orderBy === headCell.id ? order : false}
-            className="TableHeader"
-          >
-            <TableSortLabel
-              className="tableFont"
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-interface EnhancedTableToolbarProps {
-  numSelected: number;
-}
-function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected } = props;
-  return (
-    <Toolbar
-      sx={[
-        {
-          pl: { sm: 2 },
-          pr: { xs: 1, sm: 1 },
-        },
-        numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(
-              theme.palette.primary.main,
-              theme.palette.action.activatedOpacity
-            ),
-        },
-      ]}
-    >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h4"
-          id="tableTitle"
-          component="div"
-          textAlign={"center"}
-        >
-          User Liste
-        </Typography>
-      )}
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon className="DeleteIconOnTable" />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip className="FilterList" title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-    </Toolbar>
-  );
-}
 
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState<Order>("asc");
@@ -298,6 +36,281 @@ export default function EnhancedTable() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const router = useRouter();
+  const [rows, setRows] = React.useState<Data[]>([]);  // Zustand für die Zeilen
+
+
+
+  type Data = {
+    id: number;
+    first_name: string;
+    last_name: string;
+    language: string;
+    username: string;
+    contact_phone: number;
+    email: string;
+    actions: boolean
+  };
+
+  type UserData = {
+    id: number;
+    first_name: string;
+    last_name: string;
+    language: string;
+    username: string;
+    contact_phone: number;
+    email: string;
+    actions: boolean
+
+  };
+
+  // Funktion, um das Data-Objekt zu erstellen
+  function createData(
+    id: number,
+    first_name: string,
+    last_name: string,
+    language: string,
+    username: string,
+    contact_phone: number,
+    email: string,
+    actions: boolean
+
+  ): Data {
+    return {
+      id,
+      first_name,
+      last_name,
+      username,
+      language,
+      contact_phone,
+      email,
+      actions
+    };
+  }
+
+  const fetchRows = async () => {
+    try {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}user/`);
+      const userData: UserData[] = response.data;
+
+      const mappedRows: Data[] = userData.map((users) =>
+        createData(
+          users.id,
+          users.first_name,
+          users.last_name,
+          users.username,
+          users.language,
+          users.contact_phone,
+          users.email,
+          users.actions
+        )
+      );
+      setRows(mappedRows);  // Setze die Zeilen im Zustand
+    } catch (error) {
+      console.error('Fehler beim Abrufen der Daten:', error);
+    }
+  };
+
+  fetchRows();  // Lade die Daten
+
+  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = event.target.checked;
+    if (isChecked) {
+      const newSelected = rows.map((row) => row.id);  // Mappe durch die Zeilen, um alle auszuwählen
+      setSelected(newSelected);
+    } else {
+      setSelected([]);  // Leere die Auswahl, wenn das Kontrollkästchen nicht markiert ist
+    }
+  };
+
+
+  function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
+  }
+
+  type Order = "asc" | "desc";
+
+  interface HeadCell {
+    disablePadding: boolean;
+    id: keyof Data;
+    label: string;
+    numeric: boolean;
+  }
+
+  const headCells: readonly HeadCell[] = [
+    {
+      id: "username",
+      numeric: false,
+      disablePadding: true,
+      label: "Username",
+    },
+    {
+      id: "first_name",
+      numeric: false, // Text, daher numeric: false
+      disablePadding: false,
+      label: "Vorname",
+    },
+    {
+      id: "last_name",
+      numeric: false, // Text, daher numeric: false
+      disablePadding: false,
+      label: "Nachname",
+    },
+    {
+      id: "language",
+      numeric: false, // Text, daher numeric: false
+      disablePadding: false,
+      label: "Sprache",
+    },
+    {
+      id: "contact_phone",
+      numeric: false, // Text, daher numeric: false
+      disablePadding: false,
+      label: "Kontaktnummer",
+    },
+    {
+      id: "actions",
+      numeric: false,
+      disablePadding: false,
+      label: "Actions",
+    },
+    {
+      id: "email",
+      numeric: false,
+      disablePadding: false,
+      label: "Email",
+    },
+  ];
+
+  interface EnhancedTableProps {
+    numSelected: number;
+    onRequestSort: (
+      event: React.MouseEvent<unknown>,
+      property: keyof Data
+    ) => void;
+    onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    order: Order;
+    orderBy: string;
+    rowCount: number;
+  }
+
+  function EnhancedTableHead(props: EnhancedTableProps) {
+    const {
+      onSelectAllClick,
+      order,
+      orderBy,
+      numSelected,
+      rowCount,
+      onRequestSort,
+    } = props;
+    const createSortHandler =
+      (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+        onRequestSort(event, property);
+      };
+
+    return (
+      <TableHead>
+        <TableRow>
+          <TableCell padding="checkbox">
+            <Checkbox
+              indeterminate={numSelected > 0 && numSelected < rowCount}
+              checked={rowCount > 0 && numSelected === rowCount}
+              onChange={onSelectAllClick}
+              inputProps={{
+                "aria-label": "select all desserts",
+              }}
+              className="TableCell"
+            />
+          </TableCell>
+          {headCells.map((headCell) => (
+            <TableCell
+              key={headCell.id}
+              align={headCell.numeric ? "right" : "left"}
+              padding={headCell.disablePadding ? "none" : "normal"}
+              sortDirection={orderBy === headCell.id ? order : false}
+              className="TableHeader"
+            >
+              <TableSortLabel
+                className="tableFont"
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? order : "asc"}
+                onClick={createSortHandler(headCell.id)}
+              >
+                {headCell.label}
+                {orderBy === headCell.id ? (
+                  <Box component="span" sx={visuallyHidden}>
+                    {order === "desc" ? "sorted descending" : "sorted ascending"}
+                  </Box>
+                ) : null}
+              </TableSortLabel>
+            </TableCell>
+          ))}
+        </TableRow>
+      </TableHead>
+    );
+  }
+  interface EnhancedTableToolbarProps {
+    numSelected: number;
+  }
+  function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
+    const { numSelected } = props;
+    return (
+      <Toolbar
+        sx={[
+          {
+            pl: { sm: 2 },
+            pr: { xs: 1, sm: 1 },
+          },
+          numSelected > 0 && {
+            bgcolor: (theme) =>
+              alpha(
+                theme.palette.primary.main,
+                theme.palette.action.activatedOpacity
+              ),
+          },
+        ]}
+      >
+        {numSelected > 0 ? (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            color="inherit"
+            variant="subtitle1"
+            component="div"
+          >
+            {numSelected} selected
+          </Typography>
+        ) : (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            variant="h4"
+            id="tableTitle"
+            component="div"
+            textAlign={"center"}
+          >
+            User Liste
+          </Typography>
+        )}
+        {numSelected > 0 ? (
+          <Tooltip title="Delete">
+            <IconButton>
+              <DeleteIcon className="DeleteIconOnTable" />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <Tooltip className="FilterList" title="Filter list">
+            <IconButton>
+              <FilterListIcon />
+            </IconButton>
+          </Tooltip>
+        )}
+      </Toolbar>
+    );
+  }
 
   const handleRowClick = (id: number) => {
     console.log(id);
@@ -314,14 +327,6 @@ export default function EnhancedTable() {
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
-      setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
-  };
 
   const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
     const selectedIndex = selected.indexOf(id);
@@ -358,17 +363,21 @@ export default function EnhancedTable() {
   };
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-  const visibleRows = React.useMemo(
-    () =>
-      [...rows]
+    const emptyRows =
+      page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  
+    const visibleRows = React.useMemo(() => {
+      const getComparator = (order: Order, orderBy: keyof Data) => {
+        return order === "desc"
+          ? (a: Data, b: Data) => descendingComparator(a, b, orderBy)
+          : (a: Data, b: Data) => -descendingComparator(a, b, orderBy);
+      };
+  
+      return [...rows]
         .sort(getComparator(order, orderBy))
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [order, orderBy, page, rowsPerPage]
-  );
-
+        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+    }, [rows, order, orderBy, page, rowsPerPage]); 
+  
   return (
     <Box
       id="BoxTable"
@@ -452,10 +461,10 @@ export default function EnhancedTable() {
                       {row.last_name}
                     </TableCell>
                     <TableCell className="tableFont" align="left">
-                      {row.group}
+                      {row.language}
                     </TableCell>
                     <TableCell className="tableFont" align="left">
-                      {row.status}
+                      {row.contact_phone}
                     </TableCell>
                     <TableCell className="tableFont" align="left">
                       <button

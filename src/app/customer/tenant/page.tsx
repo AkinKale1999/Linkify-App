@@ -50,6 +50,7 @@ export default function EnhancedTable() {
     contact_email: string;
     invoice_email: string;
     contact_phone: string;
+    actions: boolean
   };
 
   type TenantData = {
@@ -61,6 +62,8 @@ export default function EnhancedTable() {
     contact_email: string;
     invoice_email: string;
     contact_phone: string;
+    actions: boolean
+
   };
 
   // Funktion, um das Data-Objekt zu erstellen
@@ -72,7 +75,9 @@ export default function EnhancedTable() {
     license_valid_until: string,
     contact_email: string,
     invoice_email: string,
-    contact_phone: string
+    contact_phone: string,
+    actions: boolean
+
   ): Data {
     return {
       id,
@@ -83,6 +88,7 @@ export default function EnhancedTable() {
       contact_email,
       invoice_email,
       contact_phone,
+      actions
     };
   }
 
@@ -101,7 +107,8 @@ export default function EnhancedTable() {
           tenant.license_valid_until,
           tenant.contact_email,
           tenant.invoice_email,
-          tenant.contact_phone
+          tenant.contact_phone,
+          tenant.actions
         )
       );
       setRows(mappedRows);  // Setze die Zeilen im Zustand
@@ -185,6 +192,12 @@ export default function EnhancedTable() {
       numeric: false,
       disablePadding: false,
       label: "Kontakttelefon",
+    },
+    {
+      id: "actions",
+      numeric: false,
+      disablePadding: false,
+      label: "Actions",
     },
   ];
 
