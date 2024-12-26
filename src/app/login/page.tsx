@@ -43,32 +43,26 @@ const Login: React.FC = () => {
     setErrorMessage(null);
 
     try {
+      const resp = await ApiService.login<{ data: { user: { username: string } } }>(username, password);
 
-      const resp = await ApiService.login(username, password);
-
-      if(resp !== null && resp.data !== null && resp.data.user !== null)
-      if (resp.data.user.username === username) {
+      if (resp?.data?.user?.username === username) {
         setIsLoggedIn(true);
         router.push("/customer");
       } else {
         setErrorMessage("Login fehlgeschlagen. Bitte überprüfen Sie Ihre Daten.");
       }
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          setErrorMessage("Ungültige Anmeldedaten.");
-        } else if (error.response?.status === 500) {
-          setErrorMessage("Serverfehler. Bitte später erneut versuchen.");
-        } else {
-          setErrorMessage(
-            error.response?.data?.message || "Ein unbekannter Fehler ist aufgetreten."
-          );
-        }
-      } else {
-        setErrorMessage("Netzwerkfehler. Bitte prüfen Sie Ihre Verbindung.");
-      }
+      console.error("Fehler beim Login:", error);
+      if (axios.isAxiosError(error)) 
+        { if (error.response?.status === 401) 
+          { setErrorMessage("Ungültige Anmeldedaten."); } 
+          else if (error.response?.status === 500) 
+            { setErrorMessage("Serverfehler. Bitte später erneut versuchen."); } 
+          else { setErrorMessage(error.response?.data?.message || "Ein unbekannter Fehler ist aufgetreten."); } 
+        } else { setErrorMessage("Netzwerkfehler. Bitte prüfen Sie Ihre Verbindung."); }
+
     }
-  };
+  }
 
   // Memoize loginRefresh function using useCallback
   const loginRefresh = useCallback(async () => {
@@ -76,7 +70,6 @@ const Login: React.FC = () => {
       try {
         await axios.get(
           `${process.env.NEXT_PUBLIC_BASE_URL}user/login-refresh`,
-          {},
           { withCredentials: true }
         );
         console.log("Login Refresh erfolgreich!");
@@ -85,6 +78,7 @@ const Login: React.FC = () => {
       }
     }
   }, [isLoggedIn]);
+
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
