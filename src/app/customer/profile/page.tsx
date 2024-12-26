@@ -58,7 +58,7 @@ export default function Profile() {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}user/profile`,
           {
             headers: { "Content-Type": "application/json" },
-            withCredentials: true,
+            // withCredentials: true,
           }
         );
         setFormData(response.data);

@@ -212,11 +212,11 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton onClick={() => handleNavigation("/customer/table")}>
+            <ListItemButton onClick={() => handleNavigation("/customer/user")}>
               <ListItemIcon className="DashboadAndTableIcon">
                 <FormatListBulletedIcon style={{ color: "black" }} />
               </ListItemIcon>
-              <ListItemText primary="Table" />
+              <ListItemText primary="User" />
             </ListItemButton>
           </ListItem>
           <Divider />
@@ -236,10 +236,10 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
             }}
           >
             <ListItemButton
-              onClick={() => handleNavigation("/customer/profil")}
+              onClick={() => handleNavigation("/customer/profile")}
             >
               <AccountCircleIcon />
-              <ListItemText primary="Profil" style={{ marginLeft: "31px" }} />
+              <ListItemText primary="Profile" style={{ marginLeft: "31px" }} />
             </ListItemButton>
           </ListItem>
 
