@@ -403,7 +403,7 @@ export default function EnhancedTable() {
         display: "flex",
         alignContent: "center",
         justifyContent: "center",
-        width: "95.9%",
+        width: "100%",
         flexDirection: "column",
       }}
     >

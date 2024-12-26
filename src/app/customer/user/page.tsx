@@ -174,16 +174,16 @@ export default function EnhancedTable() {
       label: "Kontaktnummer",
     },
     {
-      id: "actions",
-      numeric: false,
-      disablePadding: false,
-      label: "Actions",
-    },
-    {
       id: "email",
       numeric: false,
       disablePadding: false,
       label: "Email",
+    },
+    {
+      id: "actions",
+      numeric: false,
+      disablePadding: false,
+      label: "Actions",
     },
   ];
 
@@ -363,21 +363,21 @@ export default function EnhancedTable() {
   };
 
   // Avoid a layout jump when reaching the last page with empty rows.
-    const emptyRows =
-      page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-  
-    const visibleRows = React.useMemo(() => {
-      const getComparator = (order: Order, orderBy: keyof Data) => {
-        return order === "desc"
-          ? (a: Data, b: Data) => descendingComparator(a, b, orderBy)
-          : (a: Data, b: Data) => -descendingComparator(a, b, orderBy);
-      };
-  
-      return [...rows]
-        .sort(getComparator(order, orderBy))
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-    }, [rows, order, orderBy, page, rowsPerPage]); 
-  
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+  const visibleRows = React.useMemo(() => {
+    const getComparator = (order: Order, orderBy: keyof Data) => {
+      return order === "desc"
+        ? (a: Data, b: Data) => descendingComparator(a, b, orderBy)
+        : (a: Data, b: Data) => -descendingComparator(a, b, orderBy);
+    };
+
+    return [...rows]
+      .sort(getComparator(order, orderBy))
+      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  }, [rows, order, orderBy, page, rowsPerPage]);
+
   return (
     <Box
       id="BoxTable"
@@ -387,7 +387,7 @@ export default function EnhancedTable() {
         display: "flex",
         alignContent: "center",
         justifyContent: "center",
-        width: "95.9%",
+        width: "100%%",
         flexDirection: "column",
       }}
     >
