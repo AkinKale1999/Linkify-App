@@ -18,7 +18,6 @@ type Tenant = {
     contact_email: string;
     invoice_email: string;
     contact_phone: number;
-    
 };
 
 const TenantDetails: React.FC = () => {
