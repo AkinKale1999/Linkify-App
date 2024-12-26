@@ -22,7 +22,7 @@ import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import ToggleSwitch from "@/components/toggleBtn";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import axios from 'axios';
@@ -37,7 +37,7 @@ export default function EnhancedTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const router = useRouter();
   const [rows, setRows] = React.useState<Data[]>([]);  // Zustand für die Zeilen
-
+  const { id } = useParams(); // ID aus der URL auslesen
 
 
   type Data = {
@@ -89,7 +89,7 @@ export default function EnhancedTable() {
 
   const fetchRows = async () => {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}user/`);
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}user/${id}`);
       const userData: UserData[] = response.data;
 
       const mappedRows: Data[] = userData.map((users) =>
