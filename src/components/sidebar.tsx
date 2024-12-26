@@ -139,20 +139,32 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
   };
 
 
+
+
+
   const handleLogout = async () => {
     try {
       await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}user/logout`,
         {
           withCredentials: true,
         });
-
-      document.cookie = "_CTA=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
-
+        
+        
+      } catch (error) {
+        console.error("Fehler beim Logout:", error);
+      }
       router.push("/login");
-    } catch (error) {
-      console.error("Fehler beim Logout:", error);
-    }
   };
+
+
+
+
+
+
+
+
+
+
 
   const handleImageClick = () => {
     router.push("/customer");
@@ -270,7 +282,7 @@ export default function MiniDrawer({ setIsSideBarOpen }: MiniDrawerProps) {
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton onClick={() => handleNavigation("/customer/tenant/profile")}>
+            <ListItemButton onClick={() => handleNavigation("/customer/Admin-Profile")}>
               <AccountCircleIcon />
               <ListItemText primary="Admin-Profile" style={{ marginLeft: "31px" }} />
             </ListItemButton>

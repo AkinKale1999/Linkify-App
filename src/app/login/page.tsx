@@ -14,6 +14,8 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import ApiService from "../services/apiService";
+
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -41,17 +43,12 @@ const Login: React.FC = () => {
     setErrorMessage(null);
 
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}user/login`,
-        { username, password },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
 
-      if (response.status === 200) {
-        setIsLoggedIn(true); // Mark as logged in
+      const resp = await ApiService.login(username, password);
+
+      if(resp !== null && resp.data !== null && resp.data.user !== null)
+      if (resp.data.user.username === username) {
+        setIsLoggedIn(true);
         router.push("/customer");
       } else {
         setErrorMessage("Login fehlgeschlagen. Bitte überprüfen Sie Ihre Daten.");
@@ -77,7 +74,7 @@ const Login: React.FC = () => {
   const loginRefresh = useCallback(async () => {
     if (isLoggedIn) {
       try {
-        await axios.post(
+        await axios.get(
           `${process.env.NEXT_PUBLIC_BASE_URL}user/login-refresh`,
           {},
           { withCredentials: true }
@@ -87,7 +84,7 @@ const Login: React.FC = () => {
         console.error("Fehler beim Refresh:", error);
       }
     }
-  }, [isLoggedIn]); // Add isLoggedIn as a dependency
+  }, [isLoggedIn]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
