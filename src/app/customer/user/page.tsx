@@ -39,7 +39,6 @@ export default function EnhancedTable() {
   const [rows, setRows] = React.useState<Data[]>([]);  // Zustand für die Zeilen
   const { id } = useParams(); // ID aus der URL auslesen
 
-
   type Data = {
     id: number;
     first_name: string;
@@ -48,7 +47,9 @@ export default function EnhancedTable() {
     username: string;
     contact_phone: number;
     email: string;
-    actions: boolean
+    actions: boolean;
+    role: string;
+    is_active: boolean;
   };
 
   type UserData = {
@@ -59,57 +60,66 @@ export default function EnhancedTable() {
     username: string;
     contact_phone: number;
     email: string;
-    actions: boolean
+    actions: boolean;
+    role: string;
+    is_active: boolean;
   };
 
   // Funktion, um das Data-Objekt zu erstellen
-  function createData(
-    id: number,
-    first_name: string,
-    last_name: string,
-    language: string,
-    username: string,
-    contact_phone: number,
-    email: string,
-    actions: boolean
-
-  ): Data {
-    return {
-      id,
-      first_name,
-      last_name,
-      username,
-      language,
-      contact_phone,
-      email,
-      actions
-    };
-  }
-
-  const fetchRows = async () => {
-    try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}user/${id}`);
-      const userData: UserData[] = response.data;
-
-      const mappedRows: Data[] = userData.map((users) =>
-        createData(
-          users.id,
-          users.first_name,
-          users.last_name,
-          users.username,
-          users.language,
-          users.contact_phone,
-          users.email,
-          users.actions
-        )
-      );
-      setRows(mappedRows);  // Setze die Zeilen im Zustand
-    } catch (error) {
-      console.error('Fehler beim Abrufen der Daten:', error);
+  React.useEffect(() => {
+    function createData(
+      id: number,
+      first_name: string,
+      last_name: string,
+      language: string,
+      username: string,
+      contact_phone: number,
+      email: string,
+      actions: boolean,
+      role: string,
+      is_active: boolean,
+    ): Data {
+      return {
+        id,
+        first_name,
+        last_name,
+        username,
+        language,
+        contact_phone,
+        email,
+        actions,
+        role,
+        is_active
+      };
     }
-  };
 
-  fetchRows();  // Lade die Daten
+    const fetchRows = async () => {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}user/${id}`);
+        const userData: UserData[] = response.data;
+
+        const mappedRows: Data[] = userData.map((users) =>
+          createData(
+            users.id,
+            users.first_name,
+            users.last_name,
+            users.username,
+            users.language,
+            users.contact_phone,
+            users.email,
+            users.actions,
+            users.role,
+            users.is_active
+          )
+        );
+        setRows(mappedRows);  // Setze die Zeilen im Zustand
+      } catch (error) {
+        console.error('Fehler beim Abrufen der Daten:', error);
+      }
+    };
+
+    fetchRows();  // Lade die Daten
+  }, [id]);  // Nur von `id` abhängig
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked;
@@ -177,6 +187,18 @@ export default function EnhancedTable() {
       numeric: false,
       disablePadding: false,
       label: "Email",
+    },
+    {
+      id: "role",
+      numeric: false,
+      disablePadding: false,
+      label: "Role",
+    },
+    {
+      id: "is_active",
+      numeric: false,
+      disablePadding: false,
+      label: "Zustand",
     },
     {
       id: "actions",
@@ -326,7 +348,6 @@ export default function EnhancedTable() {
     setOrderBy(property);
   };
 
-
   const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
     const selectedIndex = selected.indexOf(id);
     let newSelected: readonly number[] = [];
@@ -372,7 +393,7 @@ export default function EnhancedTable() {
         : (a: Data, b: Data) => -descendingComparator(a, b, orderBy);
     };
 
-    return [...rows]
+    return [...rows] // rows is typed as Data[]
       .sort(getComparator(order, orderBy))
       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
   }, [rows, order, orderBy, page, rowsPerPage]);
@@ -386,7 +407,7 @@ export default function EnhancedTable() {
         display: "flex",
         alignContent: "center",
         justifyContent: "center",
-        width: "100%%",
+        width: "auto",
         flexDirection: "column",
       }}
     >
@@ -465,6 +486,17 @@ export default function EnhancedTable() {
                     <TableCell className="tableFont" align="left">
                       {row.contact_phone}
                     </TableCell>
+                    {row.role === "admin" && (
+                      <>
+                        <TableCell className="tableFont" align="left">
+                          {row.role}
+                        </TableCell>
+                        <TableCell className="tableFont" align="left">
+                          {row.is_active ? "Aktiv" : "Inaktiv"}
+                        </TableCell>
+                      </>
+                    )}
+
                     <TableCell className="tableFont" align="left">
                       <button
                         style={{

@@ -17,6 +17,8 @@ type User = {
   username: string;
   contact_phone: number;
   email: string;
+  role: string;
+  is_active: boolean;
 };
 
 const UserDetail: React.FC = () => {
@@ -35,7 +37,9 @@ const UserDetail: React.FC = () => {
     language: "",
     username: "",
     contact_phone: 0,
-    email: ""
+    email: "",
+    role: "",
+    is_active: false
   });
 
   const [users, setUser] = useState<User[]>([]);
@@ -161,6 +165,8 @@ const UserDetail: React.FC = () => {
               <td className="UserDetailTableBody">{user.username}</td>
               <td className="UserDetailTableBody">{user.contact_phone}</td>
               <td className="UserDetailTableBody">{user.email}</td>
+              <td className="UserDetailTableBody">{user.role}</td>
+              <td className="UserDetailTableBody">{user.is_active}</td>
             </tr>
           ))}
         </tbody>
@@ -210,40 +216,7 @@ const UserDetail: React.FC = () => {
 
             {/* Firmenname, Adresse und andere Felder sind nur lesbar */}
             <div style={{ marginBottom: "10px" }}>
-              <label className="EditPageFontColor">Firmenname:</label>
-              <input
-                type="text"
-                name="company_name"
-                value={updatedUser?.first_name}
-                onChange={handleEditChange}
-                style={{ width: "100%", padding: "8px" }}
-                readOnly
-              />
-            </div>
-            <div style={{ marginBottom: "10px" }}>
-              <label className="EditPageFontColor">Adresse:</label>
-              <input
-                type="text"
-                name="address"
-                value={updatedUser?.last_name}
-                onChange={handleEditChange}
-                style={{ width: "100%", padding: "8px" }}
-                readOnly
-              />
-            </div>
-            <div style={{ marginBottom: "10px" }}>
-              <label className="EditPageFontColor">Lizenz gültig bis:</label>
-              <input
-                type="text"
-                name="license_valid_until"
-                value={updatedUser?.language}
-                onChange={handleEditChange}
-                style={{ width: "100%", padding: "8px" }}
-                readOnly
-              />
-            </div>
-            <div style={{ marginBottom: "10px" }}>
-              <label className="EditPageFontColor">Kontakt-Telefon:</label>
+              <label className="EditPageFontColor">Username:</label>
               <input
                 type="text"
                 name="contact_phone"
@@ -254,9 +227,43 @@ const UserDetail: React.FC = () => {
               />
             </div>
 
+            <div style={{ marginBottom: "10px" }}>
+              <label className="EditPageFontColor">Vorname:</label>
+              <input
+                type="text"
+                name="company_name"
+                value={updatedUser?.first_name}
+                onChange={handleEditChange}
+                style={{ width: "100%", padding: "8px" }}
+                readOnly
+              />
+            </div>
+            <div style={{ marginBottom: "10px" }}>
+              <label className="EditPageFontColor">Nachname:</label>
+              <input
+                type="text"
+                name="address"
+                value={updatedUser?.last_name}
+                onChange={handleEditChange}
+                style={{ width: "100%", padding: "8px" }}
+                readOnly
+              />
+            </div>
+            <div style={{ marginBottom: "10px" }}>
+              <label className="EditPageFontColor">Sprache:</label>
+              <input
+                type="text"
+                name="license_valid_until"
+                value={updatedUser?.language}
+                onChange={handleEditChange}
+                style={{ width: "100%", padding: "8px" }}
+                readOnly
+              />
+            </div>
+
             {/* Die änderbaren Felder */}
             <div style={{ marginBottom: "10px" }}>
-              <label className="EditPageFontColor">Rechnungsadresse:</label>
+              <label className="EditPageFontColor">Kontaktnummer:</label>
               <input
                 type="text"
                 name="invoice_address"
@@ -266,7 +273,7 @@ const UserDetail: React.FC = () => {
               />
             </div>
             <div style={{ marginBottom: "10px" }}>
-              <label className="EditPageFontColor">Kontakt-Email:</label>
+              <label className="EditPageFontColor">Email:</label>
               <input
                 type="text"
                 name="contact_email"
@@ -275,6 +282,18 @@ const UserDetail: React.FC = () => {
                 style={{ width: "100%", padding: "8px" }}
               />
             </div>
+
+            <div style={{ marginBottom: "10px" }}>
+              <label className="EditPageFontColor">Role:</label>
+              <input
+                type="text"
+                name="contact_email"
+                value={updatedUser?.role}
+                onChange={handleEditChange}
+                style={{ width: "100%", padding: "8px" }}
+              />
+            </div>
+
             {/* Buttons zum Speichern und Schließen */}
             <div
               style={{
