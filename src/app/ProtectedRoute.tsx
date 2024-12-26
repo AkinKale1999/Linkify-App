@@ -1,32 +1,19 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { getCookie } from 'cookies-next'; // Assuming you're using 'cookies-next' for cookie handling
 
 interface ProtectedRouteProps {
-  children: React.ReactNode;
+  children: React.ReactNode; 
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const router = useRouter();
+  const router = useRouter(); 
 
   useEffect(() => {
-    const getCookie = (name: string) => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop()?.split(";").shift(); // Wenn der Cookie gefunden wird, gibt er den Wert zurück
-      return null;
-    };
-
-    const _CTA = getCookie("_CTA");
-
-    const currentPath = window.location.pathname;
-
-    if (!_CTA && currentPath !== "/login") {
-      router.push("/login");
-    }
-
-    else if (_CTA && currentPath === "/login") {
-      router.push("/customer");
+    const cookie = getCookie('_CTA');
+    if (!cookie) {
+      router.push('/login'); // Redirect to a login or another page if the _CTA cookie is not present
     }
   }, [router]);
 

@@ -17,6 +17,7 @@
     "@tanstack/react-table": "^8.20.5",
     "@toolpad/core": "^0.10.0",
     "axios": "^1.7.9",
+    "cookies-next": "^5.0.2",
     "js-cookie": "^3.0.5",
     "next": "15.1.0",
     "next-intl": "^3.26.0",
